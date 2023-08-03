@@ -1,8 +1,12 @@
+/*전체 프로젝트 영향*/
+
 body {
   /* 가운데정렬 */
   display: flex;
   justify-content: center;
   align-items: center;
   /* 높이 */
-  height: 100vh;
+  width: 370px;
+  height: 700px;
+  border: 1px solid #555;
 }
