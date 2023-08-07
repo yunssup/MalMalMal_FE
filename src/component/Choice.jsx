@@ -35,12 +35,6 @@ const TagWithCircle = styled.div`
   align-items: center;
   gap: 5px;
   cursor: pointer;
-
-  &:hover {
-    ${Circle} {
-      transform: scale(1.5);
-    }
-  }
 `;
 
 const SnsCircle = styled(Circle)`
@@ -63,10 +57,25 @@ const AreaCircle = styled(Circle)`
 
 const SnsText = styled.h2`
   align-self: center; /* 가운데 정렬 추가 */
+  opacity: ${({ active }) => (active ? "0" : "1")};
+  transition: opacity 0.3s;
 `;
 
 const AreaText = styled.h2`
   align-self: center; /* 가운데 정렬 추가 */
+  opacity: ${({ active }) => (active ? "0" : "1")};
+  transition: opacity 0.3s;
+`;
+
+const TagWithCircleWithText = styled(TagWithCircle)`
+  &:hover {
+    ${Circle} {
+      transform: scale(1.5);
+    }
+    ${SnsText}, ${AreaText} {
+      opacity: 0; /* hover시 글씨 사라짐 */
+    }
+  }
 `;
 
 export default function Hello({ showAge }) {
@@ -79,16 +88,16 @@ export default function Hello({ showAge }) {
         이용하시겠어요?
       </Title>
       <TagContainer>
-        <TagWithCircle>
+        <TagWithCircleWithText>
           <SnsCircle color="#ffe45e" />
-          <SnsText>SNS</SnsText>
-        </TagWithCircle>
+          <SnsText active={false}>SNS</SnsText>
+        </TagWithCircleWithText>
       </TagContainer>
       <TagContainer>
-        <TagWithCircle>
+        <TagWithCircleWithText>
           <AreaText>지역 정보</AreaText>
           <AreaCircle color="#7fc8f8" />
-        </TagWithCircle>
+        </TagWithCircleWithText>
       </TagContainer>
     </Container>
   );
