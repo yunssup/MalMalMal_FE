@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom"; // useHistory 추가
 
 const Container = styled.div`
   background: linear-gradient(
@@ -18,15 +19,11 @@ const Container = styled.div`
 const Image = styled.img`
   max-width: 100%;
   max-height: 150px;
-  /* 추가한 부분: 이미지 스타일 */
-  /* margin-top: 20px; */
 `;
 
 const Image2 = styled.img`
   max-width: 100%;
   max-height: 150px;
-  /* 추가한 부분: 이미지 스타일 */
-  /* margin-top: 20px; */
 `;
 
 const Heading1 = styled.h1`
@@ -39,7 +36,18 @@ const Heading1 = styled.h1`
   /* padding-top: 194px; */
 `;
 
-export default function Hello({ showAge }) {
+export default function FirstPage() {
+  // 컴포넌트 이름 수정
+  const history = useHistory(); // useHistory 추가
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      history.push("/hello"); // 페이지를 /hello로 이동
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [history]); // history를 의존성 배열에 추가
+
   return (
     <Container>
       <Heading1>음성으로 소통하다</Heading1>
