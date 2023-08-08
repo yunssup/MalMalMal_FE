@@ -5,6 +5,7 @@ import Start from "./component/Start";
 import FirstPage from "./component/FirstPage";
 import Footer from "./base/Footer";
 import Signup from "./component/Signup";
+import Readsns from "./component/Readsns";
 function App() {
   return (
     <div className="App">
@@ -15,6 +16,7 @@ function App() {
       <Footer />
       <Login />
       <Signup />
+      <Readsns />
     </div>
   );
 }

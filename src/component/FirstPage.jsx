@@ -12,7 +12,6 @@ const Container = styled.div`
     #fff 61.46%,
     #b5dfff 100%
   );
-
   width: 430px;
   height: 932px;
 `;
