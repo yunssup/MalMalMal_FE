@@ -84,6 +84,7 @@ export default function SignupPage() {
       const districtSelect = document.getElementById("residence-district");
       districtSelect.innerHTML = "<option disabled selected>구 선택</option>";
       let districts = [];
+
       if (city === "서울특별시") {
         districts = [
           "강남구",
@@ -163,6 +164,11 @@ export default function SignupPage() {
       } else if (city === "울산광역시") {
         districts = ["중구", "남구", "동구", "북구", "울주군"];
       }
+      const districtOption = document.createElement("option");
+      districtOption.setAttribute("value", "");
+      districtOption.innerText = "구 선택";
+      districtSelect.appendChild(districtOption);
+
       for (const district of districts) {
         const districtOption = document.createElement("option");
         districtOption.setAttribute("value", district);
@@ -171,7 +177,6 @@ export default function SignupPage() {
       }
     }
   };
-
   return (
     <SignupContainer>
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
@@ -199,7 +204,7 @@ export default function SignupPage() {
           className="box"
           id="birth-year"
           onFocus={handleYearFocus}
-          isYearOptionExisted={false}
+          isyearoptionexisted="false"
         >
           <option disabled selected>
             출생 연도
@@ -209,7 +214,7 @@ export default function SignupPage() {
           className="box"
           id="birth-month"
           onFocus={handleMonthFocus}
-          isMonthOptionExisted={false}
+          ismonthoptionexisted="false"
         >
           <option disabled selected>
             월
@@ -219,7 +224,7 @@ export default function SignupPage() {
           className="box"
           id="birth-day"
           onFocus={handleDayFocus}
-          isDayOptionExisted={false}
+          isdayoptionexisted="false"
         >
           <option disabled selected>
             일
@@ -231,8 +236,9 @@ export default function SignupPage() {
           className="box"
           id="residence-city"
           onChange={handleCityFocus}
-          isCityOptionExisted={false}
+          iscityoptionexisted="false"
         >
+          {" "}
           <option disabled selected>
             시 선택
           </option>
