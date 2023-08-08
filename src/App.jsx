@@ -4,6 +4,7 @@ import Choice from "./component/Choice";
 import Start from "./component/Start";
 import FirstPage from "./component/FirstPage";
 import Footer from "./base/Footer";
+import Signup from "./component/Signup";
 function App() {
   return (
     <div className="App">
@@ -13,6 +14,7 @@ function App() {
       <FirstPage />
       <Footer />
       <Login />
+      <Signup />
     </div>
   );
 }
