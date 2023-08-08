@@ -76,6 +76,7 @@ export default function SignupPage() {
       }
     }
   };
+
   const handleCityFocus = (event) => {
     const city = event.target.value;
     if (!event.target.isCityOptionExisted) {
@@ -83,7 +84,7 @@ export default function SignupPage() {
       const districtSelect = document.getElementById("residence-district");
       districtSelect.innerHTML = "<option disabled selected>구 선택</option>";
       let districts = [];
-      if (city === "서울시") {
+      if (city === "서울특별시") {
         districts = [
           "강남구",
           "강동구",
@@ -112,7 +113,7 @@ export default function SignupPage() {
           "중구",
           "중랑구",
         ];
-      } else if (city === "부산") {
+      } else if (city === "부산광역시") {
         districts = [
           "중구",
           "서구",
@@ -131,6 +132,36 @@ export default function SignupPage() {
           "사상구",
           "기장군",
         ];
+      } else if (city === "대구광역시") {
+        districts = [
+          "중구",
+          "서구",
+          "동구",
+          "남구",
+          "북구",
+          "수성구",
+          "달서구",
+          "달성군",
+        ];
+      } else if (city === "인천광역시") {
+        districts = [
+          "중구",
+          "서구",
+          "동구",
+          "미추홀구",
+          "연수구",
+          "남동구",
+          "부평구",
+          "계양구",
+          "강화군",
+          "옹진군",
+        ];
+      } else if (city === "광주광역시") {
+        districts = ["남구", "서구", "동구", "북구", "광산구"];
+      } else if (city === "대전광역시") {
+        districts = ["중구", "서구", "동구", "유성구", "대덕구"];
+      } else if (city === "울산광역시") {
+        districts = ["중구", "남구", "동구", "북구", "울주군"];
       }
       for (const district of districts) {
         const districtOption = document.createElement("option");
@@ -139,11 +170,6 @@ export default function SignupPage() {
         districtSelect.appendChild(districtOption);
       }
     }
-  };
-
-  const handleDistrictFocus = (event) => {
-    // 여기에서 선택한 구에 따라 필요한 로직을 추가하면 됩니다.
-    // 예: 선택한 구에 따라 무언가를 실행하거나 출력하는 등의 작업
   };
 
   return (
@@ -210,15 +236,18 @@ export default function SignupPage() {
           <option disabled selected>
             시 선택
           </option>
-          <option value="서울시">서울시</option>
+          <option value="서울특별시">서울특별시</option>
           <option value="부산광역시">부산광역시</option>
-          {/* 다른 도시도 추가 가능 */}
+          <option value="대구광역시">대구광역시</option>
+          <option value="인천광역시">인천광역시</option>
+          <option value="광주광역시">광주광역시</option>
+          <option value="대전광역시">대전광역시</option>
+          <option value="울산광역시">울산광역시</option>
         </select>
         <select
           className="box"
           id="residence-district"
-          onFocus={handleDistrictFocus}
-          isDistrictOptionExisted={false}
+          data-is-district-option-existed={false}
         >
           <option disabled selected>
             구 선택
