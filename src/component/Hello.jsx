@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useState } from "react"; // useState 추가
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import { FadeContainer } from "./Styled";
+import { CSSTransition } from "react-transition-group";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const StyledButton = styled.button`
   border: none;
@@ -16,19 +21,36 @@ const Image = styled.img`
   max-height: 150px;
 `;
 
-export default function Hello({ showAge }) {
+export default function Hello() {
+  const location = useLocation();
+  const history = useHistory();
+  const [currentPage, setCurrentPage] = useState(location.pathname); // useState 추가
+
   const handleButtonClick = () => {
+    setCurrentPage("/");
     console.log("버튼 확인");
-    // 여기에 버튼을 클릭했을 때 수행할 동작을 추가할 수 있습니다.
+    history.push("/");
   };
 
   return (
-    <div>
-      <h1>안녕하세요</h1>
-      <h2>오늘 기분은 어떠신가요?</h2>
-      <StyledButton onClick={handleButtonClick}>
-        <Image src="/라이언.jpg" alt="버튼 이미지" />
-      </StyledButton>
-    </div>
+    <FadeContainer currentPage={currentPage}>
+      <CSSTransition
+        in={currentPage === "/hello"}
+        appear={true}
+        timeout={1000}
+        classNames="fade"
+        unmountOnExit
+      >
+        <div>
+          <h1>안녕하세요</h1>
+          <h2>오늘 기분은 어떠신가요?</h2>
+          <Link to="/Choice">
+            <StyledButton>
+              <Image src="/라이언.jpg" alt="버튼 이미지" />
+            </StyledButton>
+          </Link>
+        </div>
+      </CSSTransition>
+    </FadeContainer>
   );
 }

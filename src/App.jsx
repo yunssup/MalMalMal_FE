@@ -7,7 +7,7 @@ import Footer from "./base/Footer";
 function App() {
   return (
     <div className="App">
-      {/* <Hello /> */}
+      <Hello />
       {/* <Choice /> */}
       {/* <Start /> */}
       <FirstPage />

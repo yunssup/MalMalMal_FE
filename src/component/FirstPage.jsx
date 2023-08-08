@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom"; // useHistory 추가
+import { useHistory } from "react-router-dom";
+import { CSSTransition } from "react-transition-group";
+import { FadeContainer } from "./Styled"; // FadeContainer import 경로 수정
 
 const Container = styled.div`
   background: linear-gradient(
@@ -11,7 +13,6 @@ const Container = styled.div`
     #b5dfff 100%
   );
 
-  /* 높이 */
   width: 430px;
   height: 932px;
 `;
@@ -33,27 +34,30 @@ const Heading1 = styled.h1`
   font-style: normal;
   font-weight: 350;
   line-height: normal;
-  /* padding-top: 194px; */
 `;
 
 export default function FirstPage() {
-  // 컴포넌트 이름 수정
-  const history = useHistory(); // useHistory 추가
+  const history = useHistory();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      history.push("/hello"); // 페이지를 /hello로 이동
+      history.push("/hello");
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [history]); // history를 의존성 배열에 추가
+  }, [history]);
 
   return (
-    <Container>
-      <Heading1>음성으로 소통하다</Heading1>
-      <Image src="/말말말로고.jpg" alt="버튼 이미지" />
-      <Image2 src="/말말말글씨.jpg" alt="버튼 이미지" />
-      <h4>Dev by likelion 작고맵</h4>
-    </Container>
+    <FadeContainer>
+      {" "}
+      <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
+        <Container>
+          <Heading1>음성으로 소통하다</Heading1>
+          <Image src="/말말말로고.jpg" alt="버튼 이미지" />
+          <Image2 src="/말말말글씨.jpg" alt="버튼 이미지" />
+          <h4>Dev by likelion 작고맵</h4>
+        </Container>
+      </CSSTransition>
+    </FadeContainer>
   );
 }
