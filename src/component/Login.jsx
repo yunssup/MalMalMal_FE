@@ -16,7 +16,7 @@ const InputField = styled.input`
 
 const LoginButton = styled.button`
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: tomato;
   color: white;
   border: none;
   cursor: pointer;
