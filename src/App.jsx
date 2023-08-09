@@ -7,6 +7,9 @@ import Footer from "./base/Footer";
 import Signup from "./component/Signup";
 import Readsns from "./component/Readsns";
 import Writesns from "./component/Writesns";
+import Readedit from "./component/Readedit";
+import Writeedit from "./component/Writeedit";
+
 function App() {
   return (
     <div className="App">
@@ -19,6 +22,8 @@ function App() {
       <Signup />
       <Readsns />
       <Writesns />
+      <Readedit />
+      <Writeedit />
     </div>
   );
 }

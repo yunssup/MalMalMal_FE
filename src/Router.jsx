@@ -7,6 +7,8 @@ import Login from "./component/Login";
 import Signup from "./component/Signup";
 import Readsns from "./component/Readsns";
 import Writesns from "./component/Writesns";
+import Readedit from "./component/Readedit";
+import Writeedit from "./component/Writeedit";
 import { FadeContainer } from "./component/Styled"; // styles.js에서 export한 FadeContainer를 import합니다.
 
 export default function AppRouter() {
@@ -37,6 +39,12 @@ export default function AppRouter() {
         </Route>
         <Route path="/writesns">
           <Writesns />
+        </Route>
+        <Route path="/readedit">
+          <Readedit />
+        </Route>
+        <Route path="/writeedit">
+          <Writeedit />
         </Route>
       </Switch>
     </Router>
