@@ -141,7 +141,7 @@ const Infor = styled.h1`
 const Subscribe = styled.button`
   border-radius: 20px 20px 5px 20px;
   background: var(--unnamed, #011821);
-  color: white; /* 추가된 부분: 글자 색상을 흰색으로 지정 */
+  color: white;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 200px;
   height: 51px;
@@ -149,12 +149,55 @@ const Subscribe = styled.button`
   border: none;
   cursor: pointer;
 `;
+const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  max-height: 150px;
+  margin-bottom: 20px;
+`;
 
+const LikeButton = styled.button`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
+
+const ZoomButton = styled.button`
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
+const ButtonRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 10px;
+`;
 export default function Hello({ showAge }) {
+  const handleSub = () => {
+    // 버튼 클릭 시 동작할 함수 정의
+    console.log("구독하기 버튼이 클릭되었습니다.");
+    // 실제로는 구독 처리를 수행해야 합니다.
+  };
+
   return (
     <Container>
       <WhiteBox1>
-        <Image src="/라이언.jpg" alt="로고 이미지" />
+        <ImageContainer>
+          <Image src="말말말로고.jpg" alt="로고 이미지" />
+          <LikeButton>
+            <Image src="/라이언.jpg" alt="로고 이미지" />
+          </LikeButton>
+          <ZoomButton>
+            <Image src="/라이언.jpg" alt="로고 이미지" />
+          </ZoomButton>
+        </ImageContainer>
         <ProgressBarContainer>
           <ProgressBar />
         </ProgressBarContainer>
