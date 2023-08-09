@@ -41,9 +41,24 @@ const PostButton = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+const VoiceButton = styled.button`
+  border-radius: 20px 20px 5px 20px;
+  background: var(--unnamed, #011821);
+  color: white; /* 추가된 부분: 글자 색상을 흰색으로 지정 */
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 200px;
+  height: 51px;
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+`;
 export default function Hello({ showAge }) {
   const handlePost = () => {
     console.log("게시 버튼이 클릭되었습니다.");
+  };
+  const handleVoice = () => {
+    console.log("말하기 버튼이 클릭되었습니다.");
   };
 
   return (
@@ -51,6 +66,7 @@ export default function Hello({ showAge }) {
       <PostButton onClick={handlePost}>게시하기</PostButton>
       <WhiteBox>제목을 입력하세용</WhiteBox>
       <WhiteBox>텍스트 샘플입니다옹</WhiteBox>
+      <VoiceButton onClick={handleVoice}>말해보세용~~</VoiceButton>
     </Container>
   );
 }

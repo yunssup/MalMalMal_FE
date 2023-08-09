@@ -44,8 +44,8 @@ const ProgressBarContainer = styled.div`
   height: 24px;
   flex-shrink: 0;
 
-  border-radius: 50px;
-  border: 2px solid #000;
+  border-radius: 10px;
+  border: 3px solid #000;
   background: #fff;
 `;
 
@@ -53,7 +53,7 @@ const ProgressBar = styled.div`
   width: 360px;
   height: 24px;
   flex-shrink: 0;
-  border-radius: 50px; /* 수정: ProgressBarContainer와 동일한 값으로 변경 */
+  border-radius: 10px; /* 수정: ProgressBarContainer와 동일한 값으로 변경 */
   background: var(--unnamed, #011821);
   transform-origin: left;
   animation: ${progressBarAnimation} 10s linear infinite;
