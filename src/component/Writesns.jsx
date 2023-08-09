@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 const Container = styled.div`
   background: var(
@@ -18,6 +18,7 @@ const Container = styled.div`
   width: 430px;
   height: 932px;
 `;
+
 const WhiteBox = styled.div`
   width: 80%;
   margin-top: 20px;
@@ -33,7 +34,7 @@ const WhiteBox = styled.div`
 const PostButton = styled.button`
   border-radius: 20px 20px 5px 20px;
   background: var(--unnamed, #011821);
-  color: white; /* 추가된 부분: 글자 색상을 흰색으로 지정 */
+  color: white;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 200px;
   height: 51px;
@@ -45,7 +46,7 @@ const PostButton = styled.button`
 const VoiceButton = styled.button`
   border-radius: 20px 20px 5px 20px;
   background: var(--unnamed, #011821);
-  color: white; /* 추가된 부분: 글자 색상을 흰색으로 지정 */
+  color: white;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 200px;
   height: 51px;
@@ -53,20 +54,58 @@ const VoiceButton = styled.button`
   border: none;
   cursor: pointer;
 `;
+
 export default function Hello({ showAge }) {
   const handlePost = () => {
     console.log("게시 버튼이 클릭되었습니다.");
   };
+
+  const [speechResult, setSpeechResult] = useState("");
+  const [inputText, setInputText] = useState("");
+
   const handleVoice = () => {
     console.log("말하기 버튼이 클릭되었습니다.");
+    startSpeechRecognition();
+  };
+
+  const startSpeechRecognition = () => {
+    const recognition = new (window.webkitSpeechRecognition ||
+      window.SpeechRecognition)();
+
+    recognition.onresult = (event) => {
+      const result = event.results[0][0].transcript;
+      console.log("음성 인식 결과:", result);
+      setSpeechResult(result);
+      setInputText(result);
+      recognition.stop();
+    };
+
+    recognition.start();
   };
 
   return (
     <Container>
       <PostButton onClick={handlePost}>게시하기</PostButton>
       <WhiteBox>제목을 입력하세용</WhiteBox>
-      <WhiteBox>텍스트 샘플입니다옹</WhiteBox>
+      <WhiteBox>{speechResult || "텍스트 샘플입니다옹"}</WhiteBox>
       <VoiceButton onClick={handleVoice}>말해보세용~~</VoiceButton>
+
+      <form action="" method="post">
+        <h1>변환할 텍스트 입력</h1>
+        {/* Django에서 사용하는 CSRF 토큰을 직접 생성하여 넣어주세요 */}
+        <input
+          type="hidden"
+          name="csrfmiddlewaretoken"
+          value="YourCSRFTokenHere"
+        />
+        <input
+          type="text"
+          name="your_text_field_name"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+        />
+        <input type="submit" value="Send message" />
+      </form>
     </Container>
   );
 }
