@@ -115,7 +115,7 @@ export default function Hello({ showAge }) {
         <span>끝나는 시간</span>
       </TimeInfo>
       <EmojiIcons>
-        <i className="fas fa-share-alt">이모지안떠ㅜ</i>
+        <i className="fas fa-share-alt">이모지안떠</i>
         <i className="fas fa-heart"></i>
       </EmojiIcons>
       <WhiteBox>쓴 글 불러오기</WhiteBox>
