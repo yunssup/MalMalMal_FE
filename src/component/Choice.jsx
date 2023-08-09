@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
+import { Link } from "react-router-dom"; // react-router-dom에서 Link 가져오기
+import Readsns from "./Readsns";
 const Container = styled.div`
   text-align: center;
   padding: 20px;
@@ -88,11 +89,13 @@ export default function Hello({ showAge }) {
         이용하시겠어요?
       </Title>
       <TagContainer>
-        <TagWithCircleWithText>
-          <SnsCircle color="#ffe45e" />
-          <SnsText active={false}>SNS</SnsText>
-        </TagWithCircleWithText>
-      </TagContainer>
+        <Link to="/readsns">
+          <TagWithCircleWithText>
+            <SnsCircle color="#ffe45e" />
+            <SnsText active={false}>SNS</SnsText>
+          </TagWithCircleWithText>
+        </Link>
+      </TagContainer>{" "}
       <TagContainer>
         <TagWithCircleWithText>
           <AreaText>지역 정보</AreaText>

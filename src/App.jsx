@@ -6,7 +6,7 @@ import FirstPage from "./component/FirstPage";
 import Footer from "./base/Footer";
 import Signup from "./component/Signup";
 import Readsns from "./component/Readsns";
-
+import Writesns from "./component/Writesns";
 function App() {
   return (
     <div className="App">
@@ -18,6 +18,7 @@ function App() {
       <Login />
       <Signup />
       <Readsns />
+      <Writesns />
     </div>
   );
 }
