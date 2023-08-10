@@ -5,8 +5,6 @@ import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const FooterContainer = styled.footer`
   text-align: center;
-  padding: 10px;
-  background-color: tomato;
   position: relative;
 `;
 
@@ -17,36 +15,43 @@ const Image = styled.img`
 `;
 
 const EmojiButton = styled.button`
+  width: 100px; /* 아이콘과 텍스트를 감싸는 버튼 크기 */
+  height: 60px; /* 아이콘과 텍스트를 감싸는 버튼 크기 */
+  flex-shrink: 0;
   background: none;
   border: none;
-  font-size: 1em;
   cursor: pointer;
-  color: white;
-  margin: 0 5px;
+  color: #d2d2d2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute; /* Absolute 포지셔닝 추가 */
-  bottom: 10px; /* 아래로 10px 간격 */
-  left: 50%; /* 왼쪽 정렬 */
-  transform: translateX(-50%); /* 가운데 정렬 */
-
+  position: absolute;
+  bottom: 50px;
+  transform: translateX(-50%);
   span {
-    color: #d2d2d2; /* 텍스트의 색상 */
-    margin-top: 5px; /* 텍스트와 아이콘 간의 간격 조정 */
+    color: #d2d2d2;
+    margin-top: 5px;
+    font-family: Noto Sans KR;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
   }
 `;
 
-// 아이콘에 대한 스타일
-const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
-  width: 46px;
-  height: 46px;
-  color: #d2d2d2;
+const LeftEmojiButton = styled(EmojiButton)`
+  left: 10px;
+  right: auto;
+  transform: none;
+`;
+
+const RightEmojiButton = styled(EmojiButton)`
+  right: 10px;
+  left: auto;
+  transform: none;
 `;
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   const handleEmojiClick = (emoji) => {
     console.log("버튼");
   };
@@ -54,16 +59,14 @@ const Footer = () => {
   return (
     <FooterContainer>
       <Image src="풋바하얀색배경.jpg" alt="로고 이미지" />
-      <div>
-        <EmojiButton onClick={() => handleEmojiClick("홈으로갈거야")}>
-          <StyledFontAwesomeIcon icon={faHome} />
-          <span>홈</span>
-        </EmojiButton>
-        <EmojiButton onClick={() => handleEmojiClick("마이페이지로 갈거야")}>
-          <StyledFontAwesomeIcon icon={faUser} />
-          <span>내 계정</span>
-        </EmojiButton>
-      </div>
+      <LeftEmojiButton onClick={() => handleEmojiClick("홈으로갈거야")}>
+        <FontAwesomeIcon icon={faHome} size="3x" />
+        <span>홈</span>
+      </LeftEmojiButton>
+      <RightEmojiButton onClick={() => handleEmojiClick("마이페이지로 갈거야")}>
+        <FontAwesomeIcon icon={faUser} size="3x" />
+        <span>내 계정</span>
+      </RightEmojiButton>
     </FooterContainer>
   );
 };
