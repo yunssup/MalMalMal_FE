@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  flex: 1; /* 내용 영역이 컨테이너의 남은 공간을 차지하도록 설정 */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -89,10 +89,6 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   width: 15px;
   height: 15px;
   color: #d2d2d2;
-`;
-
-const StyledFooter = styled(Footer)`
-  margin-top: 10px;
 `;
 
 export default function Hello({ showAge }) {

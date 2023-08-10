@@ -1,17 +1,8 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-
+import Footer from "../base/Footer";
 const Container = styled.div`
-  background: var(
-    --unnamed,
-    conic-gradient(
-      from 180deg at 50% 50%,
-      #ffa4bf 0deg,
-      #faea9c 125.62500357627869deg,
-      #c7e7ff 228.75000715255737deg,
-      #ffa4bf 360deg
-    )
-  );
+  background: linear-gradient(180deg, #fff2f6 0%, #fefbff 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,6 +11,8 @@ const Container = styled.div`
 `;
 
 const TopRow = styled.div`
+  flex: 1;
+
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -35,6 +28,7 @@ const Top = styled.h1`
 `;
 
 const Title = styled.h2`
+  flex: 2;
   color: #000;
   text-align: center;
   font-family: Noto Sans KR;
@@ -44,7 +38,20 @@ const Title = styled.h2`
   line-height: normal;
   text-transform: capitalize;
 `;
-
+const Middle = styled.div`
+  flex: 3;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+const Name = styled.h1`
+  color: #616161;
+  font-family: Noto Sans KR;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
 const progressBarAnimation = keyframes`
   from {
     transform: scaleX(0);
@@ -53,42 +60,32 @@ const progressBarAnimation = keyframes`
     transform: scaleX(1);
   }
 `;
-
 const ProgressBarContainer = styled.div`
-  width: 360px;
+  width: 378px;
   height: 24px;
   flex-shrink: 0;
-
-  border-radius: 50px;
-  border: 2px solid #000;
+  border: 2px solid #f9f9f9;
   background: #fff;
 `;
-
 const ProgressBar = styled.div`
-  width: 360px;
+  flex: 4;
+  width: 54.547px;
   height: 24px;
   flex-shrink: 0;
-  border-radius: 50px; /* 수정: ProgressBarContainer와 동일한 값으로 변경 */
-  background: var(--unnamed, #011821);
+  background: #aba8a8;
   transform-origin: left;
   animation: ${progressBarAnimation} 10s linear infinite;
-  /* border: 2px solid #000; */
 `;
 
 const TimeInfo = styled.div`
+  flex: 5;
   display: flex;
   justify-content: space-between;
   width: 80%;
   margin-top: 10px;
 `;
-const EmojiIcons = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin-top: 20px;
-  font-size: 24px; /* Adjust font size as needed */
-`;
 const WhiteBox = styled.div`
+  flex: 6;
   width: 80%;
   margin-top: 20px;
   padding: 10px;
@@ -104,9 +101,11 @@ export default function Hello({ showAge }) {
     <Container>
       <TopRow>
         <Top>날짜 불러오기</Top>
-        <Top>작성자 별명</Top>
       </TopRow>
       <Title>게시글 제목</Title>
+      <Middle>
+        <Name>작성자 별명</Name>
+      </Middle>
       <ProgressBarContainer>
         <ProgressBar />
       </ProgressBarContainer>
@@ -114,11 +113,8 @@ export default function Hello({ showAge }) {
         <span>시작 시간</span>
         <span>끝나는 시간</span>
       </TimeInfo>
-      <EmojiIcons>
-        <i className="fas fa-share-alt">이모지안떠</i>
-        <i className="fas fa-heart"></i>
-      </EmojiIcons>
       <WhiteBox>쓴 글 불러오기</WhiteBox>
+      <Footer />
     </Container>
   );
 }
