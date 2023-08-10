@@ -10,6 +10,14 @@ import Writesns from "./component/Writesns";
 import Readedit from "./component/Readedit";
 import Writeedit from "./component/Writeedit";
 
+function setScreenSize() {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+}
+useEffect(() => {
+  setScreenSize();
+});
+
 function App() {
   return (
     <div className="App">

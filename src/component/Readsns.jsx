@@ -96,7 +96,29 @@ const WhiteBox = styled.div`
   font-size: 16px;
   border-radius: 5px;
 `;
-export default function Hello({ showAge }) {
+
+const StyledButton = styled.button`
+  border: none;
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+const Image = styled.img`
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 50%;
+  margin-bottom: -80px;
+  border: 2px solid black;
+`;
+
+export default function Click({ click }) {
+  const handleButtonClick = () => {
+    console.log("버튼 눌림");
+  };
   return (
     <Container>
       <TopRow>
@@ -114,6 +136,10 @@ export default function Hello({ showAge }) {
         <span>끝나는 시간</span>
       </TimeInfo>
       <WhiteBox>쓴 글 불러오기</WhiteBox>
+      <StyledButton onClick={handleButtonClick}>
+        {" "}
+        <Image src="/쿵야.jpg" alt="버튼 이미지" />
+      </StyledButton>
       <Footer />
     </Container>
   );

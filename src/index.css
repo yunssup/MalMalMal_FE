@@ -1,12 +1,12 @@
 /*전체 프로젝트 영향*/
-
+:root {
+  --vh: 100%;
+}
 body {
   /* 가운데정렬 */
   display: flex;
   justify-content: center;
   align-items: center;
-  /* 높이 */
-  width: 430px;
-  height: 932px;
+  height: 840px;
   border: 1px solid red;
 }

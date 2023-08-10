@@ -91,6 +91,10 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   color: #d2d2d2;
 `;
 
+const StyledFooter = styled(Footer)`
+  margin-top: 10px;
+`;
+
 export default function Hello({ showAge }) {
   const [speechResult, setSpeechResult] = useState("");
   const [inputText, setInputText] = useState("");
