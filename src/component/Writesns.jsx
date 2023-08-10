@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import Footer from "../base/Footer";
 
 const Container = styled.div`
   background: linear-gradient(180deg, #fff2f6 0%, #fefbff 100%);
@@ -10,6 +11,14 @@ const Container = styled.div`
   align-items: center;
   width: 430px;
   height: 932px;
+`;
+
+const ContentWrapper = styled.div`
+  flex: 1; /* 내용 영역이 컨테이너의 남은 공간을 차지하도록 설정 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const WhiteBox = styled.div`
@@ -62,7 +71,6 @@ const PostButton = styled.button`
   border: none;
   cursor: pointer;
   margin-top: 119px;
-  margin-left: 150px;
 `;
 
 const VoiceButton = styled.button`
@@ -77,19 +85,23 @@ const VoiceButton = styled.button`
   cursor: pointer;
 `;
 
+const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+  width: 15px;
+  height: 15px;
+  color: #d2d2d2;
+`;
+
+const StyledFooter = styled(Footer)`
+  margin-top: 10px;
+`;
+
 export default function Hello({ showAge }) {
+  const [speechResult, setSpeechResult] = useState("");
+  const [inputText, setInputText] = useState("");
+
   const handlePost = () => {
     console.log("게시 버튼이 클릭되었습니다.");
   };
-
-  const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
-    width: 15px;
-    height: 15px;
-    color: #d2d2d2;
-  `;
-
-  const [speechResult, setSpeechResult] = useState("");
-  const [inputText, setInputText] = useState("");
 
   const handleVoice = () => {
     console.log("말하기 버튼이 클릭되었습니다.");
@@ -110,33 +122,35 @@ export default function Hello({ showAge }) {
 
     recognition.start();
   };
+
   return (
     <Container>
-      <PostButton onClick={handlePost}>
-        {" "}
-        <StyledFontAwesomeIcon icon={faCheckCircle} />
-        게시하기
-      </PostButton>
-      <WhiteBox>제목을 입력하시오</WhiteBox>
-      <WhiteBox1>{speechResult || "텍스트 샘플입니다옹"}</WhiteBox1>
-      <VoiceButton onClick={handleVoice}>말해보세용~~</VoiceButton>
-
-      <form action="" method="post">
-        <h1>변환할 텍스트 입력</h1>
-        {/* Django에서 사용하는 CSRF 토큰을 직접 생성하여 넣어주세요 */}
-        <input
-          type="hidden"
-          name="csrfmiddlewaretoken"
-          value="YourCSRFTokenHere"
-        />
-        <input
-          type="text"
-          name="your_text_field_name"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-        />
-        <input type="submit" value="Send message" />
-      </form>
+      <ContentWrapper>
+        <PostButton onClick={handlePost}>
+          <StyledFontAwesomeIcon icon={faCheckCircle} />
+          게시하기
+        </PostButton>
+        <WhiteBox>제목을 입력하시오</WhiteBox>
+        <WhiteBox1>{speechResult || "텍스트 샘플입니다옹"}</WhiteBox1>
+        <VoiceButton onClick={handleVoice}>말해보세용~~</VoiceButton>
+        <form action="" method="post">
+          <h1>변환할 텍스트 입력</h1>
+          {/* Django에서 사용하는 CSRF 토큰을 직접 생성하여 넣어주세요 */}
+          <input
+            type="hidden"
+            name="csrfmiddlewaretoken"
+            value="YourCSRFTokenHere"
+          />
+          <input
+            type="text"
+            name="your_text_field_name"
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+          />
+          <input type="submit" value="Send message" />
+        </form>
+      </ContentWrapper>
+      <Footer />
     </Container>
   );
 }

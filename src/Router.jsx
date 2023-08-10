@@ -10,7 +10,6 @@ import Writesns from "./component/Writesns";
 import Readedit from "./component/Readedit";
 import Writeedit from "./component/Writeedit";
 import { FadeContainer } from "./component/Styled"; // styles.js에서 export한 FadeContainer를 import합니다.
-import Footer from "./base/Footer";
 
 export default function AppRouter() {
   return (
@@ -46,9 +45,6 @@ export default function AppRouter() {
         </Route>
         <Route path="/writeedit">
           <Writeedit />
-        </Route>
-        <Route path="/footer">
-          <Footer />
         </Route>
       </Switch>
     </Router>

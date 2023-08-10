@@ -6,6 +6,8 @@ import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
 const FooterContainer = styled.footer`
   text-align: center;
   position: relative;
+  max-width: 100%;
+  max-height: 100px;
 `;
 
 const Image = styled.img`
@@ -51,6 +53,12 @@ const RightEmojiButton = styled(EmojiButton)`
   transform: none;
 `;
 
+const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+  width: 3em;
+  height: 3em;
+  margin-top: 30px;
+`;
+
 const Footer = () => {
   const handleEmojiClick = (emoji) => {
     console.log("버튼");
@@ -60,11 +68,11 @@ const Footer = () => {
     <FooterContainer>
       <Image src="풋바하얀색배경.jpg" alt="로고 이미지" />
       <LeftEmojiButton onClick={() => handleEmojiClick("홈으로갈거야")}>
-        <FontAwesomeIcon icon={faHome} size="3x" />
+        <StyledFontAwesomeIcon icon={faHome} />
         <span>홈</span>
       </LeftEmojiButton>
       <RightEmojiButton onClick={() => handleEmojiClick("마이페이지로 갈거야")}>
-        <FontAwesomeIcon icon={faUser} size="3x" />
+        <StyledFontAwesomeIcon icon={faUser} />
         <span>내 계정</span>
       </RightEmojiButton>
     </FooterContainer>
