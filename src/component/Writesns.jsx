@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
-  background: var(
-    --unnamed,
-    conic-gradient(
-      from 180deg at 50% 50%,
-      #ffa4bf 0deg,
-      #faea9c 125.62500357627869deg,
-      #c7e7ff 228.75000715255737deg,
-      #ffa4bf 360deg
-    )
-  );
+  background: linear-gradient(180deg, #fff2f6 0%, #fefbff 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,15 +13,42 @@ const Container = styled.div`
 `;
 
 const WhiteBox = styled.div`
-  width: 80%;
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #fff;
+  width: 378px;
+  height: 171px;
+  flex-shrink: 0;
+  border-radius: 20px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-  border-radius: 5px;
+  background: #fff;
+
+  color: #646464;
+  font-family: Noto Sans KR;
+  font-size: 42px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+`;
+
+const WhiteBox1 = styled.div`
+  width: 378px;
+  height: 171px;
+  flex-shrink: 0;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+
+  color: var(--unnamed, #011821);
+  font-family: Noto Sans KR;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 `;
 
 const PostButton = styled.button`
@@ -41,6 +61,8 @@ const PostButton = styled.button`
   flex-shrink: 0;
   border: none;
   cursor: pointer;
+  margin-top: 119px;
+  margin-left: 150px;
 `;
 
 const VoiceButton = styled.button`
@@ -59,6 +81,12 @@ export default function Hello({ showAge }) {
   const handlePost = () => {
     console.log("게시 버튼이 클릭되었습니다.");
   };
+
+  const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+    width: 15px;
+    height: 15px;
+    color: #d2d2d2;
+  `;
 
   const [speechResult, setSpeechResult] = useState("");
   const [inputText, setInputText] = useState("");
@@ -82,12 +110,15 @@ export default function Hello({ showAge }) {
 
     recognition.start();
   };
-
   return (
     <Container>
-      <PostButton onClick={handlePost}>게시하기</PostButton>
-      <WhiteBox>제목을 입력하세용</WhiteBox>
-      <WhiteBox>{speechResult || "텍스트 샘플입니다옹"}</WhiteBox>
+      <PostButton onClick={handlePost}>
+        {" "}
+        <StyledFontAwesomeIcon icon={faCheckCircle} />
+        게시하기
+      </PostButton>
+      <WhiteBox>제목을 입력하시오</WhiteBox>
+      <WhiteBox1>{speechResult || "텍스트 샘플입니다옹"}</WhiteBox1>
       <VoiceButton onClick={handleVoice}>말해보세용~~</VoiceButton>
 
       <form action="" method="post">
