@@ -38,13 +38,13 @@ const Heading1 = styled.h1`
 export default function FirstPage() {
   const history = useHistory();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      history.push("/hello");
-    }, 3000);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     history.push("/hello");
+  //   }, 3000);
 
-    return () => clearTimeout(timer);
-  }, [history]);
+  //   return () => clearTimeout(timer);
+  // }, [history]);
 
   return (
     <FadeContainer>

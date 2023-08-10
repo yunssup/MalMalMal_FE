@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from "react-router-dom"; // useHistory로 수정
 
 const FooterContainer = styled.footer`
   text-align: center;
@@ -17,8 +18,8 @@ const Image = styled.img`
 `;
 
 const EmojiButton = styled.button`
-  width: 100px; /* 아이콘과 텍스트를 감싸는 버튼 크기 */
-  height: 60px; /* 아이콘과 텍스트를 감싸는 버튼 크기 */
+  width: 100px;
+  height: 60px;
   flex-shrink: 0;
   background: none;
   border: none;
@@ -60,10 +61,15 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
 `;
 
 const Footer = () => {
-  const handleEmojiClick = (emoji) => {
-    console.log("버튼");
-  };
+  const history = useHistory(); // useHistory로 변경
 
+  const handleEmojiClick = (destination) => {
+    if (destination === "홈으로갈거야") {
+      history.push("/choice"); // 홈으로 이동
+    } else if (destination === "마이페이지로 갈거야") {
+      history.push("/login"); // 마이페이지로 이동(현재는 마이페이지 미개설로 로그인으로 이동하게 설정)
+    }
+  };
   return (
     <FooterContainer>
       <Image src="풋바하얀색배경.jpg" alt="로고 이미지" />
@@ -78,5 +84,4 @@ const Footer = () => {
     </FooterContainer>
   );
 };
-
 export default Footer;
