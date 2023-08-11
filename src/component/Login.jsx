@@ -4,28 +4,83 @@ import styled from "styled-components";
 const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 100px;
+  /* border: 1px solid black; */
+  height: 840px;
+  --vh: 100%;
 `;
-
+const Image = styled.img`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 96.806px;
+  height: 82.889px;
+  flex-shrink: 0;
+  align-self: center;
+  margin-top: 20%;
+`;
+const Login = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 46.406px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 10%;
+  margin-bottom: 10%;
+`;
 const InputField = styled.input`
-  padding: 10px;
-  margin: 5px;
-  width: 250px;
+  width: 340px;
+  height: 70px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 3px solid #aba8a8;
+  background: #fff;
+  margin: 5% 0%;
+  &::placeholder {
+    color: #b9b4b4;
+    text-align: center;
+    font-family: Noto Sans KR;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  color: #101010;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 const LoginButton = styled.button`
-  padding: 10px 20px;
-  background-color: tomato;
-  color: white;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 181px;
+  height: 66px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
   border: none;
   cursor: pointer;
-`;
-
-const Image = styled.img`
-  max-width: 100%;
-  max-height: 150px;
-  margin-bottom: 20px;
+  color: #454545;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 `;
 
 export default function LoginPage() {
@@ -42,7 +97,7 @@ export default function LoginPage() {
   return (
     <LoginContainer>
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
-      <h1>로그인</h1>
+      <Login>로그인</Login>
       <InputField
         type="text"
         placeholder="아이디 입력"
