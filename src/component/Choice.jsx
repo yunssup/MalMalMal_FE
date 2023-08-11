@@ -129,6 +129,8 @@ const TagWithCircleWithText1 = styled(TagWithCircle)`
 `;
 
 const TagWithCircleWithText2 = styled(TagWithCircle)`
+  position: relative;
+
   &:hover {
     ${Circle} {
       transform: scale(1.5);
@@ -139,8 +141,8 @@ const TagWithCircleWithText2 = styled(TagWithCircle)`
     &::after {
       content: "지역 정보"; /* 새로운 텍스트 내용 */
       position: absolute;
-      top: 104%; /* 원 중앙에 정렬 */
-      left: 57%; /* 원 중앙에 정렬 */
+      top: 50%; /* 원 중앙에 정렬 */
+      right: -15%; /* 원 중앙에 정렬 */
       transform: translate(-50%, -50%); /* 원 중앙에 정렬 */
       color: #fff;
       font-family: Noto Sans KR;
