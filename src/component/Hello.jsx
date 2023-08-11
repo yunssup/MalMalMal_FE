@@ -5,7 +5,13 @@ import { FadeContainer } from "./Styled";
 import { CSSTransition } from "react-transition-group";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 840px;
+  --vh: 100%;
+  border: 1px solid #000000;
+`;
 const StyledButton = styled.button`
   border: none;
   border-radius: 5px;
@@ -33,24 +39,26 @@ export default function Hello() {
   };
 
   return (
-    <FadeContainer currentPage={currentPage}>
-      <CSSTransition
-        in={currentPage === "/hello"}
-        appear={true}
-        timeout={1000}
-        classNames="fade"
-        unmountOnExit
-      >
-        <div>
-          <h1>안녕하세요</h1>
-          <h2>오늘 기분은 어떠신가요?</h2>
-          <Link to="/Choice">
-            <StyledButton>
-              <Image src="/라이언.jpg" alt="버튼 이미지" />
-            </StyledButton>
-          </Link>
-        </div>
-      </CSSTransition>
-    </FadeContainer>
+    <Container>
+      <FadeContainer currentPage={currentPage}>
+        <CSSTransition
+          in={currentPage === "/hello"}
+          appear={true}
+          timeout={1000}
+          classNames="fade"
+          unmountOnExit
+        >
+          <div>
+            <h1>안녕하세요</h1>
+            <h2>오늘 기분은 어떠신가요?</h2>
+            <Link to="/Choice">
+              <StyledButton>
+                <Image src="/라이언.jpg" alt="버튼 이미지" />
+              </StyledButton>
+            </Link>
+          </div>
+        </CSSTransition>
+      </FadeContainer>
+    </Container>
   );
 }
