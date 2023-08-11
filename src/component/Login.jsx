@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowCircleRight,
+  faCheckCircle,
+} from "@fortawesome/free-solid-svg-icons";
 
 const LoginContainer = styled.div`
   display: flex;
@@ -35,13 +41,23 @@ const Login = styled.div`
   margin-bottom: 10%;
 `;
 const InputField = styled.input`
-  width: 340px;
+  width: 300px;
   height: 70px;
   flex-shrink: 0;
   border-radius: 30px;
   border: 3px solid #aba8a8;
   background: #fff;
   margin: 5% 0%;
+  padding: 10px 15px;
+  color: #101010;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  transition: border-color 0.3s, background-color 0.3s; /* 추가된 부분 */
+
   &::placeholder {
     color: #b9b4b4;
     text-align: center;
@@ -51,18 +67,19 @@ const InputField = styled.input`
     font-weight: 500;
     line-height: normal;
   }
-  color: #101010;
-  text-align: center;
-  font-family: Noto Sans KR;
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
 
+  &:focus {
+    border-color: #ff8d8f; /* 변경된 border 색상 */
+    background: #fff7f7; /* 변경된 background 색상 */
+    outline: none;
+  }
+`;
 const LoginButton = styled.button`
   border-radius: 10px;
-  background: #fff;
+  background: ${({ isFilled }) =>
+    isFilled ? "#ff8d8f" : "#fff"}; /* 동적으로 배경 색상 변경 */
+  color: ${({ isFilled }) =>
+    isFilled ? "#fff" : "#454545"}; /* 동적으로 글자 색상 변경 */
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 181px;
   height: 66px;
@@ -74,24 +91,80 @@ const LoginButton = styled.button`
   align-self: center;
   border: none;
   cursor: pointer;
-  color: #454545;
   text-align: center;
   font-family: Noto Sans KR;
   font-size: 36px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  transition: background-color 0.3s, color 0.3s; /* 추가된 부분 */
 `;
 
+const SignUpButton = styled.button`
+  color: #000;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 46px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border: none;
+  background: none;
+`;
+const RememberMeButton = styled.button`
+  background: ${({ isSelected }) =>
+    isSelected ? "#ff0000" : "#fff"}; /* 빨간색으로 변경 */
+  color: ${({ isSelected }) => (isSelected ? "#fff" : "#454545")};
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  align-self: center;
+  padding: 0; /* 추가된 부분 */
+
+  svg {
+    display: ${({ isSelected }) => (isSelected ? "block" : "none")};
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+// const RememberMeLabel = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-family: Noto Sans KR;
+//   font-size: 20px;
+//   font-style: normal;
+//   font-weight: 500;
+//   line-height: normal;
+//   color: #454545;
+//   margin-top: 10px;
+// `;
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // const [rememberMe, setRememberMe] = useState(false);
+  const history = useHistory();
+
+  const isFormFilled = username !== "" && password !== ""; // 아이디와 비밀번호가 모두 입력되었는지 확인
 
   const handleLogin = () => {
-    // 여기에서 로그인 처리를 수행합니다.
-    console.log("Username:", username);
-    console.log("Password:", password);
-    // 실제로는 서버로 요청을 보내거나 다른 로그인 처리를 수행해야 합니다.
+    history.push("/choice");
+
+    console.log("아이디:", username);
+    console.log("비밀번호:", password);
+    console.log("로그인 상태 유지:", rememberMe);
+  };
+
+  const handleSignUp = () => {
+    history.push("/signup");
   };
 
   return (
@@ -110,7 +183,29 @@ export default function LoginPage() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <LoginButton onClick={handleLogin}>접속하기</LoginButton>
+      {/* <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <RememberMeButton
+          isSelected={rememberMe}
+          onClick={() => setRememberMe(!rememberMe)}
+        >
+          {rememberMe && <FontAwesomeIcon icon={faCheckCircle} />}
+        </RememberMeButton>
+        <RememberMeLabel>로그인 상태 유지</RememberMeLabel>
+      </div> */}
+
+      <LoginButton isFilled={isFormFilled} onClick={handleLogin}>
+        접속하기
+      </LoginButton>
+      <SignUpButton onClick={handleSignUp}>
+        회원가입
+        <FontAwesomeIcon icon={faArrowCircleRight} />
+      </SignUpButton>
     </LoginContainer>
   );
 }
