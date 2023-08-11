@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { CSSTransition } from "react-transition-group";
 import { FadeContainer } from "./Styled"; // FadeContainer import 경로 수정
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -14,7 +15,6 @@ const Container = styled.div`
     #b5dfff 100%
   );
   height: 840px;
-  --vh: 100%;
 `;
 
 const Heading1 = styled.p`
@@ -47,8 +47,6 @@ const Image = styled.img`
   margin-top: 30px;
   width: 360px;
   height: 360px;
-  /* margin-left: 15%; */
-  /* 모바일화면에 따라 변경하자! */
 `;
 
 const Row = styled.h4`
@@ -56,15 +54,25 @@ const Row = styled.h4`
   direction: column;
   justify-content: center;
   color: white;
-  font-family: Noto Sans KR;
+  font-family: "Noto Sans KR";
   font-size: 16px;
   font-style: normal;
   font-weight: 350;
   line-height: normal;
-  margin-top: auto; /* 추가된 부분 */
+  margin-top: auto;
 `;
 
 export default function FirstPage() {
+  const history = useHistory();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      history.push("/hello");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [history]);
+
   return (
     <FadeContainer>
       <CSSTransition in={true} appear={true} timeout={1000} classNames="fade">
