@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckCircle,
+  faArrowCircleRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from "react-router-dom"; // useHistory 임포트
 
 const SignupContainer = styled.div`
   display: flex;
@@ -168,10 +174,84 @@ const DistrictSelect = styled.select`
   }
 `;
 
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: ${({ visible }) => (visible ? "block" : "none")};
+  z-index: 1000;
+`;
+
+const ModalContent = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 330px;
+  height: 280px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 3px solid #ff8d8f;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  & button {
+    border-radius: 10px;
+    background: #ff8d8f;
+    color: #fff;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 240px;
+    height: 66px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    border: none;
+    cursor: pointer;
+    color: #101010;
+    text-align: center;
+    font-family: Noto Sans KR;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 20px;
+
+    & svg {
+      margin-right: 10px;
+    }
+  }
+`;
+const Ment = styled.div`
+  color: #000;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+`;
+const StyledCheckCircleIcon = styled(FontAwesomeIcon)`
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  color: #ff8d8f;
+`;
 export default function SignupPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false); // 상태 및 함수를 바깥에 위치시킴
+  const history = useHistory(); // useHistory 초기화
 
   const handleSignup = () => {
     // 여기에서 회원가입 처리를 수행합니다.
@@ -180,7 +260,9 @@ export default function SignupPage() {
     console.log("Nickname:", nickname);
     // 실제로는 서버로 요청을 보내거나 다른 회원가입 처리를 수행해야 합니다.
   };
-
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
   const handleYearFocus = (event) => {
     if (!event.target.isYearOptionExisted) {
       event.target.isYearOptionExisted = true;
@@ -317,10 +399,13 @@ export default function SignupPage() {
       }
     }
   };
+  const goToLoginPage = () => {
+    history.push("/login"); // 로그인 페이지로 이동
+  };
   return (
     <SignupContainer>
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
-      <Signup>회원가입</Signup>
+      <Signup>가입하기</Signup>
       <InputField
         type="text"
         placeholder="아이디 입력"
@@ -403,7 +488,17 @@ export default function SignupPage() {
           </DistrictSelect>
         </div>
       </Top2>
-      <SignupButton onClick={handleSignup}>회원가입</SignupButton>
+      <SignupButton onClick={toggleModal}>회원가입</SignupButton>
+      <ModalOverlay visible={isModalVisible}>
+        <ModalContent>
+          <StyledCheckCircleIcon icon={faCheckCircle} />
+          <Ment>축하드립니다!</Ment>
+          <Ment>회원가입이 완료되었습니다.</Ment>
+          <button onClick={goToLoginPage}>
+            로그인 하러 가기 <FontAwesomeIcon icon={faArrowCircleRight} />
+          </button>{" "}
+        </ModalContent>
+      </ModalOverlay>
     </SignupContainer>
   );
 }
