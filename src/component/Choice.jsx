@@ -101,7 +101,8 @@ const AreaText = styled.h2`
 
 const TagWithCircleWithText1 = styled(TagWithCircle)`
   position: relative;
-
+  display: flex;
+  justify-content: space-between;
   &:hover {
     ${Circle} {
       transform: scale(1.5);

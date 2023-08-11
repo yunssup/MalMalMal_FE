@@ -4,28 +4,168 @@ import styled from "styled-components";
 const SignupContainer = styled.div`
   display: flex;
   flex-direction: column;
+  /* border: 1px solid black; */
+  height: 840px;
+  --vh: 100%;
+`;
+const Image = styled.img`
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  justify-content: center;
+  width: 96.806px;
+  height: 82.889px;
+  flex-shrink: 0;
+  align-self: center;
+  margin-top: 20%;
 `;
-
+const Signup = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 46.406px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 10%;
+  margin-bottom: 10%;
+`;
 const InputField = styled.input`
-  padding: 10px;
-  margin: 5px;
-  width: 250px;
-`;
+  width: 300px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 3px solid #aba8a8;
+  background: #fff;
+  margin: 3% 0%;
+  padding: 10px 15px;
+  color: #101010;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  transition: border-color 0.3s, background-color 0.3s; /* 추가된 부분 */
 
+  &::placeholder {
+    color: #b9b4b4;
+    text-align: center;
+    font-family: Noto Sans KR;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  &:focus {
+    border-color: #ff8d8f; /* 변경된 border 색상 */
+    background: #fff7f7; /* 변경된 background 색상 */
+    outline: none;
+  }
+`;
 const SignupButton = styled.button`
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  border-radius: 10px;
+  background: ${({ isFilled }) =>
+    isFilled ? "#ff8d8f" : "#fff"}; /* 동적으로 배경 색상 변경 */
+  color: ${({ isFilled }) =>
+    isFilled ? "#fff" : "#454545"}; /* 동적으로 글자 색상 변경 */
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 181px;
+  height: 66px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
   border: none;
   cursor: pointer;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  transition: background-color 0.3s, color 0.3s; /* 추가된 부분 */
+  margin-top: 20%;
+`;
+const Top1 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+`;
+const Top2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+`;
+const ToggleSelect = styled.select`
+  width: 100px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 3px solid #aba8a8;
+
+  &:focus {
+    border-color: #ff8d8f;
+    background: #fff7f7;
+    outline: none;
+    box-shadow: 0px 0px 5px 5px rgba(255, 141, 143, 0.4);
+    transform: scale(1.05);
+  }
 `;
 
-const Image = styled.img`
-  max-width: 100%;
-  max-height: 150px;
-  margin-bottom: 20px;
+const CitySelect = styled.select`
+  width: 100px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 3px solid #aba8a8;
+  color: #b9b4b4;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  &:focus {
+    border-color: #ff8d8f;
+    background: #fff7f7;
+    outline: none;
+    box-shadow: 0px 0px 5px 5px rgba(255, 141, 143, 0.4);
+    transform: scale(1.05);
+  }
+`;
+
+const DistrictSelect = styled.select`
+  width: 100px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  border: 3px solid #aba8a8;
+  color: #b9b4b4;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  &:focus {
+    border-color: #ff8d8f;
+    background: #fff7f7;
+    outline: none;
+    box-shadow: 0px 0px 5px 5px rgba(255, 141, 143, 0.4);
+    transform: scale(1.05);
+  }
 `;
 
 export default function SignupPage() {
@@ -180,7 +320,7 @@ export default function SignupPage() {
   return (
     <SignupContainer>
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
-      <h1>회원가입</h1>
+      <Signup>회원가입</Signup>
       <InputField
         type="text"
         placeholder="아이디 입력"
@@ -199,67 +339,70 @@ export default function SignupPage() {
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
       />
-      <div className="info" id="info__birth">
-        <select
-          className="box"
-          id="birth-year"
-          onFocus={handleYearFocus}
-          isyearoptionexisted="false"
-        >
-          <option disabled selected>
-            출생 연도
-          </option>
-        </select>
-        <select
-          className="box"
-          id="birth-month"
-          onFocus={handleMonthFocus}
-          ismonthoptionexisted="false"
-        >
-          <option disabled selected>
-            월
-          </option>
-        </select>
-        <select
-          className="box"
-          id="birth-day"
-          onFocus={handleDayFocus}
-          isdayoptionexisted="false"
-        >
-          <option disabled selected>
-            일
-          </option>
-        </select>
-      </div>
-      <div className="info" id="info__residence">
-        <select
-          className="box"
-          id="residence-city"
-          onChange={handleCityFocus}
-          iscityoptionexisted="false"
-        >
-          {" "}
-          <option disabled selected>
-            시 선택
-          </option>
-          <option value="서울특별시">서울특별시</option>
-          <option value="부산광역시">부산광역시</option>
-          <option value="대구광역시">대구광역시</option>
-          <option value="인천광역시">인천광역시</option>
-          <option value="광주광역시">광주광역시</option>
-          <option value="대전광역시">대전광역시</option>
-          <option value="울산광역시">울산광역시</option>
-        </select>
-        <select
-          className="box"
-          id="residence-district"
-          data-is-district-option-existed={false}
-        >
-          <option disabled selected>
-            구 선택
-          </option>
-        </select>
-      </div>{" "}
+      <Top1>
+        <div className="info" id="info__birth">
+          <ToggleSelect
+            className="box"
+            id="birth-year"
+            onFocus={handleYearFocus}
+            isyearoptionexisted="false"
+          >
+            <option disabled selected>
+              출생 연도
+            </option>
+          </ToggleSelect>
+          <ToggleSelect
+            className="box"
+            id="birth-month"
+            onFocus={handleMonthFocus}
+            ismonthoptionexisted="false"
+          >
+            <option disabled selected>
+              월
+            </option>
+          </ToggleSelect>
+          <ToggleSelect
+            className="box"
+            id="birth-day"
+            onFocus={handleDayFocus}
+            isdayoptionexisted="false"
+          >
+            <option disabled selected>
+              일
+            </option>
+          </ToggleSelect>
+        </div>
+      </Top1>
+      <Top2>
+        <div className="info" id="info__residence">
+          <CitySelect
+            className="box"
+            id="residence-city"
+            onChange={handleCityFocus}
+            iscityoptionexisted="false"
+          >
+            <option disabled selected>
+              시 선택
+            </option>
+            <option value="서울특별시">서울특별시</option>
+            <option value="부산광역시">부산광역시</option>
+            <option value="대구광역시">대구광역시</option>
+            <option value="인천광역시">인천광역시</option>
+            <option value="광주광역시">광주광역시</option>
+            <option value="대전광역시">대전광역시</option>
+            <option value="울산광역시">울산광역시</option>{" "}
+          </CitySelect>
+          <DistrictSelect
+            className="box"
+            id="residence-district"
+            data-is-district-option-existed={false}
+          >
+            <option disabled selected>
+              구 선택
+            </option>
+          </DistrictSelect>
+        </div>
+      </Top2>
       <SignupButton onClick={handleSignup}>회원가입</SignupButton>
     </SignupContainer>
   );

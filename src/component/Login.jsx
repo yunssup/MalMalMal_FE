@@ -98,6 +98,7 @@ const LoginButton = styled.button`
   font-weight: 500;
   line-height: normal;
   transition: background-color 0.3s, color 0.3s; /* 추가된 부분 */
+  margin-top: 20%;
 `;
 
 const SignUpButton = styled.button`
@@ -110,30 +111,31 @@ const SignUpButton = styled.button`
   line-height: normal;
   border: none;
   background: none;
+  margin-top: 15%;
 `;
-const RememberMeButton = styled.button`
-  background: ${({ isSelected }) =>
-    isSelected ? "#ff0000" : "#fff"}; /* 빨간색으로 변경 */
-  color: ${({ isSelected }) => (isSelected ? "#fff" : "#454545")};
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  align-self: center;
-  padding: 0; /* 추가된 부분 */
+// const RememberMeButton = styled.button`
+//   background: ${({ isSelected }) =>
+//     isSelected ? "#ff0000" : "#fff"}; /* 빨간색으로 변경 */
+//   color: ${({ isSelected }) => (isSelected ? "#fff" : "#454545")};
+//   border-radius: 50%;
+//   width: 50px;
+//   height: 50px;
+//   border: none;
+//   cursor: pointer;
+//   transition: background-color 0.3s, color 0.3s;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin-top: 10px;
+//   align-self: center;
+//   padding: 0; /* 추가된 부분 */
 
-  svg {
-    display: ${({ isSelected }) => (isSelected ? "block" : "none")};
-    width: 100%;
-    height: 100%;
-  }
-`;
+//   svg {
+//     display: ${({ isSelected }) => (isSelected ? "block" : "none")};
+//     width: 100%;
+//     height: 100%;
+//   }
+// `;
 
 // const RememberMeLabel = styled.div`
 //   display: flex;
@@ -160,7 +162,7 @@ export default function LoginPage() {
 
     console.log("아이디:", username);
     console.log("비밀번호:", password);
-    console.log("로그인 상태 유지:", rememberMe);
+    // console.log("로그인 상태 유지:", rememberMe);
   };
 
   const handleSignUp = () => {
