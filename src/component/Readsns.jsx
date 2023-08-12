@@ -85,7 +85,7 @@ const WhiteBox = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 20px;
   margin: 2% 5%;
   color: #011821;
   font-family: "Noto Sans KR";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -45,42 +45,68 @@ const LeftEmojiButton = styled(EmojiButton)`
   left: 10px;
   right: auto;
   transform: none;
+  color: ${(props) => (props.isActive ? "#FF8D8F" : "#d2d2d2")};
+  span {
+    color: ${(props) => (props.isActive ? "#FF8D8F" : "#d2d2d2")};
+  }
 `;
 
 const RightEmojiButton = styled(EmojiButton)`
   right: 10px;
   left: auto;
   transform: none;
+  color: ${(props) => (props.isActive ? "#FF8D8F" : "#d2d2d2")};
+  span {
+    color: ${(props) => (props.isActive ? "#FF8D8F" : "#d2d2d2")};
+  }
 `;
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   width: 3em;
   height: 3em;
   margin-top: 30px;
+  color: ${(props) => (props.isActive ? "#FF8D8F" : "#d2d2d2")};
 `;
 
 const Footer = () => {
+  const [activeButton, setActiveButton] = useState(null);
   const history = useHistory();
 
   const handleEmojiClick = (destination) => {
+    setActiveButton(destination);
+
     if (destination === "홈으로갈거야") {
       history.push("/choice"); // 홈으로 이동
     } else if (destination === "마이페이지로 갈거야") {
       history.push("/login"); // 마이페이지로 이동(현재는 마이페이지 미개설로 로그인으로 이동하게 설정)
     }
   };
+
   return (
     <FooterContainer>
       <Image src="풋바하얀색배경.jpg" alt="로고 이미지" />
-      <LeftEmojiButton onClick={() => handleEmojiClick("홈으로갈거야")}>
-        <StyledFontAwesomeIcon icon={faHome} />
+      <LeftEmojiButton
+        onClick={() => handleEmojiClick("홈으로갈거야")}
+        isActive={activeButton === "홈으로갈거야"}
+      >
+        <StyledFontAwesomeIcon
+          icon={faHome}
+          isActive={activeButton === "홈으로갈거야"}
+        />
         <span>홈</span>
       </LeftEmojiButton>
-      <RightEmojiButton onClick={() => handleEmojiClick("마이페이지로 갈거야")}>
-        <StyledFontAwesomeIcon icon={faUser} />
+      <RightEmojiButton
+        onClick={() => handleEmojiClick("마이페이지로 갈거야")}
+        isActive={activeButton === "마이페이지로 갈거야"}
+      >
+        <StyledFontAwesomeIcon
+          icon={faUser}
+          isActive={activeButton === "마이페이지로 갈거야"}
+        />
         <span>내 계정</span>
       </RightEmojiButton>
     </FooterContainer>
   );
 };
+
 export default Footer;
