@@ -8,13 +8,13 @@ const Container = styled.div`
   background: linear-gradient(180deg, #fff2f6 0%, #fefbff 100%);
   height: 840px;
 `;
-const Top = styled.h1`
+const Date = styled.h1`
   color: #616161;
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-weight: 400;
-  padding-left: 12%;
   margin-top: 15%;
+  margin-left: 6%;
 `;
 const Title = styled.h2`
   color: #000;
@@ -30,10 +30,10 @@ const Title = styled.h2`
 const Name = styled.h5`
   color: #616161;
   font-family: "Noto Sans KR";
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 400;
   margin-left: 5%;
-  margin-top: -3%;
+  margin-top: -9%;
 `;
 const progressBarAnimation = keyframes`
   from {
@@ -62,46 +62,39 @@ const ProgressBar = styled.div`
   transform-origin: left;
   animation: ${progressBarAnimation} 10s linear infinite;
 `;
-
 const TimeInfo = styled.div`
-  flex: 5;
   display: flex;
   justify-content: space-between;
   width: 90%;
-  margin-top: 10px;
+  margin-top: px;
   margin-left: 5%;
 `;
-
 const WhiteBox = styled.div`
   flex: 6;
-  width: 80%;
-  margin-top: 20px;
-  padding: 10px;
+  width: 90%;
   background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
   border-radius: 5px;
+  margin: 2% 5%;
 `;
 
 const StyledButton = styled.button`
   border: none;
   background-color: transparent;
-  border-radius: 5px;
-  padding: 10px 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 10px;
 `;
 
 const Image = styled.img`
-  max-width: 150px;
-  max-height: 150px;
+  max-width: 130px;
+  max-height: 130px;
   border-radius: 50%;
-  margin-bottom: -80px;
-  border: 2px solid black;
+  margin-bottom: -70px;
+  margin-left: 33%;
 `;
 
 export default function Click() {
@@ -111,7 +104,7 @@ export default function Click() {
 
   return (
     <Container>
-      <Top>날짜 불러오기</Top>
+      <Date>날짜 불러오기</Date>
       <Title>여기가 제목입니당 </Title>
       <Name>작성자 별명</Name>
       <ProgressBarContainer>
@@ -123,7 +116,7 @@ export default function Click() {
       </TimeInfo>
       <WhiteBox>쓴 글 불러오기</WhiteBox>
       <StyledButton onClick={handleButtonClick}>
-        <Image src="/쿵야.jpg" alt="버튼 이미지" />
+        <Image src="/재생버튼.jpg" alt="버튼 이미지" />
       </StyledButton>
       <Footer />
     </Container>

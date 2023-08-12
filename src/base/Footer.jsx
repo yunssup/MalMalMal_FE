@@ -14,7 +14,6 @@ const FooterContainer = styled.footer`
 const Image = styled.img`
   max-width: 100%;
   max-height: 150px;
-  margin-bottom: 20px;
 `;
 
 const EmojiButton = styled.button`
