@@ -1,35 +1,22 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
+import Footer from "../base/Footer";
 
 const Container = styled.div`
-  background: var(
-    --2,
-    conic-gradient(
-      from 180deg at 50% 50%,
-      #ffe3eb 0deg,
-      #fcf5d5 125.62500357627869deg,
-      #e2f3ff 228.75000715255737deg,
-      #ffe3eb 360deg
-    )
-  );
   display: flex;
   flex-direction: column;
+  background: linear-gradient(180deg, #def1ff 0%, #f9f9f9 100%);
+  height: 2264px;
+`;
+const Image1 = styled.img`
+  width: 370px;
+  height: 420px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  width: 430px;
-  height: 932px;
+  align-self: center;
 `;
-
-const Title = styled.h2`
-  color: #000;
-  text-align: center;
-  font-family: Noto Sans KR;
-  font-size: 50px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  text-transform: capitalize;
-`;
-
 const progressBarAnimation = keyframes`
   from {
     transform: scaleX(0);
@@ -38,201 +25,151 @@ const progressBarAnimation = keyframes`
     transform: scaleX(1);
   }
 `;
-
 const ProgressBarContainer = styled.div`
-  width: 360px;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  width: 370px;
   height: 24px;
   flex-shrink: 0;
-
-  border-radius: 10px;
-  border: 3px solid #000;
+  border: 2px solid #f9f9f9;
   background: #fff;
+  /* margin-top: -8%; */
 `;
-
 const ProgressBar = styled.div`
-  width: 360px;
+  background: #aba8a8;
+  width: 54px;
   height: 24px;
   flex-shrink: 0;
-  border-radius: 10px; /* 수정: ProgressBarContainer와 동일한 값으로 변경 */
-  background: var(--unnamed, #011821);
+  background: transparent;
   transform-origin: left;
-  animation: ${progressBarAnimation} 10s linear infinite;
-  /* border: 2px solid #000; */
+  animation: ${(props) =>
+    props.isactive
+      ? css`
+          ${progressBarAnimation} 10s linear infinite
+        `
+      : "none"};
 `;
 
 const TimeInfo = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 80%;
-  margin-top: 10px;
+  width: 90%;
+  margin-top: px;
+  margin-left: 5%;
 `;
-const EmojiIcons = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin-top: 20px;
-  font-size: 24px; /* Adjust font size as needed */
+const Title = styled.h2`
+  color: #000;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 45px;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin-top: -3%;
+  padding-left: 2%;
+  padding-right: 2%;
 `;
-const WhiteBox3 = styled.div`
-  width: 80%;
-  margin-top: 20px;
-  padding: 10px;
+const Name = styled.h5`
+  color: #616161;
+  font-family: "Noto Sans KR";
+  font-size: 26px;
+  font-weight: 400;
+  margin-left: 5%;
+  margin-top: -9%;
+`;
+const WhiteBox = styled.div`
+  flex: 6;
+  width: 90%;
   background-color: #fff;
   display: flex;
+  flex-direction: column; /* 세로로 정렬 */
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  border-radius: 5px;
+  border-radius: 20px;
+  margin: 2% 5%;
+  color: #011821;
+  font-family: "Noto Sans KR";
+  font-weight: 400;
+  text-align: center;
 `;
 
 const WhiteBox1 = styled.div`
-  position: relative;
-  width: 80%;
-  margin-top: 20px;
-  padding: 10px;
+  flex: 6;
+  width: 90%;
   background-color: #fff;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  border-radius: 5px;
-`;
-const WhiteBox2 = styled.div`
-  position: relative;
-  width: 80%;
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  border-radius: 5px;
-`;
-const Image = styled.img`
-  max-width: 100%;
-  max-height: 150px;
-  margin-bottom: 20px;
-`;
-const Statebox = styled.div`
-  width: 127px;
-  height: 40px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  background: var(--2, #ff6392);
-`;
-
-const Information = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const Infor = styled.h1`
-  color: #616161;
-  font-family: Noto Sans KR;
-  font-size: 24px;
-  font-style: normal;
+  border-radius: 20px;
+  margin: 2% 5%;
+  color: #011821;
+  font-family: "Noto Sans KR";
+  font-size: 36px;
   font-weight: 400;
-  line-height: normal;
-`;
-const Subscribe = styled.button`
-  border-radius: 20px 20px 5px 20px;
-  background: var(--unnamed, #011821);
-  color: white;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  width: 200px;
-  height: 51px;
-  flex-shrink: 0;
-  border: none;
-  cursor: pointer;
-`;
-const ImageContainer = styled.div`
-  position: relative;
-  width: 100%;
-  max-height: 150px;
-  margin-bottom: 20px;
+  text-align: center;
 `;
 
-const LikeButton = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: transparent;
+const ClickButton = styled.button`
   border: none;
-  cursor: pointer;
-`;
-
-const ZoomButton = styled.button`
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
   background-color: transparent;
-  border: none;
   cursor: pointer;
-`;
-const ButtonRow = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin-top: 10px;
+  align-items: center;
 `;
-export default function Hello({ showAge }) {
-  const handleSub = () => {
-    // 버튼 클릭 시 동작할 함수 정의
-    console.log("구독하기 버튼이 클릭되었습니다.");
-    // 실제로는 구독 처리를 수행해야 합니다.
+
+const Image = styled.img`
+  max-width: 130px;
+  max-height: 130px;
+  border-radius: 50%;
+  margin-bottom: -70px;
+  margin-left: 33%;
+`;
+
+export default function Click() {
+  const [isProgressRunning, setIsProgressRunning] = useState(false);
+
+  const handleButtonClick = () => {
+    console.log("버튼 눌림");
+
+    // 프로그래스 바 실행 여부를 토글
+    setIsProgressRunning((prevState) => !prevState);
   };
 
   return (
     <Container>
-      <WhiteBox1>
-        <ImageContainer>
-          <Image src="말말말로고.jpg" alt="로고 이미지" />
-          <LikeButton>
-            <Image src="/라이언.jpg" alt="로고 이미지" />
-          </LikeButton>
-          <ZoomButton>
-            <Image src="/라이언.jpg" alt="로고 이미지" />
-          </ZoomButton>
-        </ImageContainer>
-        <ProgressBarContainer>
-          <ProgressBar />
-        </ProgressBarContainer>
-        <TimeInfo>
-          <span>시작 시간</span>
-          <span>끝나는 시간</span>
-        </TimeInfo>
-      </WhiteBox1>
-      <Statebox>모집중</Statebox>
-      <Title>게시글 제목</Title>
-      <Information>
-        <Infor>작고맵</Infor>
-        <Subscribe onClick={handleSub}>구독하기</Subscribe>
-      </Information>
-      <WhiteBox2>
-        {" "}
-        <span>모집기간</span>
-        <span>2023~~~~</span>
-      </WhiteBox2>
-      <WhiteBox2>
-        {" "}
-        <span>진행기간</span>
-        <span>2023~~~~</span>
-      </WhiteBox2>
-      <WhiteBox2>
-        {" "}
-        <span>주최 주소</span>
-        <span>중구 필동로 어쩌구</span>
-      </WhiteBox2>
-      <WhiteBox2>
-        {" "}
-        <span>연락처</span>
-        <span>0101234568789</span>
-      </WhiteBox2>
-      <WhiteBox3>쓴 글 불러오기</WhiteBox3>
+      <Image1 src="/망한쿵야.jpeg" alt="버튼 이미지" />
+      <ProgressBarContainer>
+        <ProgressBar isActive={isProgressRunning} />
+      </ProgressBarContainer>{" "}
+      <TimeInfo>
+        <span>00:00</span>
+        <span>99:99</span>
+      </TimeInfo>
+      <Title>여기가 제목입니당 </Title>
+      <Name>작성자 별명</Name>
+      <WhiteBox>
+        <h1>모집 기간</h1>
+        <h2>00~00</h2>
+      </WhiteBox>
+      <WhiteBox>
+        <h1>진행 기간</h1>
+        <h2>00~00</h2>
+      </WhiteBox>
+      <WhiteBox>
+        <h1>주최 주소</h1>
+        <h2>중구 구민센터</h2>
+      </WhiteBox>
+      <WhiteBox>
+        <h1>연락처</h1>
+        <h2>02-1234-5678</h2>
+      </WhiteBox>
+      <WhiteBox1>텍스트 샘플입니다</WhiteBox1>
+      <ClickButton onClick={handleButtonClick}>
+        <Image src="/재생버튼.jpg" alt="버튼 이미지" />
+      </ClickButton>
+      <Footer />
     </Container>
   );
 }
