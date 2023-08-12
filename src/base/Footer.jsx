@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faUser } from "@fortawesome/free-solid-svg-icons";
-import { useHistory } from "react-router-dom"; // useHistory로 수정
+import { useHistory } from "react-router-dom";
 
 const FooterContainer = styled.footer`
   text-align: center;
@@ -61,7 +61,7 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
 `;
 
 const Footer = () => {
-  const history = useHistory(); // useHistory로 변경
+  const history = useHistory();
 
   const handleEmojiClick = (destination) => {
     if (destination === "홈으로갈거야") {
