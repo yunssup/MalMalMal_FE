@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React, { useState } from "react";
+import styled, { keyframes, css } from "styled-components";
 import Footer from "../base/Footer";
 
 const Container = styled.div`
@@ -43,6 +43,7 @@ const progressBarAnimation = keyframes`
     transform: scaleX(1);
   }
 `;
+
 const ProgressBarContainer = styled.div`
   display: flex;
   align-items: center;
@@ -55,13 +56,20 @@ const ProgressBarContainer = styled.div`
   margin-top: -8%;
 `;
 const ProgressBar = styled.div`
+  background: #aba8a8;
   width: 54px;
   height: 24px;
   flex-shrink: 0;
-  background: #aba8a8;
+  background: transparent;
   transform-origin: left;
-  animation: ${progressBarAnimation} 10s linear infinite;
+  animation: ${(props) =>
+    props.isactive
+      ? css`
+          ${progressBarAnimation} 10s linear infinite
+        `
+      : "none"};
 `;
+
 const TimeInfo = styled.div`
   display: flex;
   justify-content: space-between;
@@ -79,9 +87,14 @@ const WhiteBox = styled.div`
   font-size: 16px;
   border-radius: 5px;
   margin: 2% 5%;
+  color: #011821;
+  font-family: "Noto Sans KR";
+  font-size: 36px;
+  font-weight: 400;
+  text-align: center;
 `;
 
-const StyledButton = styled.button`
+const ClickButton = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -98,8 +111,13 @@ const Image = styled.img`
 `;
 
 export default function Click() {
+  const [isProgressRunning, setIsProgressRunning] = useState(false);
+
   const handleButtonClick = () => {
     console.log("버튼 눌림");
+
+    // 프로그래스 바 실행 여부를 토글
+    setIsProgressRunning((prevState) => !prevState);
   };
 
   return (
@@ -108,16 +126,16 @@ export default function Click() {
       <Title>여기가 제목입니당 </Title>
       <Name>작성자 별명</Name>
       <ProgressBarContainer>
-        <ProgressBar />
-      </ProgressBarContainer>
+        <ProgressBar isActive={isProgressRunning} />
+      </ProgressBarContainer>{" "}
       <TimeInfo>
         <span>00:00</span>
         <span>99:99</span>
       </TimeInfo>
       <WhiteBox>쓴 글 불러오기</WhiteBox>
-      <StyledButton onClick={handleButtonClick}>
+      <ClickButton onClick={handleButtonClick}>
         <Image src="/재생버튼.jpg" alt="버튼 이미지" />
-      </StyledButton>
+      </ClickButton>
       <Footer />
     </Container>
   );
