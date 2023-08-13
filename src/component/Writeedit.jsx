@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { keyframes, css } from "styled-components";
+import styled, { css } from "styled-components"; // ThemeProvider import 추가
 import Footer from "../base/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faCamera } from "@fortawesome/free-solid-svg-icons";
@@ -66,6 +66,39 @@ const PhotoButton = styled.button`
   margin-left: 14%;
   margin-top: 5%;
   margin-bottom: 5%;
+`;
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const RecruitmentStatusButton = styled.button`
+  border-radius: 10px;
+  border: none;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 10px;
+  transition: background-color 0.3s, color 0.3s;
+  border: 3px solid #ccc;
+
+  background-color: ${(props) =>
+    props.active
+      ? props.status === "모집중"
+        ? "#3596E1"
+        : "#ccc"
+      : "transparent"};
+  color: ${(props) => (props.active ? "white" : "inherit")};
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 const WhiteBox = styled.div`
   display: flex;
@@ -144,6 +177,7 @@ export default function Click() {
   const [progressPeriod, setProgressPeriod] = useState("");
   const [organizerAddress, setOrganizerAddress] = useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [recruitmentStatus, setRecruitmentStatus] = useState("모집중");
 
   const handlePost = () => {
     console.log("게시 버튼이 클릭되었습니다.");
@@ -160,7 +194,10 @@ export default function Click() {
   const handlePhoto = () => {
     console.log("사진추가가 클릭되었습니다.");
   };
-
+  const handleRecruitmentStatusChange = (status) => {
+    console.log("모집 상태 변경:", status);
+    setRecruitmentStatus(status);
+  };
   return (
     <Container>
       <PostButton onClick={handlePost}>
@@ -172,6 +209,22 @@ export default function Click() {
         <StyledFontAwesomeIcon icon={faCamera} />
         사진 추가하기
       </PhotoButton>
+      <ButtonContainer>
+        <RecruitmentStatusButton
+          status="모집중"
+          active={recruitmentStatus === "모집중"}
+          onClick={() => handleRecruitmentStatusChange("모집중")}
+        >
+          모집중
+        </RecruitmentStatusButton>
+        <RecruitmentStatusButton
+          status="모집완료"
+          active={recruitmentStatus === "모집완료"}
+          onClick={() => handleRecruitmentStatusChange("모집완료")}
+        >
+          모집완료
+        </RecruitmentStatusButton>
+      </ButtonContainer>{" "}
       <WhiteBox>
         <Title>모집 기간</Title>
         <Sub
