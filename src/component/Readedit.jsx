@@ -16,6 +16,7 @@ const Image1 = styled.img`
   justify-content: center;
   align-items: center;
   align-self: center;
+  margin-top: 15%;
 `;
 const progressBarAnimation = keyframes`
   from {
@@ -92,22 +93,23 @@ const WhiteBox = styled.div`
 
 const Title = styled.h2`
   color: #2b1800;
-  font-family: Noto Sans KR;
+  font-family: "Noto Sans KR";
   font-size: 30px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
-  margin-bottom: 5px; /* 제목과 부제 간격 조정 */
+  line-height: 1.2; /* 줄 간격 조정 */
+  margin-bottom: -27px;
 `;
 
 const Sub = styled.h5`
   color: #5b5858;
-  font-family: Noto Sans KR;
+  font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  margin-top: 25px;
 `;
+
 const WhiteBox1 = styled.div`
   flex: 6;
   width: 90%;
@@ -165,19 +167,19 @@ export default function Click() {
       <Name1>작성자 별명</Name1>
       <WhiteBox>
         <Title>모집 기간</Title>
-        <SUb>00~00</SUb>
+        <Sub>2023년 9월 5일~</Sub>
       </WhiteBox>
       <WhiteBox>
         <Title>진행 기간</Title>
-        <SUb>00~00</SUb>
+        <Sub>2023년 9월 5일~</Sub>
       </WhiteBox>
       <WhiteBox>
         <Title>주최 주소</Title>
-        <SUb>중구 구민센터</SUb>
+        <Sub>중구 구민센터</Sub>
       </WhiteBox>
       <WhiteBox>
         <Title>연락처</Title>
-        <SUb>02-1234-5678</SUb>
+        <Sub>02-1234-5678</Sub>
       </WhiteBox>
       <WhiteBox1>텍스트 샘플입니다</WhiteBox1>
       <ClickButton onClick={handleButtonClick}>
