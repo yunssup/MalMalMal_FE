@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import Footer from "../base/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faCamera } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +33,10 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   width: 15px;
   height: 15px;
   color: #d2d2d2;
+  width: 32px;
+  height: 28.8px;
+  flex-shrink: 0;
+  margin-right: 5px;
 `;
 const Image1 = styled.img`
   width: 370px;
@@ -60,7 +64,8 @@ const PhotoButton = styled.button`
   line-height: normal;
   text-transform: capitalize;
   margin-left: 14%;
-  margin-top: 4%;
+  margin-top: 5%;
+  margin-bottom: 5%;
 `;
 const WhiteBox = styled.div`
   display: flex;
@@ -82,19 +87,21 @@ const Title = styled.h2`
   font-style: normal;
   font-weight: 500;
   line-height: 1.2; /* 줄 간격 조정 */
-  margin-bottom: -27px;
+  margin-bottom: px;
 `;
 
-const Sub = styled.h5`
+const Sub = styled.input`
   color: #5b5858;
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  margin-top: 25px;
+  margin-top: -25px;
+  border: none;
+  outline: none;
 `;
 
-const WhiteBox1 = styled.div`
+const WhiteBox1 = styled.input`
   flex: 6;
   width: 90%;
   background-color: #fff;
@@ -109,6 +116,11 @@ const WhiteBox1 = styled.div`
   font-size: 36px;
   font-weight: 400;
   text-align: center;
+  border: none;
+  outline: none;
+  &::placeholder {
+    font-size: 20px;
+  }
 `;
 
 const ClickButton = styled.button`
@@ -128,18 +140,25 @@ const Image = styled.img`
 `;
 
 export default function Click() {
+  const [recruitmentPeriod, setRecruitmentPeriod] = useState("");
+  const [progressPeriod, setProgressPeriod] = useState("");
+  const [organizerAddress, setOrganizerAddress] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+
   const handlePost = () => {
     console.log("게시 버튼이 클릭되었습니다.");
-    console.log("제목:", title); // 입력된 제목 출력
+    console.log("모집 기간:", recruitmentPeriod);
+    console.log("진행 기간:", progressPeriod);
+    console.log("주최 주소:", organizerAddress);
+    console.log("연락처:", contactNumber);
   };
+  const [textSample, setTextSample] = useState("");
+
   const handleButtonClick = () => {
     console.log("버튼 눌림");
   };
   const handlePhoto = () => {
     console.log("사진추가가 클릭되었습니다.");
-  };
-  const handlePhotoClick = () => {
-    console.log("버튼 눌림");
   };
 
   return (
@@ -150,29 +169,53 @@ export default function Click() {
       </PostButton>
       <Image1 src="/망한쿵야.jpeg" alt="버튼 이미지" />
       <PhotoButton onClick={handlePhoto}>
-        <StyledFontAwesomeIcon icon={faCheckCircle} />
+        <StyledFontAwesomeIcon icon={faCamera} />
         사진 추가하기
       </PhotoButton>
-
       <WhiteBox>
         <Title>모집 기간</Title>
-        <Sub>2023년 9월 5일~</Sub>
+        <Sub
+          type="text"
+          placeholder="날짜를 입력해주세요"
+          value={recruitmentPeriod}
+          onChange={(e) => setRecruitmentPeriod(e.target.value)}
+        />
       </WhiteBox>
       <WhiteBox>
         <Title>진행 기간</Title>
-        <Sub>2023년 9월 5일~</Sub>
+        <Sub
+          type="text"
+          placeholder="날짜를 입력해주세요"
+          value={progressPeriod}
+          onChange={(e) => setProgressPeriod(e.target.value)}
+        />
       </WhiteBox>
       <WhiteBox>
         <Title>주최 주소</Title>
-        <Sub>중구 구민센터</Sub>
+        <Sub
+          type="text"
+          placeholder="주소를 입력해주세요"
+          value={organizerAddress}
+          onChange={(e) => setOrganizerAddress(e.target.value)}
+        />
       </WhiteBox>
       <WhiteBox>
         <Title>연락처</Title>
-        <Sub>02-1234-5678</Sub>
-      </WhiteBox>
-      <WhiteBox1>텍스트 샘플입니다</WhiteBox1>
+        <Sub
+          type="text"
+          placeholder="연락처를 입력해주세요"
+          value={contactNumber}
+          onChange={(e) => setContactNumber(e.target.value)}
+        />
+      </WhiteBox>{" "}
+      <WhiteBox1
+        type="text"
+        placeholder="에디터는 직접 수기로 입력해주세요"
+        value={textSample}
+        onChange={(e) => setTextSample(e.target.value)}
+      />{" "}
       <ClickButton onClick={handleButtonClick}>
-        <Image src="/재생버튼.jpg" alt="버튼 이미지" />
+        <Image src="/글쓰기.png" alt="버튼 이미지" />
       </ClickButton>
       <Footer />
     </Container>
