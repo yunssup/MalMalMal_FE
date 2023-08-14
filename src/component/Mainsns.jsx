@@ -3,6 +3,13 @@ import styled, { css } from "styled-components"; // ThemeProvider import 추가
 import Footer from "../base/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 const Container = styled.div`
   display: flex;
@@ -173,32 +180,49 @@ export default function Click() {
       </Top>
       <Title>인기글</Title>
       <BestMain>
-        {/* mainPostsData 배열을 매핑합니다. */}
-        {mainPostsData.map((data, index) => (
-          <MainPost key={index}>
-            <Name>{data.name}</Name>
-            <Text>{data.title}</Text>
-            <Bar>
-              <StyledFontAwesomeIcon icon={faHeart} />
-              <Image src="/재생.png" alt="버튼 이미지" />
-            </Bar>
-          </MainPost>
-        ))}
+        <Swiper
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          navigation
+          pagination={{ clickable: true }}
+          loop={true}
+        >
+          {/* mainPostsData 배열을 매핑하여 전체글 포스트 생성 */}
+          {mainPostsData.map((data, index) => (
+            <SwiperSlide key={index}>
+              <MainPost>
+                <Name1>{data.name}</Name1>
+                <Text1>{data.title}</Text1>
+                <Bar1>
+                  <StyledFontAwesomeIcon1 icon={faHeart} />
+                  <Image1 src="/재생.png" alt="버튼 이미지" />
+                </Bar1>
+              </MainPost>
+            </SwiperSlide>
+          ))}
+        </Swiper>{" "}
       </BestMain>{" "}
       <Title>전체글</Title>
-      <MainPost>
-        {/* mainPostsData 배열을 매핑합니다. */}
+      {/* Swiper 컴포넌트 사용 */}
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        navigation
+        pagination={{ clickable: true }}
+        loop={true}
+      >
+        {/* mainPostsData 배열을 매핑하여 전체글 포스트 생성 */}
         {mainPostsData.map((data, index) => (
-          <MainPost key={index}>
-            <Name1>{data.name}</Name1>
-            <Text1>{data.title}</Text1>
-            <Bar1>
-              <StyledFontAwesomeIcon1 icon={faHeart} />
-              <Image1 src="/재생.png" alt="버튼 이미지" />
-            </Bar1>
-          </MainPost>
-        ))}{" "}
-      </MainPost>
+          <SwiperSlide key={index}>
+            <MainPost>
+              <Name1>{data.name}</Name1>
+              <Text1>{data.title}</Text1>
+              <Bar1>
+                <StyledFontAwesomeIcon1 icon={faHeart} />
+                <Image1 src="/재생.png" alt="버튼 이미지" />
+              </Bar1>
+            </MainPost>
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <Footer />
     </Container>
   );
