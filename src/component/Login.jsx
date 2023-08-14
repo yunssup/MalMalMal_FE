@@ -113,42 +113,7 @@ const SignUpButton = styled.button`
   background: none;
   margin-top: 15%;
 `;
-// const RememberMeButton = styled.button`
-//   background: ${({ isSelected }) =>
-//     isSelected ? "#ff0000" : "#fff"}; /* 빨간색으로 변경 */
-//   color: ${({ isSelected }) => (isSelected ? "#fff" : "#454545")};
-//   border-radius: 50%;
-//   width: 50px;
-//   height: 50px;
-//   border: none;
-//   cursor: pointer;
-//   transition: background-color 0.3s, color 0.3s;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   margin-top: 10px;
-//   align-self: center;
-//   padding: 0; /* 추가된 부분 */
 
-//   svg {
-//     display: ${({ isSelected }) => (isSelected ? "block" : "none")};
-//     width: 100%;
-//     height: 100%;
-//   }
-// `;
-
-// const RememberMeLabel = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   font-family: Noto Sans KR;
-//   font-size: 20px;
-//   font-style: normal;
-//   font-weight: 500;
-//   line-height: normal;
-//   color: #454545;
-//   margin-top: 10px;
-// `;
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -185,21 +150,6 @@ export default function LoginPage() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      {/* <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <RememberMeButton
-          isSelected={rememberMe}
-          onClick={() => setRememberMe(!rememberMe)}
-        >
-          {rememberMe && <FontAwesomeIcon icon={faCheckCircle} />}
-        </RememberMeButton>
-        <RememberMeLabel>로그인 상태 유지</RememberMeLabel>
-      </div> */}
 
       <LoginButton isFilled={isFormFilled} onClick={handleLogin}>
         접속하기

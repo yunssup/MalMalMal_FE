@@ -9,7 +9,7 @@ import Readsns from "./component/Readsns";
 import Writesns from "./component/Writesns";
 import Readedit from "./component/Readedit";
 import Writeedit from "./component/Writeedit";
-
+import Mainsns from "./component/Mainsns";
 function setScreenSize() {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -32,6 +32,7 @@ function App() {
       <Writesns />
       <Readedit />
       <Writeedit />
+      <Mainsns />
     </div>
   );
 }

@@ -154,7 +154,7 @@ const WhiteBox1 = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-top: -10%;
+  margin-top: -5%;
   height: 150px;
   flex-shrink: 0;
 `;
@@ -210,7 +210,6 @@ export default function Hello() {
 
   const [speechResult, setSpeechResult] = useState("");
   const [inputText, setInputText] = useState("");
-  const [title, setTitle] = useState(""); // 추가된 부분
 
   const handleVoice = () => {
     console.log("말하기 버튼이 클릭되었습니다.");
