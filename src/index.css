@@ -7,6 +7,5 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 840px; */
   border: 1px solid red;
 }
