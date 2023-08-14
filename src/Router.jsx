@@ -11,6 +11,7 @@ import Readedit from "./component/Readedit";
 import Writeedit from "./component/Writeedit";
 import { FadeContainer } from "./component/Styled"; // styles.js에서 export한 FadeContainer를 import합니다.
 import Mainsns from "./component/Mainsns";
+import Mainshare from "./component/Mainshare";
 
 export default function AppRouter() {
   return (
@@ -49,6 +50,9 @@ export default function AppRouter() {
         </Route>
         <Route path="/mainsns">
           <Mainsns />
+        </Route>
+        <Route path="/mainshare">
+          <Mainshare />
         </Route>
       </Switch>
     </Router>

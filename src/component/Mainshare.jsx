@@ -14,7 +14,7 @@ import "swiper/css/scrollbar";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background: #fff6f6;
+  background: #f4faff;
   width: 370px;
 `;
 const Top = styled.div`

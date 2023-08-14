@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Readsns from "./Readsns";
+// import Mainsns from "./Mainsnsns";
 
 const Container = styled.div`
   display: flex;
@@ -168,7 +168,7 @@ export default function Hello({ showAge }) {
         이용하시겠어요?
       </Title>
       <TagContainer1>
-        <StyledLink to="/readsns">
+        <StyledLink to="/mainsns">
           {" "}
           {/* StyledLink 컴포넌트로 감싸서 스타일 적용 */}
           <TagWithCircleWithText1>
