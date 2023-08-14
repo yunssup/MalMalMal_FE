@@ -32,6 +32,9 @@ const Logo = styled.img`
   flex-shrink: 0;
   margin-left: 3%;
 `;
+const StyledLink = styled(Link)`
+  text-decoration: none !important;
+`;
 const Button = styled.button`
   display: flex;
   background-color: transparent; /* 배경색 없애기 */
@@ -209,13 +212,45 @@ const Image1 = styled.img`
   height: 55px;
   flex-shrink: 0;
 `;
+const PrevNextButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 
+  button {
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #ff6392;
+    color: #ffffff;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:disabled {
+      background-color: #f0f0f0;
+      color: #a0a0a0;
+      cursor: not-allowed;
+    }
+  }
+`;
+const ClickButton = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
+
+const Image2 = styled.img`
+  max-width: 130px;
+  max-height: 130px;
+  border-radius: 50%;
+  margin-bottom: -70px;
+  margin-left: 90%;
+  /* align-self: center; */
+`;
 export default function Click() {
-  const handleLoginClick = () => {
-    console.log("로그인 버튼이 클릭되었습니다.");
-    // 로그인 버튼이 클릭되었을 때, 로그인 페이지로 이동
-    history.push("/Login"); // 이동할 경로로 수정해야 함
-  };
+  const perPage = 4;
   const mainPostsData = [
     { name: "닉네임1", title: "제목1" },
     { name: "닉네임2", title: "제목2" },
@@ -227,33 +262,34 @@ export default function Click() {
     { name: "닉네임1", title: "제목1" },
     { name: "닉네임2", title: "제목2" },
     { name: "닉네임3", title: "제목3" },
-    // { name: "닉네임4", title: "제목4" },
+    { name: "닉네임4", title: "제목4" },
   ];
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextPost = () => {
-    if (currentIndex < mainPostsData.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+    if (currentIndex < mainPostsData.length - perPage) {
+      setCurrentIndex(currentIndex + perPage);
     }
   };
 
   const prevPost = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+      setCurrentIndex(currentIndex - perPage);
     }
   };
-
-  const currentPost = mainPostsData[currentIndex];
-
+  const handleButtonClick = () => {
+    console.log("버튼 눌림");
+  };
   return (
     <Container>
       <Top>
         <Logo src="/말말말로고.jpg" alt="버튼 이미지" />
         <Button>
           <ClickButton2>소식 나누기</ClickButton2>
-          <Link to="/Mainshare">
+          <StyledLink to="/Mainshare">
             <ClickButton1>지역 정보</ClickButton1>
-          </Link>
+          </StyledLink>
         </Button>
       </Top>
       <Title>인기글</Title>
@@ -281,17 +317,36 @@ export default function Click() {
       </BestMain>
       <Title>전체글</Title>
       <div>
-        {allPostsData.map((data, index) => (
-          <MainPost key={index}>
-            <Name1>{data.name}</Name1>
-            <Text1>{data.title}</Text1>
-            <Bar1>
-              <StyledFontAwesomeIcon1 icon={faHeart} />
-              <Image1 src="/재생.png" alt="버튼 이미지" />
-            </Bar1>
-          </MainPost>
-        ))}
+        {allPostsData
+          .slice(currentIndex, currentIndex + perPage)
+          .map((data, index) => (
+            <MainPost key={index}>
+              <Name1>{data.name}</Name1>
+              <Text1>{data.title}</Text1>
+              <Bar1>
+                <StyledFontAwesomeIcon1 icon={faHeart} />
+                <Image1 src="/재생.png" alt="버튼 이미지" />
+              </Bar1>
+            </MainPost>
+          ))}
       </div>
+      <PrevNextButtons>
+        <button onClick={prevPost} disabled={currentIndex === 0}>
+          이전
+        </button>
+        <button
+          onClick={nextPost}
+          disabled={currentIndex >= allPostsData.length - perPage}
+        >
+          다음
+        </button>
+      </PrevNextButtons>
+      <ClickButton onClick={handleButtonClick}>
+        <StyledLink to="/Writesns">
+          <Image2 src="/글쓰기버튼.png" alt="버튼 이미지" />
+        </StyledLink>
+      </ClickButton>
+
       <Footer />
     </Container>
   );
