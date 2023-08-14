@@ -22,19 +22,23 @@ const Top = styled.div`
   background: var(--unnamed, #fefbff);
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
-  margin-top: 10%;
+  /* margin-top: 10%; */
+  height: 120px;
 `;
 const Logo = styled.img`
   width: 65.806px;
   height: 56.345px;
   flex-shrink: 0;
   margin-left: 3%;
+  margin-bottom: 15px;
 `;
 const StyledLink = styled(Link)`
   text-decoration: none !important;
+  margin-bottom: 15px;
 `;
+
 const Button = styled.span`
   display: flex;
   background-color: transparent;
@@ -215,6 +219,7 @@ const PrevNextButtons = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  margin-bottom: 20px;
 
   button {
     border: none;
@@ -244,7 +249,7 @@ const Image2 = styled.img`
   max-width: 130px;
   max-height: 130px;
   border-radius: 50%;
-  margin-bottom: -70px;
+  margin-bottom: -90px;
   margin-left: 90%;
   /* align-self: center; */
 `;
