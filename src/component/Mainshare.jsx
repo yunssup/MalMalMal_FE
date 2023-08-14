@@ -14,7 +14,7 @@ import "swiper/css/scrollbar";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background: #f4faff;
+  background: #fff6f6;
   width: 370px;
 `;
 const Top = styled.div`
@@ -65,11 +65,12 @@ const Title = styled.h1`
   font-weight: 700;
   line-height: normal;
 `;
+
 const BestMain = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* margin-left: 20%; */
+  margin-left: 0%;
 `;
 const BestPost = styled.div`
   display: flex;
@@ -80,8 +81,8 @@ const BestPost = styled.div`
   width: 221px;
   height: 204px;
   flex-shrink: 0;
-
   margin-left: 20%;
+  /* margin-bottom: 10%; */
 `;
 const Name = styled.div`
   color: #909090;
@@ -90,6 +91,8 @@ const Name = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin-top: 10%;
+  margin-left: 10%;
 `;
 const Text = styled.div`
   color: #000;
@@ -98,6 +101,8 @@ const Text = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 32px; /* 133.333% */
+  margin-top: 10%;
+  margin-left: 10%;
 `;
 const Bar = styled.div`
   border-radius: 0px 0px 20px 20px;
@@ -106,28 +111,35 @@ const Bar = styled.div`
   height: 55px;
   flex-shrink: 0;
   display: flex;
+  margin-top: 20%;
+  justify-content: space-between;
 `;
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   width: 44px;
   height: 40.37px;
   flex-shrink: 0;
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
+  margin-top: 2%;
+  margin-left: 2%;
 `;
 const Image = styled.img`
   width: 55px;
   height: 55px;
   flex-shrink: 0;
 `;
+
 const MainPost = styled.div`
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
   border-radius: 20px;
   background: var(--unnamed, #f9f9f9);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  width: 221px;
-  height: 204px;
+  width: 300px;
+  height: 189px;
   flex-shrink: 0;
-  margin-left: 20%;
+  margin-left: 10%;
+  margin-bottom: 10%;
 `;
 const Name1 = styled.div`
   color: #909090;
@@ -136,6 +148,8 @@ const Name1 = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  margin-top: 10%;
+  margin-left: 10%;
 `;
 const Text1 = styled.div`
   color: #000;
@@ -144,20 +158,26 @@ const Text1 = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 32px; /* 133.333% */
+  margin-top: 4%;
+  margin-left: 10%;
 `;
 const Bar1 = styled.div`
   border-radius: 0px 0px 20px 20px;
   background: #ececec;
-  width: 221px;
+  width: 300px;
   height: 55px;
   flex-shrink: 0;
   display: flex;
+  margin-top: 11%;
+  justify-content: space-between;
 `;
 const StyledFontAwesomeIcon1 = styled(FontAwesomeIcon)`
   width: 44px;
   height: 40.37px;
   flex-shrink: 0;
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
+  margin-top: 2%;
+  margin-left: 2%;
 `;
 const Image1 = styled.img`
   width: 55px;
@@ -175,8 +195,15 @@ export default function Click() {
     { name: "닉네임1", title: "제목1" },
     { name: "닉네임2", title: "제목2" },
     { name: "닉네임3", title: "제목3" },
+    { name: "닉네임4", title: "제목4" },
   ];
 
+  const allPostsData = [
+    { name: "닉네임1", title: "제목1" },
+    { name: "닉네임2", title: "제목2" },
+    { name: "닉네임3", title: "제목3" },
+    // { name: "닉네임4", title: "제목4" },
+  ];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextPost = () => {
@@ -223,9 +250,8 @@ export default function Click() {
         </Swiper>
       </BestMain>
       <Title>전체글</Title>
-      {/* mainPostsData 배열을 매핑하여 전체글 포스트 생성 */}
       <div>
-        {mainPostsData.map((data, index) => (
+        {allPostsData.map((data, index) => (
           <MainPost key={index}>
             <Name1>{data.name}</Name1>
             <Text1>{data.title}</Text1>
