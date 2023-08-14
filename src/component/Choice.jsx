@@ -178,7 +178,7 @@ export default function Hello({ showAge }) {
         </StyledLink>
       </TagContainer1>{" "}
       <TagContainer2>
-        <StyledLink to="/login">
+        <StyledLink to="/Mainshare">
           {" "}
           {/* StyledLink 컴포넌트로 감싸서 스타일 적용 */}
           <TagWithCircleWithText2>

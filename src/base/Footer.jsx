@@ -78,7 +78,7 @@ const Footer = () => {
     if (destination === "홈으로갈거야") {
       history.push("/choice"); // 홈으로 이동
     } else if (destination === "마이페이지로 갈거야") {
-      history.push("/login"); // 마이페이지로 이동(현재는 마이페이지 미개설로 로그인으로 이동하게 설정)
+      history.push("/mypage"); // 마이페이지로 이동(현재는 마이페이지 미개설로 로그인으로 이동하게 설정)
     }
   };
 
@@ -87,21 +87,21 @@ const Footer = () => {
       <Image src="풋바하얀색배경.jpg" alt="로고 이미지" />
       <LeftEmojiButton
         onClick={() => handleEmojiClick("홈으로갈거야")}
-        isActive={activeButton === "홈으로갈거야"}
+        isactive={activeButton === "홈으로갈거야"}
       >
         <StyledFontAwesomeIcon
           icon={faHome}
-          isActive={activeButton === "홈으로갈거야"}
+          isactive={activeButton === "홈으로갈거야"}
         />
         <span>홈</span>
       </LeftEmojiButton>
       <RightEmojiButton
         onClick={() => handleEmojiClick("마이페이지로 갈거야")}
-        isActive={activeButton === "마이페이지로 갈거야"}
+        isactive={activeButton === "마이페이지로 갈거야"}
       >
         <StyledFontAwesomeIcon
           icon={faUser}
-          isActive={activeButton === "마이페이지로 갈거야"}
+          isactive={activeButton === "마이페이지로 갈거야"}
         />
         <span>내 계정</span>
       </RightEmojiButton>

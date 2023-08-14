@@ -174,10 +174,10 @@ const Image = styled.img`
 
 export default function Click() {
   const [recruitmentPeriod, setRecruitmentPeriod] = useState("");
+  const [recruitmentStatus, setRecruitmentStatus] = useState("모집중");
   const [progressPeriod, setProgressPeriod] = useState("");
   const [organizerAddress, setOrganizerAddress] = useState("");
   const [contactNumber, setContactNumber] = useState("");
-  const [recruitmentStatus, setRecruitmentStatus] = useState("모집중");
 
   const handlePost = () => {
     console.log("게시 버튼이 클릭되었습니다.");

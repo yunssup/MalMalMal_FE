@@ -12,7 +12,7 @@ import Writeedit from "./component/Writeedit";
 import { FadeContainer } from "./component/Styled"; // styles.js에서 export한 FadeContainer를 import합니다.
 import Mainsns from "./component/Mainsns";
 import Mainshare from "./component/Mainshare";
-
+import Mypage from "./component/Mypage";
 export default function AppRouter() {
   return (
     <Router>
@@ -53,6 +53,9 @@ export default function AppRouter() {
         </Route>
         <Route path="/mainshare">
           <Mainshare />
+        </Route>
+        <Route path="/mypage">
+          <Mypage />
         </Route>
       </Switch>
     </Router>

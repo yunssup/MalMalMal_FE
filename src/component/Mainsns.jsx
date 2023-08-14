@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Link } from "react-router-dom"; // Link import 추가
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -31,29 +32,53 @@ const Logo = styled.img`
   flex-shrink: 0;
   margin-left: 3%;
 `;
-const ClickButton = styled.button`
-  margin-right: 3%;
-
+const Button = styled.button`
+  display: flex;
+  background-color: transparent; /* 배경색 없애기 */
+  border: none; /* 테두리 없애기 */
+`;
+const ClickButton1 = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
-  width: 143px;
-  height: 40px;
+  width: 120px;
+  height: 50px;
   flex-shrink: 0;
   justify-content: center;
 
-  border-radius: 24px;
-  border: 2px solid var(--unnamed, #fefbff);
-  background: #252728;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 44.798px;
+  background: linear-gradient(173deg, #e5e3e3 0%, #fff 100%);
 
-  color: var(--unnamed, #fefbff);
+  color: #ff6392;
   font-family: Noto Sans KR;
-  font-size: 20px;
+  font-size: 22px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 700;
+  line-height: normal;
+`;
+const ClickButton2 = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 120px;
+  height: 50px;
+  flex-shrink: 0;
+  justify-content: center;
+
+  border-radius: 48.727px;
+  background: #ec7196;
+  color: #ff6392;
+  color: #f7f7f7;
+
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
   line-height: normal;
 `;
 const Title = styled.h1`
@@ -224,7 +249,12 @@ export default function Click() {
     <Container>
       <Top>
         <Logo src="/말말말로고.jpg" alt="버튼 이미지" />
-        <ClickButton onClick={handleLoginClick}>변경필요</ClickButton>
+        <Button>
+          <ClickButton2>소식 나누기</ClickButton2>
+          <Link to="/Mainshare">
+            <ClickButton1>지역 정보</ClickButton1>
+          </Link>
+        </Button>
       </Top>
       <Title>인기글</Title>
       <BestMain>
