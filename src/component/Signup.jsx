@@ -6,6 +6,7 @@ import {
   faArrowCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom"; // useHistory 임포트
+import axios from "axios"; // axios 임포트 추가
 
 const SignupContainer = styled.div`
   display: flex;
@@ -253,12 +254,24 @@ export default function SignupPage() {
   const [isModalVisible, setIsModalVisible] = useState(false); // 상태 및 함수를 바깥에 위치시킴
   const history = useHistory(); // useHistory 초기화
 
-  const handleSignup = () => {
-    // 여기에서 회원가입 처리를 수행합니다.
-    console.log("Username:", username);
-    console.log("Password:", password);
-    console.log("Nickname:", nickname);
-    // 실제로는 서버로 요청을 보내거나 다른 회원가입 처리를 수행해야 합니다.
+  const handleSignup = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/accounts/accounts/register/",
+        {
+          username,
+          password,
+          nickname,
+          // 이곳에 다른 필요한 정보 추가
+        }
+      );
+
+      // 회원가입 성공 시 모달 띄우기
+      toggleModal();
+    } catch (error) {
+      // 회원가입 실패 시 에러 처리
+      console.error("회원가입 실패:", error);
+    }
   };
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -336,56 +349,186 @@ export default function SignupPage() {
           "중구",
           "중랑구",
         ];
-      } else if (city === "부산광역시") {
+      } else if (city === "경기도") {
         districts = [
-          "중구",
-          "서구",
-          "동구",
-          "영도구",
-          "부산진구",
-          "동래구",
-          "남구",
-          "북구",
-          "해운대구",
-          "사하구",
-          "금정구",
-          "강서구",
-          "연제구",
-          "수영구",
-          "사상구",
-          "기장군",
+          "수원시",
+          "고양시",
+          "용인시",
+          "성남시",
+          "화성시",
+          "부천시",
+          "남양주시",
+          "안산시",
+          "안양시",
+          "평택시",
+          "시흥시",
+          "김포시",
+          "파주시",
+          "의정부시",
+          "광명시",
+          "하남시",
+          "군포시",
+          "양주시",
+          "오산시",
+          "이천시",
+          "구리시",
+          "안성시",
+          "의왕시",
+          "포천시",
+          "양평군",
+          "여주시",
+          "동두천시",
+          "과천시",
+          "가평군",
+          "연천군",
         ];
-      } else if (city === "대구광역시") {
+      } else if (city === "강원도") {
         districts = [
-          "중구",
-          "서구",
-          "동구",
-          "남구",
-          "북구",
-          "수성구",
-          "달서구",
-          "달성군",
+          "원주시",
+          "춘천시",
+          "강릉시",
+          "동해시",
+          "속초시",
+          "홍천군",
+          "삼척시",
+          "횡성군",
+          "철원군",
+          "태백시",
+          "평창군",
+          "영월군",
+          "정선군",
+          "인제군",
+          "양양군",
+          "고성군",
+          "화천군",
+          "양구군",
         ];
-      } else if (city === "인천광역시") {
+      } else if (city === "충청북도") {
         districts = [
-          "중구",
-          "서구",
-          "동구",
-          "미추홀구",
-          "연수구",
-          "남동구",
-          "부평구",
-          "계양구",
-          "강화군",
-          "옹진군",
+          "청주시",
+          "충주시",
+          "제천시",
+          "음성군",
+          "진천군",
+          "옥천군",
+          "영동군",
+          "괴산군",
+          "증평군",
+          "보은군",
+          "단양군",
         ];
-      } else if (city === "광주광역시") {
-        districts = ["남구", "서구", "동구", "북구", "광산구"];
-      } else if (city === "대전광역시") {
-        districts = ["중구", "서구", "동구", "유성구", "대덕구"];
-      } else if (city === "울산광역시") {
-        districts = ["중구", "남구", "동구", "북구", "울주군"];
+      } else if (city === "충청남도") {
+        districts = [
+          "천안시",
+          "아산시",
+          "서산시",
+          "당진시",
+          "논산시",
+          "논산시",
+          "공주시",
+          "보령시",
+          "홍성군",
+          "예산군",
+          "부여군",
+          "태안군",
+          "서천군",
+          "금산군",
+          "계룡시",
+          "천안군",
+        ];
+      } else if (city === "경상북도") {
+        districts = [
+          "포항시",
+          "구미시",
+          "경산시",
+          "경주시",
+          "안동시",
+          "김천시",
+          "칠곡군",
+          "영주시",
+          "영천시",
+          "상주시",
+          "문경시",
+          "예천군",
+          "의성군",
+          "울진군",
+          "성주군",
+          "청도군",
+          "영덕군",
+          "봉화군",
+          "고령군",
+          "청송군",
+          "군위군",
+          "영양군",
+          "울릉군",
+        ];
+      } else if (city === "경상남도") {
+        districts = [
+          "창원시",
+          "김해시",
+          "양산시",
+          "진주시",
+          "거제시",
+          "통영시",
+          "사천시",
+          "밀양시",
+          "함안군",
+          "거창군",
+          "창녕군",
+          "고성군",
+          "하동군",
+          "합천군",
+          "남해군",
+          "함양군",
+          "산청군",
+          "의령군",
+        ];
+      } else if (city === "전라북도") {
+        districts = [
+          "전주시",
+          "익산시",
+          "군산시",
+          "정읍시",
+          "완주군",
+          "김제시",
+          "남원시",
+          "고창군",
+          "부안군",
+          "순창군",
+          "임실군",
+          "진안군",
+          "무주군",
+          "장수군",
+        ];
+      } else if (city === "전라남도") {
+        districts = [
+          "순천시",
+          "여수시",
+          "목포시",
+          "광양시",
+          "나주시",
+          "무안군",
+          "해남군",
+          "고흥군",
+          "화순군",
+          "영암군",
+          "영광군",
+          "완도군",
+          "담양군",
+          "장성군",
+          "보성군",
+          "신안군",
+          "장흥군",
+          "강진군",
+          "함평군",
+          "진도군",
+          "곡성군",
+          "구례군",
+        ];
       }
+    } else if (city === "제주특별자치도") {
+      districts = ["제주시", "서귀포시"];
+
       const districtOption = document.createElement("option");
       districtOption.setAttribute("value", "");
       districtOption.innerText = "구 선택";
@@ -402,6 +545,7 @@ export default function SignupPage() {
   const goToLoginPage = () => {
     history.push("/login"); // 로그인 페이지로 이동
   };
+
   return (
     <SignupContainer>
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
@@ -467,15 +611,18 @@ export default function SignupPage() {
             iscityoptionexisted="false"
           >
             <option disabled selected>
-              시 선택
+              도/시 선택
             </option>
             <option value="서울특별시">서울특별시</option>
-            <option value="부산광역시">부산광역시</option>
-            <option value="대구광역시">대구광역시</option>
-            <option value="인천광역시">인천광역시</option>
-            <option value="광주광역시">광주광역시</option>
-            <option value="대전광역시">대전광역시</option>
-            <option value="울산광역시">울산광역시</option>{" "}
+            <option value="경기도">경기도</option>
+            <option value="강원도">강원도</option>
+            <option value="충청북도">충청북도</option>
+            <option value="충청남도">충청남도</option>
+            <option value="경상북도">경상북도</option>
+            <option value="경상남도">경상남도</option>
+            <option value="전라남도">전라남도</option>
+            <option value="전라북도">전라북도</option>
+            <option value="제주특별시">제주특별시</option>{" "}
           </CitySelect>
           <DistrictSelect
             className="box"

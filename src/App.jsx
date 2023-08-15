@@ -20,22 +20,6 @@ useEffect(() => {
   setScreenSize();
 });
 
-function App() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/posts/") // 백엔드 API 주소
-      .then((response) => response.json())
-      .then((data) => setData(data));
-  }, []);
-
-  return (
-    <div>
-      {data.map((item) => (
-        <p key={item.id}>{item.name}</p>
-      ))}
-    </div>
-  );
-}
+return <div></div>;
 
 export default App;

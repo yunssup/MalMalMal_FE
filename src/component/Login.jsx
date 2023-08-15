@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import axios from "axios"; // Axios 임포트
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleRight,
@@ -117,23 +118,35 @@ const SignUpButton = styled.button`
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [rememberMe, setRememberMe] = useState(false);
   const history = useHistory();
+  const [error, setError] = useState(null);
 
-  const isFormFilled = username !== "" && password !== ""; // 아이디와 비밀번호가 모두 입력되었는지 확인
+  const isFormFilled = username !== "" && password !== "";
 
-  const handleLogin = () => {
-    history.push("/choice");
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/accounts/login/",
+        {
+          username,
+          password,
+        }
+      );
 
-    console.log("아이디:", username);
-    console.log("비밀번호:", password);
-    // console.log("로그인 상태 유지:", rememberMe);
+      if (response.status === 200) {
+        history.push("/choice");
+      } else {
+        setError("아이디와 비밀번호를 확인하세요.");
+      }
+    } catch (error) {
+      console.error("API 호출 에러:", error);
+      setError("서버와의 통신 중 에러가 발생했습니다.");
+    }
   };
 
   const handleSignUp = () => {
     history.push("/signup");
   };
-
   return (
     <LoginContainer>
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
@@ -151,7 +164,11 @@ export default function LoginPage() {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <LoginButton isFilled={isFormFilled} onClick={handleLogin}>
+      <LoginButton
+        isFilled={isFormFilled}
+        onClick={isFormFilled ? handleLogin : null}
+      >
+        {" "}
         접속하기
       </LoginButton>
       <SignUpButton onClick={handleSignUp}>
