@@ -258,7 +258,7 @@ export default function Hello() {
       </Ment3>
       <Image4 src="/뒷배경.png" alt="버튼 이미지" />
       <ClickButton1 onClick={handleVoice}>
-        <Image src="/말하기.png" alt="버튼 이미지" />
+        <Image src="/파랑.png" alt="버튼 이미지" />
       </ClickButton1>
       <WhiteBox1>{speechResult || "마이크를 누르고 말해주세요"}</WhiteBox1>{" "}
       <Ment4>좋아요! </Ment4>

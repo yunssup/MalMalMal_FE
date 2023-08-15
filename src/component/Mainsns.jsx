@@ -6,6 +6,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom"; // Link import 추가
+import axios from "axios"; // API 요청을 위해 axios 가져오기
 
 import "swiper/css";
 import "swiper/css/navigation";
