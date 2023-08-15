@@ -4,7 +4,7 @@ import AppRouter from "./Router"; // 변경된 파일 경로
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter basename="Malmalmal_FE">
-    <App />
-  </BrowserRouter>
+  <React.StrictMode>
+    <AppRouter />
+  </React.StrictMode>
 );
