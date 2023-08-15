@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../base/Footer";
+import Readsns from "./Readsns";
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -95,16 +97,20 @@ const Image = styled.img`
   margin-bottom: -70px;
   margin-left: 33%;
 `;
-export default function Hello({ showAge }) {
+export default function Hello() {
   const [speechResult, setSpeechResult] = useState("");
   const [inputText, setInputText] = useState("");
-  const [title, setTitle] = useState(""); // 추가된 부분
+  const [title, setTitle] = useState("");
+  const history = useHistory();
 
   const handlePost = () => {
     console.log("게시 버튼이 클릭되었습니다.");
-    console.log("제목:", title); // 입력된 제목 출력
-  };
+    console.log("제목:", title);
+    history.push("/readsns");
 
+    // Click 컴포넌트로 이동하고 데이터를 프롭스로 전달합니다
+    return <Readsns title={title} inputText={inputText} />;
+  };
   const handleVoice = () => {
     console.log("말하기 버튼이 클릭되었습니다.");
     startSpeechRecognition();

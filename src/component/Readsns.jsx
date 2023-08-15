@@ -63,7 +63,7 @@ const ProgressBar = styled.div`
   background: transparent;
   transform-origin: left;
   animation: ${(props) =>
-    props.isactive
+    props.isActive
       ? css`
           ${progressBarAnimation} 10s linear infinite
         `
@@ -110,29 +110,28 @@ const Image = styled.img`
   margin-left: 33%;
 `;
 
-export default function Click() {
+export default function Click(props) {
   const [isProgressRunning, setIsProgressRunning] = useState(false);
 
   const handleButtonClick = () => {
     console.log("버튼 눌림");
 
-    // 프로그래스 바 실행 여부를 토글
     setIsProgressRunning((prevState) => !prevState);
   };
 
   return (
     <Container>
       <Date>날짜 불러오기</Date>
-      <Title>여기가 제목입니당 </Title>
+      <Title>{props.title}</Title>
       <Name>작성자 별명</Name>
       <ProgressBarContainer>
         <ProgressBar isActive={isProgressRunning} />
-      </ProgressBarContainer>{" "}
+      </ProgressBarContainer>
       <TimeInfo>
         <span>00:00</span>
         <span>99:99</span>
       </TimeInfo>
-      <WhiteBox>쓴 글 불러오기</WhiteBox>
+      <WhiteBox>{props.inputText}</WhiteBox>
       <ClickButton onClick={handleButtonClick}>
         <Image src="/재생버튼.jpg" alt="버튼 이미지" />
       </ClickButton>
