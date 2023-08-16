@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../base/Footer";
-import Readsns from "./Readsns";
 import { useHistory } from "react-router-dom";
 import axios from "axios"; // Axios를 임포트합니다
 
@@ -98,6 +97,7 @@ const Image = styled.img`
   margin-bottom: -70px;
   margin-left: 33%;
 `;
+
 //상단 부분은 CSS 코드입니다//
 
 export default function Hello() {
@@ -129,12 +129,24 @@ export default function Hello() {
   const handlePost = async () => {
     console.log("게시 버튼이 클릭되었습니다.");
     console.log("제목:", title);
+    console.log("음성 텍스트:", speechResult);
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/posts/", {
-        title,
-        content: inputText,
-      });
+      // CSRF 토큰 값을 여기에 입력하세요
+      const csrfToken = "YourCSRFTokenHere";
+
+      const response = await axios.post(
+        "http://127.0.0.1:8000/posts/",
+        {
+          title,
+          content: `${title} ${speechResult}`, // 제목과 음성 텍스트 합침
+        },
+        {
+          headers: {
+            "X-CSRFToken": csrfToken,
+          },
+        }
+      );
 
       if (response.status === 200) {
         console.log("텍스트가 백엔드로 전송되었습니다.");
@@ -146,7 +158,6 @@ export default function Hello() {
       console.error("텍스트 전송 중 오류 발생:", error);
     }
   };
-
   return (
     <Container>
       <PostButton onClick={handlePost}>
