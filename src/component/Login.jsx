@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import axios from "axios"; // Axios 임포트
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowCircleRight,
@@ -11,7 +11,6 @@ import {
 const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* border: 1px solid black; */
   height: 840px;
   --vh: 100%;
 `;
@@ -57,7 +56,7 @@ const InputField = styled.input`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  transition: border-color 0.3s, background-color 0.3s; /* 추가된 부분 */
+  transition: border-color 0.3s, background-color 0.3s;
 
   &::placeholder {
     color: #b9b4b4;
@@ -70,17 +69,15 @@ const InputField = styled.input`
   }
 
   &:focus {
-    border-color: #ff8d8f; /* 변경된 border 색상 */
-    background: #fff7f7; /* 변경된 background 색상 */
+    border-color: #ff8d8f;
+    background: #fff7f7;
     outline: none;
   }
 `;
 const LoginButton = styled.button`
   border-radius: 10px;
-  background: ${({ isFilled }) =>
-    isFilled ? "#ff8d8f" : "#fff"}; /* 동적으로 배경 색상 변경 */
-  color: ${({ isFilled }) =>
-    isFilled ? "#fff" : "#454545"}; /* 동적으로 글자 색상 변경 */
+  background: ${({ isFilled }) => (isFilled ? "#ff8d8f" : "#fff")};
+  color: ${({ isFilled }) => (isFilled ? "#fff" : "#454545")};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 181px;
   height: 66px;
@@ -94,26 +91,66 @@ const LoginButton = styled.button`
   cursor: pointer;
   text-align: center;
   font-family: Noto Sans KR;
-  font-size: 36px;
+  font-size: 30px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  transition: background-color 0.3s, color 0.3s; /* 추가된 부분 */
-  margin-top: 20%;
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: 5%;
+`;
+const NaverLoginButton = styled.button`
+  border-radius: 10px;
+  background: ${({ isFilled }) => (isFilled ? "#ff8d8f" : "#fff")};
+  color: ${({ isFilled }) => (isFilled ? "#fff" : "#454545")};
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 181px;
+  height: 66px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: 10%;
 `;
 
 const SignUpButton = styled.button`
   color: #000;
   text-align: center;
   font-family: Noto Sans KR;
-  font-size: 46px;
+  font-size: 40px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
   border: none;
   background: none;
-  margin-top: 15%;
+  margin-top: 10%;
 `;
+
+const ExternalLinkButton = styled.a`
+  color: #000;
+  text-align: center;
+  font-family: Noto Sans KR;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border: none;
+  background: none;
+  padding-bottom: 5%;
+  margin-top: 10%;
+  text-decoration: none;
+`;
+//상단 부분은 CSS 코드입니다 :)//
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -121,8 +158,9 @@ export default function LoginPage() {
   const history = useHistory();
   const [error, setError] = useState(null);
 
-  const isFormFilled = username !== "" && password !== "";
+  const isFormFilled = username !== "" && password !== ""; // 아이디, 비밀번호 모두 채워져야 로그인 버튼 눌림
 
+  // 백엔드에게 로그인 post 보내기
   const handleLogin = async () => {
     try {
       const response = await axios.post(
@@ -144,9 +182,31 @@ export default function LoginPage() {
     }
   };
 
+  //네이버 간편 로그인 API 설정//
+  const handleNaverLogin = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:8000/user/naver/login"
+      ); // 백엔드 엔드포인트로 GET 요청 보내기
+
+      if (response.status === 200) {
+        // 성공적인 응답 처리
+        console.log("네이버 로그인 성공");
+        // 여기에서 로그인 후 동작을 추가하거나 페이지 이동을 처리할 수 있습니다.
+      } else {
+        // 실패한 응답 처리
+        console.error("네이버 로그인 실패");
+      }
+    } catch (error) {
+      console.error("API 호출 에러:", error);
+      // 오류 처리
+    }
+  };
+
   const handleSignUp = () => {
     history.push("/signup");
   };
+
   return (
     <LoginContainer>
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
@@ -163,7 +223,6 @@ export default function LoginPage() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-
       <LoginButton
         isFilled={isFormFilled}
         onClick={isFormFilled ? handleLogin : null}
@@ -171,10 +230,19 @@ export default function LoginPage() {
         {" "}
         접속하기
       </LoginButton>
+      <NaverLoginButton onClick={handleNaverLogin}>
+        네이버 간편 로그인
+      </NaverLoginButton>{" "}
       <SignUpButton onClick={handleSignUp}>
         회원가입
         <FontAwesomeIcon icon={faArrowCircleRight} />
       </SignUpButton>
+      <ExternalLinkButton
+        href="https://forms.gle/w1gFr5n9wP7dn73k8"
+        target="_blank"
+      >
+        공공기간 관리자면 여기를 눌러주세요
+      </ExternalLinkButton>{" "}
     </LoginContainer>
   );
 }

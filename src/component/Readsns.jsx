@@ -109,6 +109,7 @@ const Image = styled.img`
   margin-bottom: -70px;
   margin-left: 33%;
 `;
+//상단 부분 css 코드입니다//
 
 export default function Click(props) {
   const [isProgressRunning, setIsProgressRunning] = useState(false);

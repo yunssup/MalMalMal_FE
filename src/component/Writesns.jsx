@@ -5,6 +5,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../base/Footer";
 import Readsns from "./Readsns";
 import { useHistory } from "react-router-dom";
+import axios from "axios"; // Axios를 임포트합니다
 
 const Container = styled.div`
   display: flex;
@@ -51,14 +52,14 @@ const Input = styled.input`
   line-height: normal;
   text-transform: capitalize;
   border: none;
-  outline: none; // 포커스된 상태에서의 테두리 제거
+  outline: none;
 
   &::placeholder {
     text-align: center;
   }
 
   &:focus {
-    border: 2px solid #ff8d8f; // 포커스된 상태에서의 테두리 색
+    border: 2px solid #ff8d8f;
   }
 `;
 const WhiteBox1 = styled.div`
@@ -97,20 +98,14 @@ const Image = styled.img`
   margin-bottom: -70px;
   margin-left: 33%;
 `;
+//상단 부분은 CSS 코드입니다//
+
 export default function Hello() {
   const [speechResult, setSpeechResult] = useState("");
   const [inputText, setInputText] = useState("");
   const [title, setTitle] = useState("");
   const history = useHistory();
 
-  const handlePost = () => {
-    console.log("게시 버튼이 클릭되었습니다.");
-    console.log("제목:", title);
-    history.push("/readsns");
-
-    // Click 컴포넌트로 이동하고 데이터를 프롭스로 전달합니다
-    return <Readsns title={title} inputText={inputText} />;
-  };
   const handleVoice = () => {
     console.log("말하기 버튼이 클릭되었습니다.");
     startSpeechRecognition();
@@ -131,6 +126,27 @@ export default function Hello() {
     recognition.start();
   };
 
+  const handlePost = async () => {
+    console.log("게시 버튼이 클릭되었습니다.");
+    console.log("제목:", title);
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/posts/", {
+        title,
+        content: inputText,
+      });
+
+      if (response.status === 200) {
+        console.log("텍스트가 백엔드로 전송되었습니다.");
+        history.push("/readsns");
+      } else {
+        console.error("텍스트 전송에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("텍스트 전송 중 오류 발생:", error);
+    }
+  };
+
   return (
     <Container>
       <PostButton onClick={handlePost}>
@@ -144,9 +160,8 @@ export default function Hello() {
         onChange={(e) => setTitle(e.target.value)}
       />
       <WhiteBox1>{speechResult || "텍스트 샘플입니다옹"}</WhiteBox1>{" "}
-      <form action="" method="post">
+      {/* <form action="" method="post">
         <h1>변환할 텍스트 입력</h1>
-        {/* Django에서 사용하는 CSRF 토큰을 직접 생성하여 넣어주세요 */}
         <input
           type="hidden"
           name="csrfmiddlewaretoken"
@@ -159,7 +174,7 @@ export default function Hello() {
           onChange={(e) => setInputText(e.target.value)}
         />
         <input type="submit" value="Send message" />
-      </form>
+      </form> */}
       <ClickButton onClick={handleVoice}>
         {" "}
         <Image src="/말하기.png" alt="버튼 이미지" />
