@@ -172,10 +172,11 @@ export default function LoginPage() {
       const response = await axios.post(
         "http://127.0.0.1:8000/accounts/login/",
         {
-          username,
+          email: username,
           password,
         }
       );
+      console.log(response);
 
       if (response.status === 200) {
         history.push("/choice");
