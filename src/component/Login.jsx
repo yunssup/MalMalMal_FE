@@ -100,22 +100,22 @@ const LoginButton = styled.button`
 `;
 const NaverLoginButton = styled.button`
   border-radius: 10px;
-  background: ${({ isFilled }) => (isFilled ? "#ff8d8f" : "#fff")};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 23%;
+  background-color: ${({ isFilled }) => (isFilled ? "#ff8d8f" : "#fff")};
   color: ${({ isFilled }) => (isFilled ? "#fff" : "#454545")};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 181px;
   height: 66px;
   flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-self: center;
   border: none;
   cursor: pointer;
   text-align: center;
   font-family: Noto Sans KR;
-  font-size: 20px;
+  font-size: 26px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -123,6 +123,12 @@ const NaverLoginButton = styled.button`
   margin-top: 10%;
 `;
 
+const Naver = styled.img`
+  width: 30px;
+  height: 30px;
+  margin-right: 10px; /* 추가: 이미지와 글자 간격 조절 */
+  flex-shrink: 0;
+`;
 const SignUpButton = styled.button`
   color: #000;
   text-align: center;
@@ -231,8 +237,9 @@ export default function LoginPage() {
         접속하기
       </LoginButton>
       <NaverLoginButton onClick={handleNaverLogin}>
-        네이버 간편 로그인
-      </NaverLoginButton>{" "}
+        <Naver src="/네이버.png" alt="로고 이미지" />
+        간편 로그인
+      </NaverLoginButton>
       <SignUpButton onClick={handleSignUp}>
         회원가입
         <FontAwesomeIcon icon={faArrowCircleRight} />
@@ -241,7 +248,7 @@ export default function LoginPage() {
         href="https://forms.gle/w1gFr5n9wP7dn73k8"
         target="_blank"
       >
-        공공기간 관리자면 여기를 눌러주세요
+        공공기관 관리자면 여기를 눌러주세요
       </ExternalLinkButton>{" "}
     </LoginContainer>
   );

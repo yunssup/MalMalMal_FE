@@ -210,6 +210,7 @@ const StyledFontAwesomeIcon1 = styled(FontAwesomeIcon)`
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
   margin-top: 2%;
   margin-left: 2%;
+  color: ${({ clicked }) => (clicked ? "#FF6392" : "#000")};
 `;
 const Image1 = styled.img`
   width: 55px;
@@ -288,6 +289,15 @@ export default function Click() {
   const handleButtonClick = () => {
     console.log("버튼 눌림");
   };
+
+  const handleHeartClick = (index) => {
+    const updatedClickedState = [...heartClicked];
+    updatedClickedState[index] = !updatedClickedState[index];
+    setHeartClicked(updatedClickedState);
+  };
+  const [heartClicked, setHeartClicked] = useState(
+    Array(allPostsData.length).fill(false)
+  );
   return (
     <Container>
       <Top>
@@ -314,7 +324,11 @@ export default function Click() {
                 <Name>{data.name}</Name>
                 <Text>{data.title}</Text>
                 <Bar>
-                  <StyledFontAwesomeIcon icon={faHeart} />
+                  <StyledFontAwesomeIcon1
+                    icon={faHeart}
+                    onClick={() => handleHeartClick(currentIndex + index)}
+                    clicked={heartClicked[currentIndex + index]}
+                  />{" "}
                   <Image src="/재생.png" alt="버튼 이미지" />
                 </Bar>
               </BestPost>
@@ -331,12 +345,16 @@ export default function Click() {
               <Name1>{data.name}</Name1>
               <Text1>{data.title}</Text1>
               <Bar1>
-                <StyledFontAwesomeIcon1 icon={faHeart} />
+                <StyledFontAwesomeIcon1
+                  icon={faHeart}
+                  onClick={() => handleHeartClick(currentIndex + index)}
+                  clicked={heartClicked[currentIndex + index]}
+                />
                 <Image1 src="/재생.png" alt="버튼 이미지" />
               </Bar1>
             </MainPost>
           ))}
-      </div>
+      </div>{" "}
       <PrevNextButtons>
         <button onClick={prevPost} disabled={currentIndex === 0}>
           이전
@@ -353,7 +371,6 @@ export default function Click() {
           <Image2 src="/글쓰기버튼.png" alt="버튼 이미지" />
         </StyledLink>
       </ClickButton>
-
       <Footer />
     </Container>
   );
