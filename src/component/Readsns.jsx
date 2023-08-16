@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled, { keyframes, css } from "styled-components";
 import Footer from "../base/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -36,13 +39,13 @@ const Name = styled.h5`
   margin-top: -9%;
 `;
 const progressBarAnimation = keyframes`
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-`;
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  `;
 
 const ProgressBarContainer = styled.div`
   display: flex;
@@ -109,22 +112,56 @@ const Image = styled.img`
   margin-bottom: -70px;
   margin-left: 33%;
 `;
-//상단 부분 css 코드입니다//
+const HeartIcon = styled(FontAwesomeIcon)`
+  transition: color 0.3s;
+  cursor: pointer;
+  color: ${({ clicked }) => (clicked ? "#FF6392" : "#000")};
+`;
+
+//상단 부분은 css 코드입니다 :)
 
 export default function Click(props) {
   const [isProgressRunning, setIsProgressRunning] = useState(false);
+  const [isHeartClicked, setIsHeartClicked] = useState(false);
 
   const handleButtonClick = () => {
     console.log("버튼 눌림");
-
     setIsProgressRunning((prevState) => !prevState);
+  };
+  //하트 눌렀을 때 백엔드에게 좋아요 post로 전달
+  const handleHeartClick = async () => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/posts/${props.postId}/like/`
+      );
+
+      if (response.status === 200) {
+        setIsHeartClicked((prevState) => !prevState);
+      } else {
+        console.error("좋아요 처리 실패");
+      }
+    } catch (error) {
+      console.error("API 호출 에러:", error);
+    }
   };
 
   return (
     <Container>
       <Date>날짜 불러오기</Date>
-      <Title>{props.title}</Title>
-      <Name>작성자 별명</Name>
+      <Title>{props.title} 여기에 제목불러와</Title>
+      <Name>
+        작성자 별명
+        <HeartIcon
+          icon={faHeart}
+          clicked={isHeartClicked}
+          onClick={handleHeartClick}
+          style={{
+            color: isHeartClicked ? "#FF6392" : "#000",
+            width: "30px",
+            height: "30px",
+          }}
+        />
+      </Name>{" "}
       <ProgressBarContainer>
         <ProgressBar isActive={isProgressRunning} />
       </ProgressBarContainer>

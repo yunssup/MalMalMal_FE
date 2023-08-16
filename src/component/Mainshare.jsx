@@ -115,6 +115,7 @@ const BestPost = styled.div`
   margin-left: 20%;
   /* margin-bottom: 10%; */
 `;
+
 const Name = styled.div`
   color: #909090;
   font-family: Noto Sans KR;
@@ -297,7 +298,7 @@ export default function Click() {
           <ClickButton1>지역 정보</ClickButton1>
         </Button>
       </Top>{" "}
-      <Title>인기글</Title>
+      <Title>개인 지역명 불러오기</Title>
       <BestMain>
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -309,8 +310,8 @@ export default function Click() {
           {mainPostsData.map((data, index) => (
             <SwiperSlide key={index}>
               <BestPost>
-                <Name>{data.name}</Name>
                 <Text>{data.title}</Text>
+                <Name>{data.name}</Name>
                 <Bar>
                   <StyledFontAwesomeIcon icon={faHeart} />
                   <Image src="/재생.png" alt="버튼 이미지" />
