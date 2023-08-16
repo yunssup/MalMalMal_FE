@@ -254,6 +254,8 @@ const Image2 = styled.img`
   margin-left: 90%;
   /* align-self: center; */
 `;
+
+//상단 부분은 CSS 코드입니다 :)
 export default function Click() {
   const perPage = 4;
   const mainPostsData = [

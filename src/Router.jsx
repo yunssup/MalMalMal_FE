@@ -13,6 +13,8 @@ import { FadeContainer } from "./component/Styled"; // styles.js에서 export한
 import Mainsns from "./component/Mainsns";
 import Mainshare from "./component/Mainshare";
 import Mypage from "./component/Mypage";
+import My from "./component/My";
+import Heart from "./component/Heart";
 export default function AppRouter() {
   return (
     <Router>
@@ -56,6 +58,12 @@ export default function AppRouter() {
         </Route>
         <Route path="/mypage">
           <Mypage />
+        </Route>
+        <Route path="/my">
+          <My />
+        </Route>
+        <Route path="/heart">
+          <Heart />
         </Route>
       </Switch>
     </Router>
