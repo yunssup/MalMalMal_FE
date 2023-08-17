@@ -239,31 +239,63 @@ const StyledCheckCircleIcon = styled(FontAwesomeIcon)`
   flex-shrink: 0;
   color: #ff8d8f;
 `;
+//상단 부분은 CSS 코드입니다 :)
 export default function SignupPage() {
   const [email, setEmail] = useState(""); // 이메일 상태 추가
-  const [password1, setPassword1] = useState("");
+  const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [selectedYear, setSelectedYear] = useState(""); // 추가: 선택한 연도 상태
-  const [selectedMonth, setSelectedMonth] = useState(""); // 추가: 선택한 월 상태
-  const [selectedDay, setSelectedDay] = useState(""); // 추가: 선택한 일 상태
-  const [selectedCity, setSelectedCity] = useState(""); // 추가: 선택한 시 상태
-  const [selectedDistrict, setSelectedDistrict] = useState(""); // 추가: 선택한 구 상태
+  const [username, setNickname] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedDay, setSelectedDay] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const history = useHistory();
 
-  const handleSignup = () => {
-    // 여기에서 회원가입 처리를 수행합니다.
-    console.log("Email:", email);
-    console.log("Password1:", password1);
-    console.log("Password2:", password2);
-    console.log("Nickname:", nickname);
-    console.log("Selected Year:", selectedYear);
-    console.log("Selected Month:", selectedMonth);
-    console.log("Selected Day:", selectedDay);
-    console.log("Selected City:", selectedCity);
-    console.log("Selected District:", selectedDistrict);
+  const handleSignup = async () => {
+    // 회원가입 처리를 수행합니다.
+    const userData = {
+      email,
+      password,
+      password2,
+      username,
+      // birthYear: selectedYear,
+      // birthMonth: selectedMonth,
+      // birthDay: selectedDay,
+      // residenceCity: selectedCity,
+      // residenceDistrict: selectedDistrict,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/accounts/register/",
+        userData
+      );
+
+      if (response.status === 201) {
+        // 회원가입 성공 시의 동작을 수행
+        console.log("회원가입 성공");
+
+        // 입력값 출력
+        console.log("Email:", email);
+        console.log("Password:", password);
+        console.log("Password2:", password2);
+        console.log("Nickname:", username);
+        console.log("Selected Year:", selectedYear);
+        console.log("Selected Month:", selectedMonth);
+        console.log("Selected Day:", selectedDay);
+        console.log("Selected City:", selectedCity);
+        console.log("Selected District:", selectedDistrict);
+      } else {
+        // 회원가입 실패 시의 동작을 수행
+        console.log("회원가입 실패");
+      }
+    } catch (error) {
+      console.error("오류 발생:", error);
+    }
   };
+
   //모달창 관련 함수
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
@@ -561,8 +593,8 @@ export default function SignupPage() {
       <InputField
         type="password"
         placeholder="비밀번호 입력"
-        value={password1}
-        onChange={(e) => setPassword1(e.target.value)}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <InputField
         type="password"
@@ -573,7 +605,7 @@ export default function SignupPage() {
       <InputField
         type="text"
         placeholder="별명 입력"
-        value={nickname}
+        value={username}
         onChange={(e) => setNickname(e.target.value)}
       />
       <Top1>
