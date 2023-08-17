@@ -6,6 +6,7 @@ import {
   faArrowCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom"; // useHistory 임포트
+import axios from "axios";
 
 const SignupContainer = styled.div`
   display: flex;
@@ -239,7 +240,7 @@ const StyledCheckCircleIcon = styled(FontAwesomeIcon)`
   color: #ff8d8f;
 `;
 export default function SignupPage() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState(""); // 이메일 상태 추가
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false); // 상태 및 함수를 바깥에 위치시킴
@@ -247,7 +248,7 @@ export default function SignupPage() {
 
   const handleSignup = () => {
     // 여기에서 회원가입 처리를 수행합니다.
-    console.log("Username:", username);
+    console.log("Email:", email);
     console.log("Password:", password);
     console.log("Nickname:", nickname);
     // 실제로는 서버로 요청을 보내거나 다른 회원가입 처리를 수행해야 합니다.
@@ -524,10 +525,10 @@ export default function SignupPage() {
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
       <Signup>회원가입</Signup>
       <InputField
-        type="text"
-        placeholder="아이디 입력"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        type="email"
+        placeholder="이메일 입력"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
       <InputField
         type="password"
