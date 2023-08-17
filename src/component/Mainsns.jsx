@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components"; // ThemeProvider import 추가
 import Footer from "../base/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -260,45 +260,35 @@ const Image2 = styled.img`
 
 export default function Click() {
   const perPage = 4;
-  const mainPostsData = [
-    { name: "닉네임1", title: "제목1" },
-    { name: "닉네임2", title: "제목2" },
-    { name: "닉네임3", title: "제목3" },
-    // { name: "닉네임4", title: "제목4" },
-  ];
-
-  const allPostsData = [
-    { name: "융또리", title: "제목1" },
-    { name: "닉네임2", title: "제목2" },
-    { name: "닉네임3", title: "제목3" },
-    { name: "닉네임4", title: "제목4" },
-  ];
-
+  const [posts, setPosts] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [heartClicked, setHeartClicked] = useState([]);
 
-  const nextPost = () => {
-    if (currentIndex < mainPostsData.length - perPage) {
-      setCurrentIndex(currentIndex + perPage);
-    }
-  };
+  useEffect(() => {
+    const apiUrl = "http://3.37.164.96/api/posts/";
 
-  const prevPost = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - perPage);
-    }
+    axios
+      .get(apiUrl)
+      .then((response) => {
+        const fetchedPosts = response.data.results;
+        setPosts(fetchedPosts);
+        setHeartClicked(Array(fetchedPosts.length).fill(false));
+      })
+      .catch((error) => {
+        console.error("API 호출 에러:", error);
+      });
+  }, []);
+
+  const handleHeartClick = (index) => {
+    setHeartClicked((prevClicked) => {
+      const updatedClickedState = [...prevClicked];
+      updatedClickedState[index] = !updatedClickedState[index];
+      return updatedClickedState;
+    });
   };
   const handleButtonClick = () => {
     console.log("버튼 눌림");
   };
-
-  const handleHeartClick = (index) => {
-    const updatedClickedState = [...heartClicked];
-    updatedClickedState[index] = !updatedClickedState[index];
-    setHeartClicked(updatedClickedState);
-  };
-  const [heartClicked, setHeartClicked] = useState(
-    Array(allPostsData.length).fill(false)
-  );
   return (
     <Container>
       <Top>
@@ -318,17 +308,16 @@ export default function Click() {
           pagination={{ clickable: true }}
           loop={true}
         >
-          {/* mainPostsData 배열을 매핑하여 전체글 포스트 생성 */}
-          {mainPostsData.map((data, index) => (
-            <SwiperSlide key={index}>
+          {posts.map((post, index) => (
+            <SwiperSlide key={post.id}>
               <BestPost>
-                <Name>{data.name}</Name>
-                <Text>{data.title}</Text>
+                <Name>{post.author_name}</Name>
+                <Text>{post.tts_title_audio_message}</Text>
                 <Bar>
                   <StyledFontAwesomeIcon1
                     icon={faHeart}
-                    onClick={() => handleHeartClick(currentIndex + index)}
-                    clicked={heartClicked[currentIndex + index]}
+                    onClick={() => handleHeartClick(index)}
+                    clicked={heartClicked[index]}
                   />{" "}
                   <Image src="/재생.png" alt="버튼 이미지" />
                 </Bar>
@@ -336,37 +325,27 @@ export default function Click() {
             </SwiperSlide>
           ))}
         </Swiper>
-      </BestMain>
+      </BestMain>{" "}
       <Title>전체글</Title>
       <div>
-        {allPostsData
-          .slice(currentIndex, currentIndex + perPage)
-          .map((data, index) => (
-            <MainPost key={index}>
-              <Name1>{data.name}</Name1>
-              <Text1>{data.title}</Text1>
-              <Bar1>
-                <StyledFontAwesomeIcon1
-                  icon={faHeart}
-                  onClick={() => handleHeartClick(currentIndex + index)}
-                  clicked={heartClicked[currentIndex + index]}
-                />
-                <Image1 src="/재생.png" alt="버튼 이미지" />
-              </Bar1>
-            </MainPost>
-          ))}
-      </div>{" "}
-      <PrevNextButtons>
-        <button onClick={prevPost} disabled={currentIndex === 0}>
-          이전
-        </button>
-        <button
-          onClick={nextPost}
-          disabled={currentIndex >= allPostsData.length - perPage}
-        >
-          다음
-        </button>
-      </PrevNextButtons>
+        {posts.length > 0 &&
+          posts
+            .slice(currentIndex, currentIndex + perPage)
+            .map((post, index) => (
+              <MainPost key={post.id}>
+                <Name1>{post.author_name}</Name1>
+                <Text1>{post.tts_title_audio_message}</Text1>
+                <Bar1>
+                  <StyledFontAwesomeIcon1
+                    icon={faHeart}
+                    onClick={() => handleHeartClick(index)}
+                    clicked={heartClicked[index]}
+                  />
+                  <Image1 src="/재생.png" alt="버튼 이미지" />
+                </Bar1>
+              </MainPost>
+            ))}
+      </div>
       <ClickButton onClick={handleButtonClick}>
         <StyledLink to="/Writesns">
           <Image2 src="/글쓰기버튼.png" alt="버튼 이미지" />
