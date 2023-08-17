@@ -123,58 +123,39 @@ const HeartIcon = styled(FontAwesomeIcon)`
 export default function Click(props) {
   const [isProgressRunning, setIsProgressRunning] = useState(false);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
-  const [postInfo, setPostInfo] = useState({
-    published_date: "",
-    likes: 0,
-    author: "",
-    title: "",
-    content: "",
-    tts_title_audio: 0,
-    tts_audio: 0,
-  });
+  const [postData, setPostData] = useState(null);
 
-  // 컴포넌트가 생성될 때 데이터를 불러오는 작업
-  useEffect(() => {
-    async function fetchPostData() {
-      try {
-        const response = await axios.get(
-          `http://127.0.0.1:8000/posts/${props.postId}/`
-        );
-        setPostInfo(response.data);
-      } catch (error) {
-        console.error("데이터 불러오기 오류:", error);
-      }
-    }
-
-    fetchPostData();
-  }, [props.postId]);
-
-  const handleButtonClick = () => {
-    console.log("버튼 눌림");
-    setIsProgressRunning((prevState) => !prevState);
-  };
-
-  const handleHeartClick = async () => {
+  const fetchPostData = async () => {
     try {
-      const response = await axios.post(
-        `http://127.0.0.1:8000/posts/${props.postId}/like/`
-      );
-
-      if (response.status === 200) {
-        setIsHeartClicked((prevState) => !prevState);
-      } else {
-        console.error("좋아요 처리 실패");
-      }
+      const response = await axios.get("http://3.37.164.96/api/posts/1/");
+      setPostData(response.data);
+      setIsProgressRunning(true);
     } catch (error) {
       console.error("API 호출 에러:", error);
     }
   };
+
+  useEffect(() => {
+    fetchPostData();
+  }, []);
+
+  const handleHeartClick = () => {
+    setIsHeartClicked(!isHeartClicked);
+  };
+
+  const audioFileURL = "http://3.37.164.96/api/posts/1/tts_mp3/";
+
+  const playAudio = () => {
+    const audioElement = new Audio(audioFileURL);
+    audioElement.play();
+  };
+
   return (
     <Container>
-      <Date>날짜 불러오기</Date>
-      <Title>{props.title} 여기에 제목불러와</Title>
+      <Date>{postData && postData.published_date.slice(0, 10)}</Date>
+      <Title>{postData && postData.tts_title_audio_message}</Title>
       <Name>
-        작성자 별명
+        {postData && postData.author_name}
         <HeartIcon
           icon={faHeart}
           clicked={isHeartClicked}
@@ -193,10 +174,10 @@ export default function Click(props) {
         <span>00:00</span>
         <span>99:99</span>
       </TimeInfo>
-      <WhiteBox>{props.inputText}</WhiteBox>
-      <ClickButton onClick={handleButtonClick}>
+      <WhiteBox>{postData && postData.tts_audio_message}</WhiteBox>
+      <ClickButton onClick={playAudio}>
         <Image src="/재생버튼.jpg" alt="버튼 이미지" />
-      </ClickButton>
+      </ClickButton>{" "}
       <Footer />
     </Container>
   );

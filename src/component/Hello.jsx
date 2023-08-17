@@ -244,11 +244,28 @@ export default function Hello() {
         <BoldText>말말말</BoldText>입니다.
       </Ment1>
       <Image1 src="/로딩.png" alt="버튼 이미지" />
+      <Ment2>
+        나의 음성을 글자로,
+        <br />
+        타인의 글자를 음성으로
+        <br />
+        들어보세요
+      </Ment2>{" "}
+      <Image2 src="/로딩화면2.png" alt="버튼 이미지" />
+      <Ment2>
+        <BoldText>말말말</BoldText>은 <br />
+        음성↔텍스트 변환 서비스로 <br />
+        내 지역 정보를 얻으로
+        <br />
+        사용자의 말을 글자로 기록합니다.{" "}
+      </Ment2>
       <Image2 src="/로딩화면2.png" alt="버튼 이미지" />
       <Ment2>
         <BoldText>말말말</BoldText>에서 <br />
         사람들의 소식과 <br />
-        지역 정보를 얻으세요{" "}
+        내 지역 정보를 얻으로
+        <br />
+        가볼까요?{" "}
       </Ment2>
       <Ment3>
         <MultiLineText>
