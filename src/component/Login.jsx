@@ -164,9 +164,8 @@ export default function LoginPage() {
   const history = useHistory();
   const [error, setError] = useState(null);
 
-  const isFormFilled = username !== "" && password !== ""; // 아이디, 비밀번호 모두 채워져야 로그인 버튼 눌림
+  const isFormFilled = username !== "" && password !== "";
 
-  // 백엔드에게 로그인 post 보내기
   const handleLogin = async () => {
     try {
       const response = await axios.post(
@@ -176,9 +175,11 @@ export default function LoginPage() {
           password,
         }
       );
-      console.log(response);
 
       if (response.status === 200) {
+        // 로그인 성공 시 토큰 값을 저장
+        const token = response.data.token; // 서버 응답 데이터에서 토큰 추출
+        localStorage.setItem("token", token); // 토큰을 로컬 스토리지에 저장
         history.push("/choice");
       } else {
         setError("아이디와 비밀번호를 확인하세요.");
@@ -193,7 +194,7 @@ export default function LoginPage() {
   const handleNaverLogin = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/user/naver/login"
+        "http://localhost:8000/user/naver/login"
       ); // 백엔드 엔드포인트로 GET 요청 보내기
 
       if (response.status === 200) {

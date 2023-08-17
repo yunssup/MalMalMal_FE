@@ -257,17 +257,18 @@ const Image2 = styled.img`
 `;
 
 //상단 부분은 CSS 코드입니다 :)
+
 export default function Click() {
   const perPage = 4;
   const mainPostsData = [
     { name: "닉네임1", title: "제목1" },
     { name: "닉네임2", title: "제목2" },
     { name: "닉네임3", title: "제목3" },
-    { name: "닉네임4", title: "제목4" },
+    // { name: "닉네임4", title: "제목4" },
   ];
 
   const allPostsData = [
-    { name: "닉네임1", title: "제목1" },
+    { name: "융또리", title: "제목1" },
     { name: "닉네임2", title: "제목2" },
     { name: "닉네임3", title: "제목3" },
     { name: "닉네임4", title: "제목4" },

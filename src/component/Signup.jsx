@@ -241,22 +241,34 @@ const StyledCheckCircleIcon = styled(FontAwesomeIcon)`
 `;
 export default function SignupPage() {
   const [email, setEmail] = useState(""); // 이메일 상태 추가
-  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
   const [nickname, setNickname] = useState("");
-  const [isModalVisible, setIsModalVisible] = useState(false); // 상태 및 함수를 바깥에 위치시킴
-  const history = useHistory(); // useHistory 초기화
+  const [selectedYear, setSelectedYear] = useState(""); // 추가: 선택한 연도 상태
+  const [selectedMonth, setSelectedMonth] = useState(""); // 추가: 선택한 월 상태
+  const [selectedDay, setSelectedDay] = useState(""); // 추가: 선택한 일 상태
+  const [selectedCity, setSelectedCity] = useState(""); // 추가: 선택한 시 상태
+  const [selectedDistrict, setSelectedDistrict] = useState(""); // 추가: 선택한 구 상태
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const history = useHistory();
 
   const handleSignup = () => {
     // 여기에서 회원가입 처리를 수행합니다.
     console.log("Email:", email);
-    console.log("Password:", password);
+    console.log("Password1:", password1);
+    console.log("Password2:", password2);
     console.log("Nickname:", nickname);
-    // 실제로는 서버로 요청을 보내거나 다른 회원가입 처리를 수행해야 합니다.
+    console.log("Selected Year:", selectedYear);
+    console.log("Selected Month:", selectedMonth);
+    console.log("Selected Day:", selectedDay);
+    console.log("Selected City:", selectedCity);
+    console.log("Selected District:", selectedDistrict);
   };
-
+  //모달창 관련 함수
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
+  //연도 받는 함수
   const handleYearFocus = (event) => {
     if (!event.target.isYearOptionExisted) {
       event.target.isYearOptionExisted = true;
@@ -267,7 +279,10 @@ export default function SignupPage() {
         event.target.appendChild(yearOption);
       }
     }
+    setSelectedYear(event.target.value); // 선택한 연도 값을 상태로 저장
+    console.log("Selected Year:", event.target.value); // 선택한 연도 값을 콘솔에 출력
   };
+  //월 받는 함수
   const handleMonthFocus = (event) => {
     if (!event.target.isMonthOptionExisted) {
       event.target.isMonthOptionExisted = true;
@@ -278,7 +293,9 @@ export default function SignupPage() {
         event.target.appendChild(monthOption);
       }
     }
+    setSelectedMonth(event.target.value); // 선택한 월 값을 상태로 저장
   };
+  //일 받는 함수
   const handleDayFocus = (event) => {
     if (!event.target.isDayOptionExisted) {
       event.target.isDayOptionExisted = true;
@@ -289,7 +306,9 @@ export default function SignupPage() {
         event.target.appendChild(dayOption);
       }
     }
+    setSelectedDay(event.target.value); // 선택한 일 값을 상태로 저장
   };
+  // 시 받는 함수
   const handleCityFocus = (event) => {
     const city = event.target.value;
     if (!event.target.isCityOptionExisted) {
@@ -297,6 +316,7 @@ export default function SignupPage() {
       const districtSelect = document.getElementById("residence-district");
       districtSelect.innerHTML = "<option disabled selected>구 선택</option>";
       let districts = [];
+
       if (city === "서울특별시") {
         districts = [
           "강남구",
@@ -505,6 +525,8 @@ export default function SignupPage() {
       } else if (city === "제주특별자치도") {
         districts = ["제주시", "서귀포시"];
       }
+      setSelectedCity(city); // 선택한 시 값을 상태로 저장
+      setSelectedDistrict(""); // 구 선택 초기화
       const districtOption = document.createElement("option");
       districtOption.setAttribute("value", "");
       districtOption.innerText = "구 선택";
@@ -517,9 +539,15 @@ export default function SignupPage() {
       }
     }
   };
-  const goToLoginPage = () => {
-    history.push("/login"); // 로그인 페이지로 이동
+  const handleDistrictChange = (event) => {
+    console.log("Selected District:", event.target.value); // 선택한 구 값을 콘솔에 출력
+    setSelectedDistrict(event.target.value); // 선택한 구 값을 상태로 저장
   };
+  //로그인 페이지로 이동시킴
+  const goToLoginPage = () => {
+    history.push("/login");
+  };
+  //리턴값
   return (
     <SignupContainer>
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
@@ -533,8 +561,14 @@ export default function SignupPage() {
       <InputField
         type="password"
         placeholder="비밀번호 입력"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={password1}
+        onChange={(e) => setPassword1(e.target.value)}
+      />
+      <InputField
+        type="password"
+        placeholder="비밀번호 확인"
+        value={password2}
+        onChange={(e) => setPassword2(e.target.value)}
       />
       <InputField
         type="text"
@@ -601,6 +635,7 @@ export default function SignupPage() {
           <DistrictSelect
             className="box"
             id="residence-district"
+            onChange={handleDistrictChange}
             data-is-district-option-existed={false}
           >
             <option disabled selected>
@@ -609,8 +644,14 @@ export default function SignupPage() {
           </DistrictSelect>
         </div>
       </Top2>
-      {/* <SignupButton onClick={handleSignup}>회원가입</SignupButton> */}
-      <SignupButton onClick={toggleModal}>회원가입</SignupButton>
+      <SignupButton
+        onClick={() => {
+          handleSignup();
+          toggleModal();
+        }}
+      >
+        회원가입
+      </SignupButton>{" "}
       <ModalOverlay visible={isModalVisible}>
         <ModalContent>
           <StyledCheckCircleIcon icon={faCheckCircle} />

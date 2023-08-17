@@ -47,6 +47,7 @@ const Image1 = styled.img`
   align-items: center;
   align-self: center;
   margin-top: 10px;
+  margin-bottom: 15px;
 `;
 const PhotoButton = styled.button`
   border-radius: 1000px;
@@ -63,15 +64,13 @@ const PhotoButton = styled.button`
   font-weight: 500;
   line-height: normal;
   text-transform: capitalize;
-  margin-left: 14%;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-left: 20%;
 `;
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 15px;
   margin-bottom: 10px;
 `;
 
@@ -106,10 +105,10 @@ const WhiteBox = styled.div`
   justify-content: center;
   align-items: center;
   color: #011821;
-  width: 90%;
+  width: 95%;
   background-color: #fff;
   border-radius: 20px;
-  margin: 2% 5%;
+  margin: 2% 2%;
   height: 100px; /* 원하는 높이로 조정 */
 `;
 
@@ -132,6 +131,8 @@ const Sub = styled.input`
   margin-top: -25px;
   border: none;
   outline: none;
+  width: 80%;
+  background-color: #fff;
 `;
 
 const WhiteBox1 = styled.input`
@@ -178,6 +179,7 @@ export default function Click() {
   const [progressPeriod, setProgressPeriod] = useState("");
   const [organizerAddress, setOrganizerAddress] = useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [uploadedImage, setUploadedImage] = useState(null);
 
   const handlePost = () => {
     console.log("게시 버튼이 클릭되었습니다.");
@@ -191,8 +193,12 @@ export default function Click() {
   const handleButtonClick = () => {
     console.log("버튼 눌림");
   };
-  const handlePhoto = () => {
-    console.log("사진추가가 클릭되었습니다.");
+  const handlePhoto = (event) => {
+    console.log("사진 추가가 클릭되었습니다.");
+
+    // 선택된 이미지를 가져와서 상태에 저장합니다.
+    const selectedImage = event.target.files[0];
+    setUploadedImage(selectedImage);
   };
   const handleRecruitmentStatusChange = (status) => {
     console.log("모집 상태 변경:", status);
@@ -204,11 +210,27 @@ export default function Click() {
         <StyledFontAwesomeIcon icon={faCheckCircle} />
         게시하기
       </PostButton>
-      <Image1 src="/망한쿵야.jpeg" alt="버튼 이미지" />
-      <PhotoButton onClick={handlePhoto}>
-        <StyledFontAwesomeIcon icon={faCamera} />
-        사진 추가하기
-      </PhotoButton>
+      <Image1
+        src={
+          uploadedImage ? URL.createObjectURL(uploadedImage) : "/망한쿵야.jpeg"
+        }
+        alt="버튼 이미지"
+      />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handlePhoto}
+        style={{ display: "none" }} // input 요소를 숨깁니다.
+        id="imageUploadInput" // label과 연결하기 위한 id
+      />
+      <label htmlFor="imageUploadInput">
+        <PhotoButton as="span">
+          {" "}
+          {/* label을 버튼처럼 사용 */}
+          <StyledFontAwesomeIcon icon={faCamera} />
+          사진 추가하기
+        </PhotoButton>
+      </label>
       <ButtonContainer>
         <RecruitmentStatusButton
           status="모집중"
