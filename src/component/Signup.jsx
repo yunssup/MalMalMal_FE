@@ -6,7 +6,6 @@ import {
   faArrowCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom"; // useHistory 임포트
-import axios from "axios"; // axios 임포트 추가
 
 const SignupContainer = styled.div`
   display: flex;
@@ -58,7 +57,6 @@ const InputField = styled.input`
   font-weight: 500;
   line-height: normal;
   transition: border-color 0.3s, background-color 0.3s; /* 추가된 부분 */
-
   &::placeholder {
     color: #b9b4b4;
     text-align: center;
@@ -68,7 +66,6 @@ const InputField = styled.input`
     font-weight: 500;
     line-height: normal;
   }
-
   &:focus {
     border-color: #ff8d8f; /* 변경된 border 색상 */
     background: #fff7f7; /* 변경된 background 색상 */
@@ -120,7 +117,6 @@ const ToggleSelect = styled.select`
   flex-shrink: 0;
   border-radius: 30px;
   border: 3px solid #aba8a8;
-
   &:focus {
     border-color: #ff8d8f;
     background: #fff7f7;
@@ -129,7 +125,6 @@ const ToggleSelect = styled.select`
     transform: scale(1.05);
   }
 `;
-
 const CitySelect = styled.select`
   width: 100px;
   height: 50px;
@@ -143,7 +138,6 @@ const CitySelect = styled.select`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-
   &:focus {
     border-color: #ff8d8f;
     background: #fff7f7;
@@ -152,7 +146,6 @@ const CitySelect = styled.select`
     transform: scale(1.05);
   }
 `;
-
 const DistrictSelect = styled.select`
   width: 100px;
   height: 50px;
@@ -224,7 +217,6 @@ const ModalContent = styled.div`
     line-height: normal;
     transition: background-color 0.3s, color 0.3s;
     margin-top: 20px;
-
     & svg {
       margin-right: 10px;
     }
@@ -241,7 +233,6 @@ const Ment = styled.div`
 const StyledCheckCircleIcon = styled(FontAwesomeIcon)`
   margin-top: 20px;
   margin-bottom: 10px;
-
   width: 72px;
   height: 72px;
   flex-shrink: 0;
@@ -254,25 +245,14 @@ export default function SignupPage() {
   const [isModalVisible, setIsModalVisible] = useState(false); // 상태 및 함수를 바깥에 위치시킴
   const history = useHistory(); // useHistory 초기화
 
-  const handleSignup = async () => {
-    try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/accounts/accounts/register/",
-        {
-          username,
-          password,
-          nickname,
-          // 이곳에 다른 필요한 정보 추가
-        }
-      );
-
-      // 회원가입 성공 시 모달 띄우기
-      toggleModal();
-    } catch (error) {
-      // 회원가입 실패 시 에러 처리
-      console.error("회원가입 실패:", error);
-    }
+  const handleSignup = () => {
+    // 여기에서 회원가입 처리를 수행합니다.
+    console.log("Username:", username);
+    console.log("Password:", password);
+    console.log("Nickname:", nickname);
+    // 실제로는 서버로 요청을 보내거나 다른 회원가입 처리를 수행해야 합니다.
   };
+
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
@@ -287,7 +267,6 @@ export default function SignupPage() {
       }
     }
   };
-
   const handleMonthFocus = (event) => {
     if (!event.target.isMonthOptionExisted) {
       event.target.isMonthOptionExisted = true;
@@ -299,7 +278,6 @@ export default function SignupPage() {
       }
     }
   };
-
   const handleDayFocus = (event) => {
     if (!event.target.isDayOptionExisted) {
       event.target.isDayOptionExisted = true;
@@ -311,7 +289,6 @@ export default function SignupPage() {
       }
     }
   };
-
   const handleCityFocus = (event) => {
     const city = event.target.value;
     if (!event.target.isCityOptionExisted) {
@@ -319,7 +296,6 @@ export default function SignupPage() {
       const districtSelect = document.getElementById("residence-district");
       districtSelect.innerHTML = "<option disabled selected>구 선택</option>";
       let districts = [];
-
       if (city === "서울특별시") {
         districts = [
           "강남구",
@@ -403,20 +379,6 @@ export default function SignupPage() {
           "화천군",
           "양구군",
         ];
-      } else if (city === "충청북도") {
-        districts = [
-          "청주시",
-          "충주시",
-          "제천시",
-          "음성군",
-          "진천군",
-          "옥천군",
-          "영동군",
-          "괴산군",
-          "증평군",
-          "보은군",
-          "단양군",
-        ];
       } else if (city === "충청남도") {
         districts = [
           "천안시",
@@ -435,6 +397,20 @@ export default function SignupPage() {
           "금산군",
           "계룡시",
           "천안군",
+        ];
+      } else if (city === "충청북도") {
+        districts = [
+          "청주시",
+          "충주시",
+          "제천시",
+          "음성군",
+          "진천군",
+          "옥천군",
+          "영동군",
+          "괴산군",
+          "증평군",
+          "보은군",
+          "단양군",
         ];
       } else if (city === "경상북도") {
         districts = [
@@ -483,23 +459,6 @@ export default function SignupPage() {
           "산청군",
           "의령군",
         ];
-      } else if (city === "전라북도") {
-        districts = [
-          "전주시",
-          "익산시",
-          "군산시",
-          "정읍시",
-          "완주군",
-          "김제시",
-          "남원시",
-          "고창군",
-          "부안군",
-          "순창군",
-          "임실군",
-          "진안군",
-          "무주군",
-          "장수군",
-        ];
       } else if (city === "전라남도") {
         districts = [
           "순천시",
@@ -525,15 +484,30 @@ export default function SignupPage() {
           "곡성군",
           "구례군",
         ];
+      } else if (city === "전라북도") {
+        districts = [
+          "전주시",
+          "익산시",
+          "군산시",
+          "정읍시",
+          "완주군",
+          "김제시",
+          "남원시",
+          "고창군",
+          "부안군",
+          "순창군",
+          "임실군",
+          "진안군",
+          "무주군",
+          "장수군",
+        ];
+      } else if (city === "제주특별자치도") {
+        districts = ["제주시", "서귀포시"];
       }
-    } else if (city === "제주특별자치도") {
-      districts = ["제주시", "서귀포시"];
-
       const districtOption = document.createElement("option");
       districtOption.setAttribute("value", "");
       districtOption.innerText = "구 선택";
       districtSelect.appendChild(districtOption);
-
       for (const district of districts) {
         const districtOption = document.createElement("option");
         districtOption.setAttribute("value", district);
@@ -545,11 +519,10 @@ export default function SignupPage() {
   const goToLoginPage = () => {
     history.push("/login"); // 로그인 페이지로 이동
   };
-
   return (
     <SignupContainer>
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
-      <Signup>가입하기</Signup>
+      <Signup>회원가입</Signup>
       <InputField
         type="text"
         placeholder="아이디 입력"
@@ -611,7 +584,7 @@ export default function SignupPage() {
             iscityoptionexisted="false"
           >
             <option disabled selected>
-              도/시 선택
+              시 선택
             </option>
             <option value="서울특별시">서울특별시</option>
             <option value="경기도">경기도</option>
@@ -619,10 +592,10 @@ export default function SignupPage() {
             <option value="충청북도">충청북도</option>
             <option value="충청남도">충청남도</option>
             <option value="경상북도">경상북도</option>
-            <option value="경상남도">경상남도</option>
-            <option value="전라남도">전라남도</option>
-            <option value="전라북도">전라북도</option>
-            <option value="제주특별시">제주특별시</option>{" "}
+            <option value="경상남도">경상남도</option>{" "}
+            <option value="전라북도">전라북도</option>{" "}
+            <option value="전라남도">전라남도</option>{" "}
+            <option value="제주특별자치도">제주특별자치도</option>{" "}
           </CitySelect>
           <DistrictSelect
             className="box"
@@ -635,6 +608,7 @@ export default function SignupPage() {
           </DistrictSelect>
         </div>
       </Top2>
+      {/* <SignupButton onClick={handleSignup}>회원가입</SignupButton> */}
       <SignupButton onClick={toggleModal}>회원가입</SignupButton>
       <ModalOverlay visible={isModalVisible}>
         <ModalContent>

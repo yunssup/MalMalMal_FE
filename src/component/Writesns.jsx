@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../base/Footer";
 import { useHistory } from "react-router-dom";
-import axios from "axios"; // Axios를 임포트합니다
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -25,7 +25,6 @@ const PostButton = styled.button`
   cursor: pointer;
   margin-left: 40%;
   margin-top: 80px;
-
   color: #fff;
   font-family: Inter;
   font-size: 32px;
@@ -33,6 +32,7 @@ const PostButton = styled.button`
   font-weight: 700;
   line-height: 40px;
 `;
+
 const Input = styled.input`
   width: 90%;
   height: 150px;
@@ -52,15 +52,14 @@ const Input = styled.input`
   text-transform: capitalize;
   border: none;
   outline: none;
-
   &::placeholder {
     text-align: center;
   }
-
   &:focus {
     border: 2px solid #ff8d8f;
   }
 `;
+
 const WhiteBox1 = styled.div`
   flex: 6;
   width: 90%;
@@ -85,11 +84,13 @@ const ClickButton = styled.button`
   display: flex;
   align-items: center;
 `;
+
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   width: 15px;
   height: 15px;
   color: #d2d2d2;
 `;
+
 const Image = styled.img`
   max-width: 130px;
   max-height: 130px;
@@ -97,15 +98,45 @@ const Image = styled.img`
   margin-bottom: -70px;
   margin-left: 33%;
 `;
-
 //상단 부분은 CSS 코드입니다//
 
 export default function Hello() {
   const [speechResult, setSpeechResult] = useState("");
   const [inputText, setInputText] = useState("");
   const [title, setTitle] = useState("");
+
+  const [userData, setUserData] = useState(null); // 유저 데이터 상태 추가
   const history = useHistory();
 
+  useEffect(() => {
+    async function fetchUserProfile() {
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          console.error("토큰이 없습니다. 로그인이 필요합니다.");
+          return;
+        }
+
+        const response = await axios.get(
+          "http://127.0.0.1:8000/user/profile/",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setUserData(response.data); // 유저 데이터 상태에 저장
+      } catch (error) {
+        console.error("유저 프로필 불러오기 오류:", error);
+      }
+    }
+
+    fetchUserProfile();
+  }, []);
+
+  //음성인식 관련
   const handleVoice = () => {
     console.log("말하기 버튼이 클릭되었습니다.");
     startSpeechRecognition();
@@ -131,18 +162,33 @@ export default function Hello() {
     console.log("제목:", title);
     console.log("음성 텍스트:", speechResult);
 
+    //제목과 음성 텍스트 백엔드에게 보내는 코드
     try {
-      // CSRF 토큰 값을 여기에 입력하세요
-      const csrfToken = "YourCSRFTokenHere";
+      if (!title || !speechResult) {
+        console.error("제목과 음성 텍스트를 모두 입력하세요.");
+        return;
+      }
+
+      if (!userData) {
+        console.error("유저 데이터를 불러오는 중입니다.");
+        return;
+      }
+
+      const token = localStorage.getItem("token");
 
       const response = await axios.post(
         "http://127.0.0.1:8000/posts/",
         {
           title,
-          content: `${title} ${speechResult}`, // 제목과 음성 텍스트 합침
+          tts_message: `${title} ${speechResult}`,
+          user: userData.user,
+          birthday: userData.birthday,
+          nickname: userData.nickname,
+          address: userData.address,
         },
         {
           headers: {
+            token: `Bearer ${token}`,
             "X-CSRFToken": csrfToken,
           },
         }
@@ -158,6 +204,7 @@ export default function Hello() {
       console.error("텍스트 전송 중 오류 발생:", error);
     }
   };
+
   return (
     <Container>
       <PostButton onClick={handlePost}>
@@ -171,21 +218,6 @@ export default function Hello() {
         onChange={(e) => setTitle(e.target.value)}
       />
       <WhiteBox1>{speechResult || "텍스트 샘플입니다옹"}</WhiteBox1>{" "}
-      {/* <form action="" method="post">
-        <h1>변환할 텍스트 입력</h1>
-        <input
-          type="hidden"
-          name="csrfmiddlewaretoken"
-          value="YourCSRFTokenHere"
-        />
-        <input
-          type="text"
-          name="your_text_field_name"
-          value={inputText}
-          onChange={(e) => setInputText(e.target.value)}
-        />
-        <input type="submit" value="Send message" />
-      </form> */}
       <ClickButton onClick={handleVoice}>
         {" "}
         <Image src="/말하기.png" alt="버튼 이미지" />

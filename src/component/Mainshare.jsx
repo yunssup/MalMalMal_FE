@@ -110,12 +110,16 @@ const BestPost = styled.div`
   background: var(--unnamed, #f9f9f9);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 221px;
-  height: 204px;
+  height: 300px;
   flex-shrink: 0;
   margin-left: 20%;
   /* margin-bottom: 10%; */
 `;
-
+const Ex = styled.img`
+  display: flex;
+  width: 221px;
+  height: 180px;
+`;
 const Name = styled.div`
   color: #909090;
   font-family: Noto Sans KR;
@@ -133,7 +137,7 @@ const Text = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 32px; /* 133.333% */
-  margin-top: 10%;
+  /* margin-top: 10%; */
   margin-left: 10%;
 `;
 const Bar = styled.div`
@@ -143,7 +147,7 @@ const Bar = styled.div`
   height: 55px;
   flex-shrink: 0;
   display: flex;
-  margin-top: 20%;
+  /* margin-top: 2%; */
   justify-content: space-between;
 `;
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
@@ -151,7 +155,7 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   height: 40.37px;
   flex-shrink: 0;
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25));
-  margin-top: 2%;
+  /* margin-top: 2%; */
   margin-left: 2%;
 `;
 const Image = styled.img`
@@ -258,7 +262,7 @@ const Image2 = styled.img`
 export default function Click() {
   const perPage = 4;
   const mainPostsData = [
-    { name: "닉네임1", title: "제목1" },
+    { name: "닉네임1", title: "노원구 어르신 치매 자가체크" },
     { name: "닉네임2", title: "제목2" },
     { name: "닉네임3", title: "제목3" },
     { name: "닉네임4", title: "제목4" },
@@ -310,8 +314,10 @@ export default function Click() {
           {mainPostsData.map((data, index) => (
             <SwiperSlide key={index}>
               <BestPost>
+                <Ex src="/info_b21.jpg" alt="버튼 이미지" />
+
                 <Text>{data.title}</Text>
-                <Name>{data.name}</Name>
+                {/* <Name>{data.name}</Name> */}
                 <Bar>
                   <StyledFontAwesomeIcon icon={faHeart} />
                   <Image src="/재생.png" alt="버튼 이미지" />

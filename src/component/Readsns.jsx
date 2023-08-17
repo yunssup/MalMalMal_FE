@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { keyframes, css } from "styled-components";
 import Footer from "../base/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -123,12 +123,37 @@ const HeartIcon = styled(FontAwesomeIcon)`
 export default function Click(props) {
   const [isProgressRunning, setIsProgressRunning] = useState(false);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
+  const [postInfo, setPostInfo] = useState({
+    published_date: "",
+    likes: 0,
+    author: "",
+    title: "",
+    content: "",
+    tts_title_audio: 0,
+    tts_audio: 0,
+  });
+
+  // 컴포넌트가 생성될 때 데이터를 불러오는 작업
+  useEffect(() => {
+    async function fetchPostData() {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/posts/${props.postId}/`
+        );
+        setPostInfo(response.data);
+      } catch (error) {
+        console.error("데이터 불러오기 오류:", error);
+      }
+    }
+
+    fetchPostData();
+  }, [props.postId]);
 
   const handleButtonClick = () => {
     console.log("버튼 눌림");
     setIsProgressRunning((prevState) => !prevState);
   };
-  //하트 눌렀을 때 백엔드에게 좋아요 post로 전달
+
   const handleHeartClick = async () => {
     try {
       const response = await axios.post(
@@ -144,7 +169,6 @@ export default function Click(props) {
       console.error("API 호출 에러:", error);
     }
   };
-
   return (
     <Container>
       <Date>날짜 불러오기</Date>
