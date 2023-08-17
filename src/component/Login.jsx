@@ -169,7 +169,7 @@ export default function LoginPage() {
   const handleLogin = async () => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/accounts/login/",
+        "http://3.37.164.96/api/accounts/login/",
         {
           email: username,
           password,
@@ -194,7 +194,7 @@ export default function LoginPage() {
   const handleNaverLogin = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/user/naver/login"
+        "http://3.37.164.96/api/user/naver/login"
       ); // 백엔드 엔드포인트로 GET 요청 보내기
 
       if (response.status === 200) {

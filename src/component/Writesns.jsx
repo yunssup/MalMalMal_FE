@@ -105,36 +105,7 @@ export default function Hello() {
   const [inputText, setInputText] = useState("");
   const [title, setTitle] = useState("");
 
-  const [userData, setUserData] = useState(null); // 유저 데이터 상태 추가
   const history = useHistory();
-
-  useEffect(() => {
-    async function fetchUserProfile() {
-      try {
-        const token = localStorage.getItem("token");
-
-        if (!token) {
-          console.error("토큰이 없습니다. 로그인이 필요합니다.");
-          return;
-        }
-
-        const response = await axios.get(
-          "http://127.0.0.1:8000/user/profile/",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        setUserData(response.data); // 유저 데이터 상태에 저장
-      } catch (error) {
-        console.error("유저 프로필 불러오기 오류:", error);
-      }
-    }
-
-    fetchUserProfile();
-  }, []);
 
   //음성인식 관련
   const handleVoice = () => {
@@ -156,55 +127,35 @@ export default function Hello() {
 
     recognition.start();
   };
+  //제목과 음성 텍스트 백엔드에게 전송
 
   const handlePost = async () => {
     console.log("게시 버튼이 클릭되었습니다.");
     console.log("제목:", title);
     console.log("음성 텍스트:", speechResult);
 
-    //제목과 음성 텍스트 백엔드에게 보내는 코드
+    const postData = {
+      tts_title_message: title,
+      tts_message: speechResult,
+    };
+
     try {
-      if (!title || !speechResult) {
-        console.error("제목과 음성 텍스트를 모두 입력하세요.");
-        return;
-      }
-
-      if (!userData) {
-        console.error("유저 데이터를 불러오는 중입니다.");
-        return;
-      }
-
-      const token = localStorage.getItem("token");
-
       const response = await axios.post(
-        "http://127.0.0.1:8000/posts/",
-        {
-          title,
-          tts_message: `${title} ${speechResult}`,
-          user: userData.user,
-          birthday: userData.birthday,
-          nickname: userData.nickname,
-          address: userData.address,
-        },
-        {
-          headers: {
-            token: `Bearer ${token}`,
-            "X-CSRFToken": csrfToken,
-          },
-        }
+        "http://3.37.164.96/api/posts/", // 백엔드의 POST API 주소로 수정
+        postData
       );
 
-      if (response.status === 200) {
-        console.log("텍스트가 백엔드로 전송되었습니다.");
-        history.push("/readsns");
+      if (response.status === 201) {
+        // 게시 성공 시의 동작을 수행
+        console.log("게시 성공");
       } else {
-        console.error("텍스트 전송에 실패했습니다.");
+        // 게시 실패 시의 동작을 수행
+        console.log("게시 실패");
       }
     } catch (error) {
-      console.error("텍스트 전송 중 오류 발생:", error);
+      console.error("오류 발생:", error);
     }
   };
-
   return (
     <Container>
       <PostButton onClick={handlePost}>

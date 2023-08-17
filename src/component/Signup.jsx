@@ -269,7 +269,7 @@ export default function SignupPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/accounts/register/",
+        "http://3.37.164.96/api/accounts/register/",
         userData
       );
 
