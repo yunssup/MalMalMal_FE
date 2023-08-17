@@ -261,11 +261,12 @@ const Image2 = styled.img`
 export default function Click() {
   const perPage = 4;
   const [posts, setPosts] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [heartClicked, setHeartClicked] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0); // currentIndex 초기화 추가
 
   useEffect(() => {
-    const apiUrl = "http://3.37.164.96/api/posts/";
+    const apiUrl = `http://3.37.164.96/api/posts/?page=${currentPage}`;
 
     axios
       .get(apiUrl)
@@ -277,7 +278,7 @@ export default function Click() {
       .catch((error) => {
         console.error("API 호출 에러:", error);
       });
-  }, []);
+  }, [currentPage]);
 
   const handleHeartClick = (index) => {
     setHeartClicked((prevClicked) => {
@@ -286,8 +287,22 @@ export default function Click() {
       return updatedClickedState;
     });
   };
+
   const handleButtonClick = () => {
+    // 여기에 버튼을 클릭했을 때 해야 할 동작 추가
     console.log("버튼 눌림");
+  };
+
+  const goToNextPage = () => {
+    if (posts.next) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
   return (
     <Container>
