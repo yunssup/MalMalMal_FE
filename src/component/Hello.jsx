@@ -69,12 +69,39 @@ const Image1 = styled.img`
   margin-left: 15%;
   margin-top: -15%;
 `;
-
+const Image5 = styled.img`
+  width: 300px;
+  height: 300px;
+  flex-shrink: 0;
+  margin-left: 15%;
+  margin-top: -15%;
+`;
+const Ment8 = styled.div`
+  margin-top: 10%;
+  margin-left: 3%;
+  color: #484848;
+  font-family: Noto Sans KR;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+const Ment9 = styled.div`
+  margin-bottom: 10%;
+  margin-right: 5%;
+  color: #484848;
+  font-family: Noto Sans KR;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-align: right; /* 오른쪽 정렬 추가 */
+`;
 const Image2 = styled.img`
   width: 250px;
   height: 250px;
   flex-shrink: 0;
-  margin-top: -10%;
+  margin-top: 5%;
 `;
 const Ment2 = styled.div`
   color: #484848;
@@ -83,8 +110,8 @@ const Ment2 = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-top: -53%;
-  margin-left: 43%;
+  margin-top: -50%;
+  margin-left: 45%;
 `;
 const BoldText = styled.span`
   color: #484848;
@@ -244,21 +271,21 @@ export default function Hello() {
         <BoldText>말말말</BoldText>입니다.
       </Ment1>
       <Image1 src="/로딩.png" alt="버튼 이미지" />
-      <Ment2>
+      <Ment8>
         나의 음성을 글자로,
         <br />
         타인의 글자를 음성으로
         <br />
         들어보세요
-      </Ment2>{" "}
-      <Image2 src="/로딩화면2.png" alt="버튼 이미지" />
-      <Ment2>
+      </Ment8>{" "}
+      <Image5 src="/3d아이콘.png" alt="버튼 이미지" />
+      <Ment9>
         <BoldText>말말말</BoldText>은 <br />
         음성↔텍스트 변환 서비스로 <br />
         내 지역 정보를 얻으로
         <br />
         사용자의 말을 글자로 기록합니다.{" "}
-      </Ment2>
+      </Ment9>
       <Image2 src="/로딩화면2.png" alt="버튼 이미지" />
       <Ment2>
         <BoldText>말말말</BoldText>에서 <br />

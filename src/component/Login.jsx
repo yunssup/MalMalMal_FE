@@ -198,19 +198,18 @@ export default function LoginPage() {
       ); // 백엔드 엔드포인트로 GET 요청 보내기
 
       if (response.status === 200) {
-        // 성공적인 응답 처리
-        console.log("네이버 로그인 성공");
-        // 여기에서 로그인 후 동작을 추가하거나 페이지 이동을 처리할 수 있습니다.
+        // 로그인 성공 시 토큰 값을 저장
+        const token = response.data.token; // 서버 응답 데이터에서 토큰 추출
+        localStorage.setItem("token", token); // 토큰을 로컬 스토리지에 저장
+        history.push("/choice");
       } else {
-        // 실패한 응답 처리
-        console.error("네이버 로그인 실패");
+        setError("아이디와 비밀번호를 확인하세요.");
       }
     } catch (error) {
       console.error("API 호출 에러:", error);
-      // 오류 처리
+      setError("서버와의 통신 중 에러가 발생했습니다.");
     }
   };
-
   const handleSignUp = () => {
     history.push("/signup");
   };

@@ -257,53 +257,104 @@ const Image2 = styled.img`
 `;
 
 //상단 부분은 CSS 코드입니다 :)
-
 export default function Click() {
   const perPage = 4;
   const [posts, setPosts] = useState([]);
-  const [heartClicked, setHeartClicked] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentIndex, setCurrentIndex] = useState(0); // currentIndex 초기화 추가
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [topPosts, setTopPosts] = useState([]);
+  const [heartClickedTop, setHeartClickedTop] = useState([]);
+  const [heartClickedMain, setHeartClickedMain] = useState([]);
+  const [isPlayingList, setIsPlayingList] = useState([]); // 수정된 부분
 
   useEffect(() => {
+    // 전체글 get API
     const apiUrl = `http://3.37.164.96/api/posts/?page=${currentPage}`;
 
     axios
       .get(apiUrl)
       .then((response) => {
-        const fetchedPosts = response.data.results;
+        const fetchedPosts = response.data.results.map((post) => ({
+          ...post,
+          audio_url: `http://3.37.164.96/api/posts/${post.id}/tts_title_mp3/`,
+        }));
         setPosts(fetchedPosts);
-        setHeartClicked(Array(fetchedPosts.length).fill(false));
+        setHeartClickedMain(Array(fetchedPosts.length).fill(false));
       })
       .catch((error) => {
         console.error("API 호출 에러:", error);
       });
+
+    // 인기글 get API
+    axios
+      .get("http://3.37.164.96/api/posts/top3")
+      .then((response) => {
+        const fetchedTopPosts = response.data.map((post) => ({
+          ...post,
+          audio_url: `http://3.37.164.96/api/posts/${post.id}/tts_title_mp3/`,
+        }));
+        setTopPosts(fetchedTopPosts);
+        setHeartClickedTop(Array(fetchedTopPosts.length).fill(false));
+      })
+      .catch((error) => {
+        console.error("인기글 API 호출 에러:", error);
+      });
   }, [currentPage]);
 
-  const handleHeartClick = (index) => {
-    setHeartClicked((prevClicked) => {
+  const handleHeartClickTop = async (index) => {
+    setHeartClickedTop((prevClicked) => {
       const updatedClickedState = [...prevClicked];
       updatedClickedState[index] = !updatedClickedState[index];
       return updatedClickedState;
     });
+
+    try {
+      const postID = topPosts[index].id;
+      await axios.post(`http://3.37.164.96/api/posts/${postID}/like/`);
+      console.log(`인기글 ${postID}에 대한 좋아요 POST 요청 전송`);
+    } catch (error) {
+      console.error("인기글 좋아요 요청 에러:", error);
+    }
+  };
+
+  const handleHeartClickMain = async (index) => {
+    setHeartClickedMain((prevClicked) => {
+      const updatedClickedState = [...prevClicked];
+      updatedClickedState[currentIndex + index] =
+        !updatedClickedState[currentIndex + index];
+      return updatedClickedState;
+    });
+
+    try {
+      const postID = posts[currentIndex + index].id;
+      await axios.post(`http://3.37.164.96/api/posts/${postID}/like/`);
+      console.log(`전체글 ${postID}에 대한 좋아요 POST 요청 전송`);
+    } catch (error) {
+      console.error("전체글 좋아요 요청 에러:", error);
+    }
   };
 
   const handleButtonClick = () => {
-    // 여기에 버튼을 클릭했을 때 해야 할 동작 추가
     console.log("버튼 눌림");
   };
 
-  const goToNextPage = () => {
-    if (posts.next) {
-      setCurrentPage(currentPage + 1);
-    }
+  const playAudio = (audioFileURL, index) => {
+    const audioElement = new Audio(audioFileURL);
+    audioElement.play();
+    setIsPlayingList((prevList) => {
+      const newList = [...prevList];
+      newList[index] = true; // 해당 인덱스의 게시글은 음성 재생 중
+      return newList;
+    });
+    audioElement.onended = () => {
+      setIsPlayingList((prevList) => {
+        const newList = [...prevList];
+        newList[index] = false; // 해당 인덱스의 게시글은 음성 재생 종료
+        return newList;
+      });
+    };
   };
 
-  const goToPrevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
   return (
     <Container>
       <Top>
@@ -323,7 +374,7 @@ export default function Click() {
           pagination={{ clickable: true }}
           loop={true}
         >
-          {posts.map((post, index) => (
+          {topPosts.map((post, index) => (
             <SwiperSlide key={post.id}>
               <BestPost>
                 <Name>{post.author_name}</Name>
@@ -331,10 +382,16 @@ export default function Click() {
                 <Bar>
                   <StyledFontAwesomeIcon1
                     icon={faHeart}
-                    onClick={() => handleHeartClick(index)}
-                    clicked={heartClicked[index]}
+                    onClick={() => handleHeartClickTop(index)}
+                    clicked={heartClickedTop[index]}
                   />{" "}
-                  <Image src="/재생.png" alt="버튼 이미지" />
+                  <ClickButton onClick={() => playAudio(post.audio_url, index)}>
+                    {/* 위의 playAudio 함수 호출에 index를 추가 */}
+                    <Image1
+                      src={isPlayingList[index] ? "/재생중.png" : "/재생.png"}
+                      alt={isPlayingList[index] ? "쿵야 이미지" : "재생 이미지"}
+                    />
+                  </ClickButton>
                 </Bar>
               </BestPost>
             </SwiperSlide>
@@ -353,10 +410,16 @@ export default function Click() {
                 <Bar1>
                   <StyledFontAwesomeIcon1
                     icon={faHeart}
-                    onClick={() => handleHeartClick(index)}
-                    clicked={heartClicked[index]}
+                    onClick={() => handleHeartClickMain(index)}
+                    clicked={heartClickedMain[currentIndex + index]}
                   />
-                  <Image1 src="/재생.png" alt="버튼 이미지" />
+                  <ClickButton onClick={() => playAudio(post.audio_url, index)}>
+                    {/* 위의 playAudio 함수 호출에 index를 추가 */}
+                    <Image1
+                      src={isPlayingList[index] ? "/재생중.png" : "/재생.png"}
+                      alt={isPlayingList[index] ? "쿵야 이미지" : "재생 이미지"}
+                    />
+                  </ClickButton>
                 </Bar1>
               </MainPost>
             ))}
