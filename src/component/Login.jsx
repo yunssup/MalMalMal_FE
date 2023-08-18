@@ -156,43 +156,16 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
-  const [error, setError] = useState(null);
 
-  const isFormFilled = username !== "" && password !== "";
-
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post(
-        "http://3.37.164.96/api/accounts/login/",
-        {
-          email: username,
-          password,
-        }
-      );
-
-      if (response.status === 200) {
-        // 로그인 성공 시 토큰 값을 저장
-        const token = response.data.token; // 서버 응답 데이터에서 토큰 추출
-        localStorage.setItem("token", token); // 토큰을 로컬 스토리지에 저장
-
-        // API 요청 시 사용할 기본 헤더 설정
-        axios.defaults.headers.common["Authorization"] = `token ${token}`;
-        history.push("/choice");
-      } else {
-        setError("아이디와 비밀번호를 확인하세요.");
-      }
-    } catch (error) {
-      console.error("API 호출 에러:", error);
-      setError("서버와의 통신 중 에러가 발생했습니다.");
-    }
+  const handleLogin = () => {
+    // Your login logic here, if needed
+    // Assuming you want to navigate on successful login
+    history.push("/choice"); // Navigate to "choice.jsx" page
   };
 
   const handleSignUp = () => {
-    history.push("/signup");
+    history.push("/choice"); // Navigate to "choice.jsx" page
   };
-
-  // render() {
-
   return (
     <LoginContainer>
       <Image src="/말말말로고.jpg" alt="로고 이미지" />
@@ -209,14 +182,7 @@ export default function LoginPage() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <LoginButton
-        isFilled={isFormFilled}
-        onClick={isFormFilled ? handleLogin : null}
-      >
-        {" "}
-        접속하기
-      </LoginButton>
-      <Naver />
+      <LoginButton onClick={handleLogin}>접속하기</LoginButton>
       <SignUpButton onClick={handleSignUp}>
         회원가입
         <FontAwesomeIcon icon={faArrowCircleRight} />
