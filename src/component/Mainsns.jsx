@@ -7,6 +7,7 @@ import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom"; // Link import 추가
 import axios from "axios"; // API 요청을 위해 axios 가져오기
+import { useHistory } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -355,10 +356,22 @@ export default function Click() {
       });
     };
   };
+
+  const history = useHistory(); // useHistory 초기화
+
+  const handleMainPostClick = (postId) => {
+    history.push(`/readsns/${postId}`); // 클릭 시 해당 데이터의 id 값을 전달하여 페이지로 이동
+  };
+
+  const handleBestPostClick = (postId) => {
+    history.push(`/readsns/${postId}`); // 클릭 시 해당 데이터의 id 값을 전달하여 페이지로 이동
+  };
+
   // const handlePageChange = (newPage) => {
   //   setCurrentPage(newPage);
   //   setCurrentIndex((newPage - 1) * perPage); // 페이지 전환 시 currentIndex 갱신
   // };
+
   return (
     <Container>
       <Top>
@@ -380,7 +393,10 @@ export default function Click() {
         >
           {topPosts.map((post, index) => (
             <SwiperSlide key={post.id}>
-              <BestPost>
+              <BestPost
+                key={post.id}
+                onClick={() => handleBestPostClick(post.id)}
+              >
                 <Name>{post.author_name}</Name>
                 <Text>{post.tts_title_audio_message}</Text>
                 <Bar>
@@ -408,7 +424,10 @@ export default function Click() {
           posts
             .slice(currentIndex, currentIndex + perPage)
             .map((post, index) => (
-              <MainPost key={post.id}>
+              <MainPost
+                key={post.id}
+                onClick={() => handleMainPostClick(post.id)}
+              >
                 <Name1>{post.author_name}</Name1>
                 <Text1>{post.tts_title_audio_message}</Text1>
                 <Bar1>
