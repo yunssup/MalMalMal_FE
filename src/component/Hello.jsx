@@ -237,16 +237,13 @@ export default function Hello() {
 
   const [speechResult, setSpeechResult] = useState("");
   const [inputText, setInputText] = useState("");
-
   const handleVoice = () => {
     console.log("말하기 버튼이 클릭되었습니다.");
     startSpeechRecognition();
   };
-
   const startSpeechRecognition = () => {
     const recognition = new (window.webkitSpeechRecognition ||
       window.SpeechRecognition)();
-
     recognition.onresult = (event) => {
       const result = event.results[0][0].transcript;
       console.log("음성 인식 결과:", result);
@@ -254,7 +251,6 @@ export default function Hello() {
       setInputText(result);
       recognition.stop();
     };
-
     recognition.start();
   };
 
