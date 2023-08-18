@@ -255,15 +255,10 @@ const Image2 = styled.img`
   margin-left: 90%;
   /* align-self: center; */
 `;
-const PaginationButtons = styled.button`
-  display: flex;
-`;
-const PageButton = styled.button`
-  display: flex;
-`;
+
 //상단 부분은 CSS 코드입니다 :)
 export default function Click() {
-  const perPage = 4;
+  const perPage = 10;
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -359,10 +354,10 @@ export default function Click() {
       });
     };
   };
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    setCurrentIndex((newPage - 1) * perPage); // 페이지 전환 시 currentIndex 갱신
-  };
+  // const handlePageChange = (newPage) => {
+  //   setCurrentPage(newPage);
+  //   setCurrentIndex((newPage - 1) * perPage); // 페이지 전환 시 currentIndex 갱신
+  // };
   return (
     <Container>
       <Top>
@@ -432,7 +427,7 @@ export default function Click() {
               </MainPost>
             ))}
       </div>
-      <PaginationButtons>
+      {/* <PaginationButtons>
         {Array.from({ length: Math.ceil(posts.length / perPage) }).map(
           (_, index) => (
             <PageButton key={index} onClick={() => handlePageChange(index + 1)}>
@@ -440,7 +435,7 @@ export default function Click() {
             </PageButton>
           )
         )}
-      </PaginationButtons>
+      </PaginationButtons> */}
       <ClickButton onClick={handleButtonClick}>
         <StyledLink to="/Writesns">
           <Image2 src="/글쓰기버튼.png" alt="버튼 이미지" />
