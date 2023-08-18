@@ -40,9 +40,8 @@ export default function AppRouter() {
         <Route path="/signup">
           <Signup />
         </Route>
-        <Route path="/readsns">
-          <Readsns />
-        </Route>
+        <Route path="/readsns/:id" component={Readsns} />
+
         <Route path="/writesns">
           <Writesns />
         </Route>

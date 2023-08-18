@@ -140,6 +140,11 @@ export default function Hello() {
     };
 
     try {
+      const token = localStorage.getItem("token"); // 로컬 스토리지에서 토큰을 가져옴
+
+      // 토큰을 기본 헤더에 추가하여 Axios 요청 보내기
+      axios.defaults.headers.common["Authorization"] = `Token ${token}`;
+
       const response = await axios.post(
         "http://3.37.164.96/api/posts/", // 백엔드의 POST API 주소로 수정
         postData
@@ -148,6 +153,10 @@ export default function Hello() {
       if (response.status === 201) {
         // 게시 성공 시의 동작을 수행
         console.log("게시 성공");
+        const newPostId = response.data.id; // 작성한 글의 postid 저장
+        history.push(`/readsns/${newPostId}`); // 작성한 게시물의 ID를 넘겨줌
+
+        // history.push(`/readsns/${response.data.id}`); // 작성한 게시물의 ID를 넘겨줌
       } else {
         // 게시 실패 시의 동작을 수행
         console.log("게시 실패");

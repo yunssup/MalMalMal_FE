@@ -279,6 +279,7 @@ export default function Click() {
           audio_url: `http://3.37.164.96/api/posts/${post.id}/tts_title_mp3/`,
         }));
         setPosts(fetchedPosts);
+        0;
         setHeartClickedMain(Array(fetchedPosts.length).fill(false));
       })
       .catch((error) => {

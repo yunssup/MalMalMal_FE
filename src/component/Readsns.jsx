@@ -4,6 +4,7 @@ import Footer from "../base/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useParams } from "react-router-dom"; // useParams를 import 해주세요.
 
 const Container = styled.div`
   display: flex;
@@ -120,14 +121,18 @@ const HeartIcon = styled(FontAwesomeIcon)`
 
 //상단 부분은 css 코드입니다 :)
 
-export default function Click(props) {
+export default function Click() {
+  const { id } = useParams(); // useParams로 ":id"를 가져옵니다.
+
   const [isProgressRunning, setIsProgressRunning] = useState(false);
   const [isHeartClicked, setIsHeartClicked] = useState(false);
   const [postData, setPostData] = useState(null);
 
-  const fetchPostData = async () => {
+  const fetchPostData = async (postId) => {
     try {
-      const response = await axios.get("http://3.37.164.96/api/posts/1/");
+      const response = await axios.get(
+        `http://3.37.164.96/api/posts/${postId}/`
+      );
       setPostData(response.data);
       setIsProgressRunning(true);
     } catch (error) {
@@ -136,20 +141,27 @@ export default function Click(props) {
   };
 
   useEffect(() => {
-    fetchPostData();
-  }, []);
+    fetchPostData(id); // useParams에서 가져온 id를 사용합니다.
+  }, [id]); // id가 변경될 때마다 다시 불러오기
 
   const handleHeartClick = () => {
     setIsHeartClicked(!isHeartClicked);
   };
 
-  const audioFileURL = "http://3.37.164.96/api/posts/1/tts_mp3/";
+  // Construct the audio URL using the postId
+  const audioFileURL = postData
+    ? `http://3.37.164.96/api/posts/${postData.id}/tts_mp3/`
+    : "";
 
   const playAudio = () => {
-    const audioElement = new Audio(audioFileURL);
-    audioElement.play();
+    if (audioFileURL) {
+      const audioElement = new Audio(audioFileURL);
+      audioElement.play();
+    }
   };
-
+  if (!postData) {
+    return null;
+  }
   return (
     <Container>
       <Date>{postData && postData.published_date.slice(0, 10)}</Date>
@@ -172,7 +184,7 @@ export default function Click(props) {
       </ProgressBarContainer>
       <TimeInfo>
         <span>00:00</span>
-        <span>99:99</span>
+        <span>00:30</span>
       </TimeInfo>
       <WhiteBox>{postData && postData.tts_audio_message}</WhiteBox>
       <ClickButton onClick={playAudio}>

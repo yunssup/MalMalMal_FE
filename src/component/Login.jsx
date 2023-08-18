@@ -175,6 +175,8 @@ export default function LoginPage() {
         const token = response.data.token; // 서버 응답 데이터에서 토큰 추출
         localStorage.setItem("token", token); // 토큰을 로컬 스토리지에 저장
 
+        // API 요청 시 사용할 기본 헤더 설정
+        axios.defaults.headers.common["Authorization"] = `token ${token}`;
         history.push("/choice");
       } else {
         setError("아이디와 비밀번호를 확인하세요.");

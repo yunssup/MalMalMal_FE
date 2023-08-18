@@ -13,7 +13,7 @@ function NaverLogin() {
       await axios
         .get(`${BASE_URL}/api/user/naver/login`, {
           headers: {
-            "Access-Control-Allow-Origin-Headers": "*",
+            "Access-Control-Allow-Origin-headers": "*",
           },
         })
         .then((res) => console.log(res));
