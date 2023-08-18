@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -7,6 +7,7 @@ import {
   faArrowCircleRight,
   faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import Naver from "./naver";
 
 const LoginContainer = styled.div`
   display: flex;
@@ -98,37 +99,30 @@ const LoginButton = styled.button`
   transition: background-color 0.3s, color 0.3s;
   margin-top: 5%;
 `;
-const NaverLoginButton = styled.button`
-  border-radius: 10px;
+// const NaverLoginButton = styled.button`
+//   border-radius: 10px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin-left: 23%;
+//   background-color: ${({ isFilled }) => (isFilled ? "#ff8d8f" : "#fff")};
+//   color: ${({ isFilled }) => (isFilled ? "#fff" : "#454545")};
+//   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+//   width: 181px;
+//   height: 66px;
+//   flex-shrink: 0;
+//   border: none;
+//   cursor: pointer;
+//   text-align: center;
+//   font-family: Noto Sans KR;
+//   font-size: 26px;
+//   font-style: normal;
+//   font-weight: 500;
+//   line-height: normal;
+//   transition: background-color 0.3s, color 0.3s;
+//   margin-top: 10%;
+// `;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 23%;
-  background-color: ${({ isFilled }) => (isFilled ? "#ff8d8f" : "#fff")};
-  color: ${({ isFilled }) => (isFilled ? "#fff" : "#454545")};
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  width: 181px;
-  height: 66px;
-  flex-shrink: 0;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  font-family: Noto Sans KR;
-  font-size: 26px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  transition: background-color 0.3s, color 0.3s;
-  margin-top: 10%;
-`;
-
-const Naver = styled.img`
-  width: 30px;
-  height: 30px;
-  margin-right: 10px; /* 추가: 이미지와 글자 간격 조절 */
-  flex-shrink: 0;
-`;
 const SignUpButton = styled.button`
   color: #000;
   text-align: center;
@@ -180,6 +174,7 @@ export default function LoginPage() {
         // 로그인 성공 시 토큰 값을 저장
         const token = response.data.token; // 서버 응답 데이터에서 토큰 추출
         localStorage.setItem("token", token); // 토큰을 로컬 스토리지에 저장
+
         history.push("/choice");
       } else {
         setError("아이디와 비밀번호를 확인하세요.");
@@ -190,29 +185,11 @@ export default function LoginPage() {
     }
   };
 
-  //네이버 간편 로그인 API 설정//
-  const handleNaverLogin = async () => {
-    try {
-      const response = await axios.get(
-        "http://3.37.164.96/api/user/naver/login"
-      ); // 백엔드 엔드포인트로 GET 요청 보내기
-
-      if (response.status === 200) {
-        // 로그인 성공 시 토큰 값을 저장
-        const token = response.data.token; // 서버 응답 데이터에서 토큰 추출
-        localStorage.setItem("token", token); // 토큰을 로컬 스토리지에 저장
-        history.push("/choice");
-      } else {
-        setError("아이디와 비밀번호를 확인하세요.");
-      }
-    } catch (error) {
-      console.error("API 호출 에러:", error);
-      setError("서버와의 통신 중 에러가 발생했습니다.");
-    }
-  };
   const handleSignUp = () => {
     history.push("/signup");
   };
+
+  // render() {
 
   return (
     <LoginContainer>
@@ -237,10 +214,7 @@ export default function LoginPage() {
         {" "}
         접속하기
       </LoginButton>
-      <NaverLoginButton onClick={handleNaverLogin}>
-        <Naver src="/네이버.png" alt="로고 이미지" />
-        간편 로그인
-      </NaverLoginButton>
+      <Naver />
       <SignUpButton onClick={handleSignUp}>
         회원가입
         <FontAwesomeIcon icon={faArrowCircleRight} />

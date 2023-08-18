@@ -15,6 +15,8 @@ import Mainshare from "./component/Mainshare";
 import Mypage from "./component/Mypage";
 import My from "./component/My";
 import Heart from "./component/Heart";
+import Naver from "./component/naver";
+
 export default function AppRouter() {
   return (
     <Router>
@@ -64,6 +66,9 @@ export default function AppRouter() {
         </Route>
         <Route path="/heart">
           <Heart />
+        </Route>
+        <Route path="/naver">
+          <Naver />
         </Route>
       </Switch>
     </Router>
