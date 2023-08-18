@@ -118,7 +118,7 @@ const BestPost = styled.div`
 const Ex = styled.img`
   display: flex;
   width: 221px;
-  height: 180px;
+  height: 130px;
 `;
 const Name = styled.div`
   color: #909090;
@@ -172,11 +172,12 @@ const MainPost = styled.div`
   background: var(--unnamed, #f9f9f9);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 300px;
-  height: 189px;
+  height: 250px;
   flex-shrink: 0;
   margin-left: 10%;
   margin-bottom: 10%;
 `;
+
 const Name1 = styled.div`
   color: #909090;
   font-family: Noto Sans KR;
@@ -185,6 +186,16 @@ const Name1 = styled.div`
   font-weight: 400;
   line-height: normal;
   margin-top: 10%;
+  margin-left: 10%;
+`;
+const Name2 = styled.div`
+  color: #909090;
+  font-family: Noto Sans KR;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  /* margin-top: 10%; */
   margin-left: 10%;
 `;
 const Text1 = styled.div`
@@ -197,6 +208,16 @@ const Text1 = styled.div`
   margin-top: 4%;
   margin-left: 10%;
 `;
+// const Text2 = styled.div`
+//   color: #000;
+//   font-family: Noto Sans KR;
+//   font-size: 24px;
+//   font-style: normal;
+//   font-weight: 500;
+//   line-height: 32px; /* 133.333% */
+//   margin-top: 4%;
+//   margin-left: 10%;
+// `;
 const Bar1 = styled.div`
   border-radius: 0px 0px 20px 20px;
   background: #ececec;
@@ -262,17 +283,31 @@ const Image2 = styled.img`
 export default function Click() {
   const perPage = 4;
   const mainPostsData = [
-    { name: "닉네임1", title: "노원구 어르신 치매 자가체크" },
-    { name: "닉네임2", title: "제목2" },
-    { name: "닉네임3", title: "제목3" },
-    { name: "닉네임4", title: "제목4" },
+    {
+      name: "중랑구청",
+      title: "중랑구 어르신 치매 자가체크",
+    },
+    {
+      name: "신내 1동",
+      title: "2080 함께하는 겨울 맞이 김장",
+    },
+    { name: "신내 2동", title: "어르신들의 활기찬 놀이터" },
+    { name: "중랑구청", title: "전국 노래자랑 in 신내동" },
   ];
 
   const allPostsData = [
-    { name: "닉네임1", title: "제목1" },
-    { name: "닉네임2", title: "제목2" },
-    { name: "닉네임3", title: "제목3" },
-    { name: "닉네임4", title: "제목4" },
+    {
+      name: "중랑구청",
+      title: "어른들과 함께하는 시니어 키오스쿨",
+      time: "모집중❤️",
+    },
+    {
+      name: "면목1동",
+      title: "우리 모두 내 이름 쓸 수 이따",
+      time: "모집중❤️",
+    },
+    { name: "면목2동", title: "실버 인지 놀이 3가지를 함께", time: "모집중❤️" },
+    { name: "묵1동", title: "모두 함께 하는 뜨개질~", time: "모집완료😅" },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -288,6 +323,7 @@ export default function Click() {
       setCurrentIndex(currentIndex - perPage);
     }
   };
+
   const handleButtonClick = () => {
     console.log("버튼 눌림");
   };
@@ -302,7 +338,7 @@ export default function Click() {
           <ClickButton1>지역 정보</ClickButton1>
         </Button>
       </Top>{" "}
-      <Title>개인 지역명 불러오기</Title>
+      <Title>서울시 중랑구</Title>
       <BestMain>
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -315,8 +351,9 @@ export default function Click() {
             <SwiperSlide key={index}>
               <BestPost>
                 <Ex src="/info_b21.jpg" alt="버튼 이미지" />
-
+                <Name1>{data.name}</Name1>
                 <Text>{data.title}</Text>
+
                 {/* <Name>{data.name}</Name> */}
                 <Bar>
                   <StyledFontAwesomeIcon icon={faHeart} />
@@ -335,6 +372,8 @@ export default function Click() {
             <MainPost key={index}>
               <Name1>{data.name}</Name1>
               <Text1>{data.title}</Text1>
+              <Name2>{data.time}</Name2>
+
               <Bar1>
                 <StyledFontAwesomeIcon1 icon={faHeart} />
                 <Image1 src="/재생.png" alt="버튼 이미지" />
