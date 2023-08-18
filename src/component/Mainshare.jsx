@@ -82,7 +82,7 @@ const ClickButton2 = styled.button`
   color: #30a8ff;
   text-align: center;
   font-family: Noto Sans KR;
-  font-size: 18px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -303,7 +303,7 @@ export default function Click() {
     },
     {
       name: "면목1동",
-      title: "면목 1동 어르신 한글 교육 모집 공지지",
+      title: "면목 1동 어르신 한글 교육 모집 공지",
       time: "모집완료😅",
     },
     { name: "면목2동", title: "실버 인지 놀이 3가지를 함께", time: "모집중❤️" },
